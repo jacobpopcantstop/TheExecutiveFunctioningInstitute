@@ -9,8 +9,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>&#129504;</text></svg>">
+  <meta property="og:title" content="Enroll | The Executive Function Institute">
+  <meta property="og:description" content="Enroll in the Executive Function Institute's Certified Executive Function Coach (CEFC) program. Express your interest and begin your journey today.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Executive Function Institute">
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Navigation -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -28,19 +35,19 @@
         <a href="enroll.html" class="nav__link nav__link--cta">Enroll Now</a>
       </div>
       <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
     </div>
   </nav>
 
+  <main id="main-content">
+
   <!-- Page Header -->
   <header class="page-header">
     <div class="container">
-      <div class="breadcrumb">
-        <a href="index.html">Home</a> <span>/</span> <span>Enroll</span>
-      </div>
+      <nav aria-label="Breadcrumb"><ol class="breadcrumb"><li><a href="index.html">Home</a></li> <li aria-current="page">Enroll</li></ol></nav>
       <h1>Enroll in the Certification Program</h1>
       <p>Take the first step toward becoming a Certified Executive Function Coach. Express your interest below and join a community dedicated to science-based coaching.</p>
     </div>
@@ -120,11 +127,11 @@
         <form id="contact-form">
           <div class="form-group">
             <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" name="full-name" class="form-control" placeholder="Your full name" required>
+            <input type="text" id="full-name" name="full-name" class="form-control" placeholder="Your full name" autocomplete="name" required>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" autocomplete="email" required>
           </div>
           <div class="form-group">
             <label for="background">Professional Background</label>
@@ -170,7 +177,7 @@
       </div>
       <div class="accordion fade-in">
         <div class="accordion__item">
-          <button class="accordion__header">
+          <button type="button" class="accordion__header">
             Do I need a specific degree to enroll?
             <span class="accordion__icon">+</span>
           </button>
@@ -181,7 +188,7 @@
           </div>
         </div>
         <div class="accordion__item">
-          <button class="accordion__header">
+          <button type="button" class="accordion__header">
             Is this program fully online?
             <span class="accordion__icon">+</span>
           </button>
@@ -192,7 +199,7 @@
           </div>
         </div>
         <div class="accordion__item">
-          <button class="accordion__header">
+          <button type="button" class="accordion__header">
             What is the certification valid for?
             <span class="accordion__icon">+</span>
           </button>
@@ -203,7 +210,7 @@
           </div>
         </div>
         <div class="accordion__item">
-          <button class="accordion__header">
+          <button type="button" class="accordion__header">
             What is the Launch Kit?
             <span class="accordion__icon">+</span>
           </button>
@@ -214,7 +221,7 @@
           </div>
         </div>
         <div class="accordion__item">
-          <button class="accordion__header">
+          <button type="button" class="accordion__header">
             Is this an accredited program?
             <span class="accordion__icon">+</span>
           </button>
@@ -239,6 +246,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -289,7 +298,7 @@
   </footer>
 
   <!-- Back to Top -->
-  <button class="back-to-top" aria-label="Back to top">&#8593;</button>
+  <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
 
   <script src="js/main.js"></script>
 </body>
