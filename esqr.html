@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive ESQ-R Assessment | The Executive Function Institute</title>
+  <meta name="description" content="Take the interactive Executive Skills Questionnaire-Revised (ESQ-R) based on Dawson &amp; Guare's 12-skill model. Get your personalized Executive Skills Profile with strengths, weaknesses, and strategy recommendations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>&#129504;</text></svg>">
+  <meta property="og:title" content="Interactive ESQ-R Assessment | The Executive Function Institute">
+  <meta property="og:description" content="Take the interactive Executive Skills Questionnaire-Revised (ESQ-R) based on Dawson &amp; Guare's 12-skill model. Get your personalized Executive Skills Profile.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Executive Function Institute">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-icon">EFI</div>
+        <span>Executive Function Institute</span>
+      </a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="curriculum.html" class="nav__link">Curriculum</a>
+        <a href="certification.html" class="nav__link">Certification</a>
+        <a href="resources.html" class="nav__link">Resources</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll Now</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <header class="page-header">
+    <div class="container">
+      <nav aria-label="Breadcrumb"><ol class="breadcrumb"><li><a href="index.html">Home</a></li> <li><a href="resources.html">Resources</a></li> <li aria-current="page">ESQ-R Assessment</li></ol></nav>
+      <h1>Interactive ESQ-R Assessment</h1>
+      <p>The Executive Skills Questionnaire-Revised (ESQ-R), based on the work of Dawson &amp; Guare, measures 12 executive function skills across Thinking and Doing domains. Complete the assessment to generate your personalized Executive Skills Profile.</p>
+    </div>
+  </header>
+
+  <!-- Intro / Disclaimer -->
+  <section class="section" id="esqr-intro">
+    <div class="container container--narrow">
+      <div class="callout fade-in">
+        <p class="callout__label">Before You Begin</p>
+        <p>This self-assessment contains <strong>36 items</strong> (3 per skill). Rate each statement honestly based on how you <em>typically</em> function &mdash; not your best or worst day. There are no right or wrong answers. This tool is for <strong>self-awareness and goal-setting</strong>, not clinical diagnosis.</p>
+      </div>
+      <div class="callout callout--accent fade-in" style="margin-top:var(--space-lg);">
+        <p class="callout__label">How Scoring Works</p>
+        <p>Each item is rated 1&ndash;7, where <strong>1 = Strongly Disagree</strong> (this does NOT describe me) and <strong>7 = Strongly Agree</strong> (this describes me very well). Higher scores indicate <strong>greater strength</strong> in that skill. Your top 3 and bottom 3 skills will be highlighted with tailored strategy recommendations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Questionnaire -->
+  <section class="section section--alt" id="esqr-questionnaire">
+    <div class="container container--narrow">
+      <form id="esqr-form" novalidate>
+
+        <!-- Progress -->
+        <div class="esqr-progress fade-in" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="36" aria-label="Assessment progress">
+          <div class="esqr-progress__bar">
+            <div class="esqr-progress__fill" id="progress-fill"></div>
+          </div>
+          <span class="esqr-progress__text" id="progress-text">0 of 36 answered</span>
+        </div>
+
+        <!-- Skill 1: Response Inhibition (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="response-inhibition">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Response Inhibition
+          </legend>
+          <div class="esqr-item" data-skill="response-inhibition">
+            <p class="esqr-item__text">1. I think before I speak or act, even when I feel strong emotions.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 1">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q1" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="response-inhibition">
+            <p class="esqr-item__text">2. I can resist distractions and stay on task without giving in to impulses.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 2">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q2" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="response-inhibition">
+            <p class="esqr-item__text">3. I rarely say things I later regret or make impulsive decisions.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 3">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q3" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Skill 2: Working Memory (Thinking) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="working-memory">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--thinking">Thinking</span>
+            Working Memory
+          </legend>
+          <div class="esqr-item" data-skill="working-memory">
+            <p class="esqr-item__text">4. I can hold multiple pieces of information in mind while completing a task.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 4">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q4" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="working-memory">
+            <p class="esqr-item__text">5. I remember instructions and follow multi-step directions without needing them repeated.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 5">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q5" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="working-memory">
+            <p class="esqr-item__text">6. I don't lose track of what I'm doing or forget why I walked into a room.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 6">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q6" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Skill 3: Emotional Control (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="emotional-control">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Emotional Control
+          </legend>
+          <div class="esqr-item" data-skill="emotional-control">
+            <p class="esqr-item__text">7. I manage my frustration well and don't have outbursts when things go wrong.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 7">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q7" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="emotional-control">
+            <p class="esqr-item__text">8. I can keep my emotions from interfering with my ability to get things done.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 8">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q8" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+          <div class="esqr-item" data-skill="emotional-control">
+            <p class="esqr-item__text">9. I recover quickly from setbacks and don't dwell on negative feelings for long.</p>
+            <div class="esqr-rating" role="radiogroup" aria-label="Rating for question 9">
+              <span class="esqr-rating__label">Strongly Disagree</span>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="1" required><span>1</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="2"><span>2</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="3"><span>3</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="4"><span>4</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="5"><span>5</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="6"><span>6</span></label>
+              <label class="esqr-rating__option"><input type="radio" name="q9" value="7"><span>7</span></label>
+              <span class="esqr-rating__label">Strongly Agree</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Skill 4: Sustained Attention (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="sustained-attention">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Sustained Attention
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">10. I can focus on a task for an extended period without becoming distracted.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 10"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q10" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q10" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">11. I complete tasks from start to finish without wandering off or switching to something else.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 11"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q11" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q11" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">12. I can maintain attention on low-interest tasks (paperwork, reading, chores) as well as high-interest ones.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 12"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q12" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q12" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 5: Task Initiation (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="task-initiation">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Task Initiation
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">13. I start tasks or assignments promptly without excessive procrastination.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 13"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q13" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q13" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">14. I don't need external pressure (a deadline, someone watching) to get started on things.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 14"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q14" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q14" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">15. When I know what needs to be done, I can begin working on it independently.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 15"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q15" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q15" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 6: Planning (Thinking) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="planning">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--thinking">Thinking</span>
+            Planning
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">16. I create a clear plan before starting complex projects or assignments.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 16"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q16" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q16" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">17. I can break large goals into smaller, manageable steps.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 17"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q17" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q17" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">18. I anticipate obstacles and build contingencies into my plans.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 18"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q18" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q18" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 7: Organization (Thinking) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="organization">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--thinking">Thinking</span>
+            Organization
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">19. I keep my physical and digital spaces organized and can find what I need quickly.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 19"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q19" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q19" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">20. I have systems in place for managing paperwork, files, and materials.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 20"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q20" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q20" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">21. My workspace, backpack, or desk is generally tidy and structured.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 21"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q21" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q21" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 8: Time Management (Thinking) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="time-management">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--thinking">Thinking</span>
+            Time Management
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">22. I estimate how long tasks will take with reasonable accuracy.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 22"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q22" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q22" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">23. I meet deadlines consistently and manage my schedule to avoid last-minute rushes.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 23"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q23" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q23" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">24. I am rarely late to appointments or caught off-guard by upcoming deadlines.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 24"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q24" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q24" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 9: Goal-Directed Persistence (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="goal-directed-persistence">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Goal-Directed Persistence
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">25. I follow through on long-term goals even when they require sustained effort over weeks or months.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 25"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q25" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q25" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">26. I don't abandon projects or New Year's resolutions partway through.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 26"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q26" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q26" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">27. I persist with difficult or boring work because I understand its importance to my larger goals.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 27"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q27" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q27" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 10: Flexibility (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="flexibility">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Flexibility
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">28. I adapt easily when plans change or unexpected situations arise.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 28"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q28" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q28" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">29. I can consider alternative solutions and don't get stuck on "my way" of doing things.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 29"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q29" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q29" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">30. I handle transitions between tasks or environments without becoming upset.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 30"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q30" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q30" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 11: Metacognition (Thinking) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="metacognition">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--thinking">Thinking</span>
+            Metacognition
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">31. I can accurately assess my own strengths and weaknesses in learning or performance.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 31"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q31" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q31" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">32. I monitor how well I'm doing while working and adjust my approach when something isn't working.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 32"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q32" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q32" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">33. I can step back and evaluate the quality of my work before submitting or finalizing it.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 33"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q33" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q33" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Skill 12: Stress Tolerance (Doing) -->
+        <fieldset class="esqr-skill-group fade-in" data-skill="stress-tolerance">
+          <legend class="esqr-skill-group__legend">
+            <span class="esqr-skill-group__domain esqr-skill-group__domain--doing">Doing</span>
+            Stress Tolerance
+          </legend>
+          <div class="esqr-item"><p class="esqr-item__text">34. I remain calm and productive under pressure or when facing multiple demands.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 34"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q34" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q34" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">35. I don't shut down, freeze, or become overwhelmed when too many things are happening at once.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 35"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q35" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q35" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+          <div class="esqr-item"><p class="esqr-item__text">36. I can tolerate uncertainty and ambiguity without becoming anxious or avoidant.</p><div class="esqr-rating" role="radiogroup" aria-label="Rating for question 36"><span class="esqr-rating__label">Strongly Disagree</span><label class="esqr-rating__option"><input type="radio" name="q36" value="1" required><span>1</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="2"><span>2</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="3"><span>3</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="4"><span>4</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="5"><span>5</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="6"><span>6</span></label><label class="esqr-rating__option"><input type="radio" name="q36" value="7"><span>7</span></label><span class="esqr-rating__label">Strongly Agree</span></div></div>
+        </fieldset>
+
+        <!-- Submit -->
+        <div class="text-center fade-in" style="margin-top:var(--space-2xl);">
+          <p id="esqr-error" class="esqr-error" role="alert" hidden>Please answer all 36 questions before submitting.</p>
+          <button type="submit" class="btn btn--primary btn--lg">Generate My Executive Skills Profile</button>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- Results Section (hidden until submit) -->
+  <section class="section" id="esqr-results" hidden>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__tag">Your Results</span>
+        <h2>Your Executive Skills Profile</h2>
+        <p>Based on your self-report, here is a visual profile of your 12 executive function skills across the Thinking and Doing domains.</p>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="esqr-chart-container" id="esqr-chart" role="img" aria-label="Executive Skills Profile bar chart"></div>
+
+      <!-- Top 3 / Bottom 3 -->
+      <div class="grid grid--2" style="margin-top:var(--space-3xl);gap:var(--space-2xl);">
+        <div>
+          <h3 style="color:var(--color-accent);">Your Top 3 Strengths</h3>
+          <p style="color:var(--color-text-light);">These are the executive skills where you reported the highest capacity. Lean on these strengths to compensate for weaker areas.</p>
+          <div id="strengths-list"></div>
+        </div>
+        <div>
+          <h3 style="color:var(--color-warm);">Your Top 3 Growth Areas</h3>
+          <p style="color:var(--color-text-light);">These skills scored lowest. Below each is a tailored strategy recommendation based on the Dawson &amp; Guare intervention model.</p>
+          <div id="weaknesses-list"></div>
+        </div>
+      </div>
+
+      <!-- Goodness of Fit -->
+      <div class="callout callout--accent" style="margin-top:var(--space-3xl);">
+        <p class="callout__label">Understanding "Goodness of Fit"</p>
+        <p>Remember: executive function challenges are not character flaws. Problems arise when the <strong>demands of your environment exceed your executive skill capacity</strong>. A low score in one area doesn't mean failure &mdash; it means that specific skill may need more external scaffolding (environmental modifications, tools, routines) while you develop independent capacity. This is the core principle of Dawson &amp; Guare's coaching model.</p>
+      </div>
+
+      <!-- Domain Summary -->
+      <div class="grid grid--2" style="margin-top:var(--space-2xl);gap:var(--space-xl);">
+        <div class="card" style="border-top:4px solid var(--color-primary-light);text-align:center;">
+          <h4 style="color:var(--color-primary-light);">Thinking Domain Average</h4>
+          <div id="thinking-avg" style="font-size:2.5rem;font-weight:700;color:var(--color-primary-light);"></div>
+          <p style="font-size:0.9rem;color:var(--color-text-muted);margin-bottom:0;">Working Memory, Planning, Organization, Time Management, Metacognition</p>
+        </div>
+        <div class="card" style="border-top:4px solid var(--color-accent);text-align:center;">
+          <h4 style="color:var(--color-accent);">Doing Domain Average</h4>
+          <div id="doing-avg" style="font-size:2.5rem;font-weight:700;color:var(--color-accent);"></div>
+          <p style="font-size:0.9rem;color:var(--color-text-muted);margin-bottom:0;">Response Inhibition, Emotional Control, Sustained Attention, Task Initiation, Goal-Directed Persistence, Flexibility, Stress Tolerance</p>
+        </div>
+      </div>
+
+      <!-- Next Steps -->
+      <div class="text-center" style="margin-top:var(--space-3xl);">
+        <h3>What's Next?</h3>
+        <p>This self-assessment is a starting point for metacognitive awareness. For a comprehensive coaching engagement, a certified EF coach would also conduct a structured intake interview, a "Point of Performance" audit, and potentially administer complementary instruments like the BRIEF-2.</p>
+        <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;margin-top:var(--space-xl);">
+          <a href="module-2.html" class="btn btn--secondary">Learn About Assessment (Module 2)</a>
+          <a href="enroll.html" class="btn btn--primary">Become a Certified Coach</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Want to Learn How to Administer This Assessment?</h2>
+      <p>Our certification program teaches you to use the ESQ-R professionally, conduct intake simulations, and translate assessment data into personalized coaching plans.</p>
+      <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+        <a href="enroll.html" class="btn btn--primary btn--lg">Start Your Certification</a>
+        <a href="resources.html" class="btn btn--outline-white btn--lg">Browse All Resources</a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo" style="color:var(--color-white);">
+            <div class="nav__logo-icon">EFI</div>
+            <span>Executive Function Institute</span>
+          </a>
+          <p>An open-source program providing rigorous, science-based Executive Function Coaching Certification grounded in neuroscience and evidence-based practice.</p>
+        </div>
+        <div>
+          <h4>Program</h4>
+          <ul class="footer__links">
+            <li><a href="curriculum.html">Curriculum</a></li>
+            <li><a href="certification.html">Certification</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="enroll.html">Enroll</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Modules</h4>
+          <ul class="footer__links">
+            <li><a href="module-1.html">Neuropsychology</a></li>
+            <li><a href="module-2.html">Assessment</a></li>
+            <li><a href="module-3.html">Coaching Framework</a></li>
+            <li><a href="module-4.html">Applied Methods</a></li>
+            <li><a href="module-5.html">Special Populations</a></li>
+            <li><a href="module-6.html">Professional Practice</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Learn More</h4>
+          <ul class="footer__links">
+            <li><a href="about.html">About EFI</a></li>
+            <li><a href="about.html#models">Theoretical Models</a></li>
+            <li><a href="resources.html#reading">Reading Packets</a></li>
+            <li><a href="https://github.com/jacobpopcantstop/TheExecutiveFunctioningInstitute" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>The Executive Function Institute &mdash; Open-Source Education</span>
+        <span>Built on the research of Barkley, Brown, Dawson &amp; Guare, and Ward</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
+
+  <script src="js/main.js"></script>
+  <script src="js/esqr.js"></script>
+</body>
+</html>
