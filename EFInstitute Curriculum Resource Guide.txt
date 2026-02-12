@@ -1,0 +1,49 @@
+﻿The following curated list of high-value, open-source resources is designed to integrate directly into your six-module curriculum. These have been selected for their alignment with the Barkley/Brown/Dawson & Guare models and their "open" availability (PDFs, public lectures, and templates).
+Module 1: Neuropsychology & Foundations
+Essential additions to deepen the "Air Traffic Control" and "Time Blindness" concepts.
+* Harvard Center on the Developing Child:
+   * Resource: Activities Guide: Enhancing & Practicing Executive Function Skills
+      * Why it’s essential: Provides age-graded activities (infancy to adolescence) that are scientifically validated to build EF. Perfect for the "Developmental Perspective" unit.
+   * Resource: Building the Brain's "Air Traffic Control" System
+      * Why it’s essential: The primary source text for your core metaphor.
+* Dr. Russell Barkley:
+   * Resource: The 30 Essential Ideas Every Parent Needs to Know About ADHD (YouTube Playlist)
+      * Why it’s essential: A free, comprehensive lecture series where Barkley details the "Extended Phenotype," "Time Blindness," and the "Point of Performance."
+   * Resource: The Important Role of Executive Functioning and Self-Regulation in ADHD (Fact Sheet)
+      * Why it’s essential: A concise, printable summary of his unified theory suitable for client psychoeducation.
+Module 2: Assessment & Intake
+Expanding your toolkit to include adult-specific measures.
+* For Adults:
+   * Resource: Executive Skills Questionnaire for Adults (ESQ-R)
+      * Why it’s essential: You already have the student version; this completes your toolkit for working with parents and adult clients.
+* Clinical Reference (Assessment Context):
+   * Resource: Brown EF/A Scales Summary Report
+      * Why it’s essential: While you cannot administer this without a license, this sample report teaches coaches how to read clinical data and understand the "Cluster" model in practice.
+Module 3: The Coaching Architecture
+Resources to operationalize the "Coach Approach" and Motivational Interviewing.
+* Motivational Interviewing (MI):
+   * Resource: Motivational Interviewing Coaches' Workbook (PA.gov)
+      * Why it’s essential: A massive, 100+ page open-source workbook containing exercises, scripts, and "Change Talk" cheat sheets. Ideally suited for the "rolling with resistance" unit.
+* Core Competencies:
+   * Resource: 2025 ICF Core Competencies
+      * Why it’s essential: The industry standard for ethical coaching.
+   * Resource: An Executive Skills-Based Approach to Coaching (PeerTA)
+      * Why it’s essential: A government-funded guide explicitly linking Dawson & Guare's model to coaching interactions, including session structures and goal-setting templates.
+Module 4: Applied Methodologies (Tools)
+Digital and analog tools for the "Launch Kit."
+* Cognitive Offloading (Digital Tools):
+   * Tiimo / Hero Assistant / Forest: (App recommendations for "Launch Kit")
+      * Why it’s essential: These apps specifically target visual planning and gamified focus, aligning with the "interest-based nervous system" concept.
+* CBT & Emotional Regulation:
+   * Resource: Cognitive Behavioural Therapy Skills Workbook (NHS)
+      * Why it’s essential: A high-quality, open-source workbook for adults covering "Hot" EF skills like emotional regulation, worry management, and behavioral activation.
+Module 6: Business & Practice Management
+Templates to professionalize the "Launch Kit."
+* Contracting:
+   * Resource: ICF Sample Coaching Agreement
+      * Why it’s essential: A clean, ethical legal baseline for your "Launch Kit" templates.
+   * Resource: Free Coaching Contract Template (Signaturely)
+      * Why it’s essential: An editable, plain-English alternative to the formal ICF document.
+* Business Planning:
+   * Resource: One-Page Business Plan for Coaches
+      * Why it’s essential: Keeps the business setup simple and actionable for new graduates.
