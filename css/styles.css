@@ -1792,6 +1792,7 @@ select.form-control {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .esqr-bar {
@@ -1830,6 +1831,11 @@ select.form-control {
   color: var(--color-heading);
   word-break: break-word;
   hyphens: auto;
+  height: 2.8em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 }
 
 .esqr-bar__domain {
