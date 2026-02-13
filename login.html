@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | The Executive Function Institute</title>
+  <meta name="description" content="Log in or create an account to access your EFI dashboard, purchase services, and track your certification progress.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>&#129504;</text></svg>">
+  <meta property="og:title" content="Login | The Executive Function Institute">
+  <meta property="og:description" content="Log in or create an account to access your EFI dashboard and certification services.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Executive Function Institute">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="about.html" class="nav__link">About</a>
+        <a href="curriculum.html" class="nav__link">Curriculum</a>
+        <a href="certification.html" class="nav__link">Certification</a>
+        <a href="resources.html" class="nav__link">Resources</a>
+        <a href="store.html" class="nav__link">Store</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll Now</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <section class="section" style="min-height:70vh;display:flex;align-items:center;">
+    <div class="container container--narrow">
+      <div class="text-center fade-in" style="margin-bottom:var(--space-2xl);">
+        <div class="nav__logo-icon" style="width:64px;height:64px;font-size:1.5rem;margin:0 auto var(--space-lg);">EFI</div>
+        <h1>Welcome Back</h1>
+        <p class="lead">Log in to your account or create a new one to get started.</p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="login-panel" class="card fade-in" style="border-top:4px solid var(--color-primary);">
+        <h2 style="margin-bottom:var(--space-lg);">Log In</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" class="form-control" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" class="form-control" placeholder="Your password" autocomplete="current-password" required>
+          </div>
+          <p id="login-error" class="esqr-error" role="alert" hidden></p>
+          <div class="form-group">
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">Log In</button>
+          </div>
+        </form>
+        <p class="text-center" style="margin-top:var(--space-lg);color:var(--color-text-muted);">
+          Don't have an account? <a href="#" id="show-register" style="color:var(--color-primary);font-weight:600;">Create one</a>
+        </p>
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-panel" class="card fade-in" style="border-top:4px solid var(--color-accent);display:none;">
+        <h2 style="margin-bottom:var(--space-lg);">Create Account</h2>
+        <form id="register-form">
+          <div class="form-group">
+            <label for="reg-name">Full Name</label>
+            <input type="text" id="reg-name" class="form-control" placeholder="Your full name" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-email">Email Address</label>
+            <input type="email" id="reg-email" class="form-control" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Password</label>
+            <input type="password" id="reg-password" class="form-control" placeholder="At least 6 characters" autocomplete="new-password" minlength="6" required>
+          </div>
+          <div class="form-group">
+            <label for="reg-password2">Confirm Password</label>
+            <input type="password" id="reg-password2" class="form-control" placeholder="Confirm your password" autocomplete="new-password" required>
+          </div>
+          <p id="register-error" class="esqr-error" role="alert" hidden></p>
+          <div class="form-group">
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%;background:var(--color-accent);">Create Account</button>
+          </div>
+        </form>
+        <p class="text-center" style="margin-top:var(--space-lg);color:var(--color-text-muted);">
+          Already have an account? <a href="#" id="show-login" style="color:var(--color-primary);font-weight:600;">Log in</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo" style="color:var(--color-white);"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+          <p>An open-source program providing rigorous, science-based Executive Function Coaching Certification grounded in neuroscience and evidence-based practice.</p>
+        </div>
+        <div><h4>Program</h4><ul class="footer__links"><li><a href="curriculum.html">Curriculum</a></li><li><a href="certification.html">Certification</a></li><li><a href="resources.html">Resources</a></li><li><a href="enroll.html">Enroll</a></li></ul></div>
+        <div><h4>Modules</h4><ul class="footer__links"><li><a href="module-1.html">Neuropsychology</a></li><li><a href="module-2.html">Assessment</a></li><li><a href="module-3.html">Coaching Framework</a></li><li><a href="module-4.html">Applied Methods</a></li><li><a href="module-5.html">Special Populations</a></li><li><a href="module-6.html">Professional Practice</a></li></ul></div>
+        <div><h4>Learn More</h4><ul class="footer__links"><li><a href="about.html">About EFI</a></li><li><a href="about.html#models">Theoretical Models</a></li><li><a href="resources.html#reading">Reading Packets</a></li><li><a href="https://github.com/jacobpopcantstop/TheExecutiveFunctioningInstitute" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+      </div>
+      <div class="footer__bottom">
+        <span>The Executive Function Institute &mdash; Open-Source Education</span>
+        <span>Built on the research of Barkley, Brown, Dawson &amp; Guare, and Ward</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function() {
+    // If already logged in, redirect to dashboard
+    if (EFI.Auth.isLoggedIn()) {
+      var params = new URLSearchParams(window.location.search);
+      window.location.href = params.get('redirect') || 'dashboard.html';
+      return;
+    }
+
+    var loginPanel = document.getElementById('login-panel');
+    var registerPanel = document.getElementById('register-panel');
+
+    document.getElementById('show-register').addEventListener('click', function(e) {
+      e.preventDefault();
+      loginPanel.style.display = 'none';
+      registerPanel.style.display = 'block';
+    });
+
+    document.getElementById('show-login').addEventListener('click', function(e) {
+      e.preventDefault();
+      registerPanel.style.display = 'none';
+      loginPanel.style.display = 'block';
+    });
+
+    // Login
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var errEl = document.getElementById('login-error');
+      errEl.hidden = true;
+      var email = document.getElementById('login-email').value;
+      var pw = document.getElementById('login-password').value;
+      var result = EFI.Auth.login(email, pw);
+      if (result.ok) {
+        var params = new URLSearchParams(window.location.search);
+        window.location.href = params.get('redirect') || 'dashboard.html';
+      } else {
+        errEl.textContent = result.error;
+        errEl.hidden = false;
+      }
+    });
+
+    // Register
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var errEl = document.getElementById('register-error');
+      errEl.hidden = true;
+      var name = document.getElementById('reg-name').value;
+      var email = document.getElementById('reg-email').value;
+      var pw = document.getElementById('reg-password').value;
+      var pw2 = document.getElementById('reg-password2').value;
+      if (pw !== pw2) {
+        errEl.textContent = 'Passwords do not match.';
+        errEl.hidden = false;
+        return;
+      }
+      var result = EFI.Auth.register(name, email, pw);
+      if (result.ok) {
+        window.location.href = 'dashboard.html';
+      } else {
+        errEl.textContent = result.error;
+        errEl.hidden = false;
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
