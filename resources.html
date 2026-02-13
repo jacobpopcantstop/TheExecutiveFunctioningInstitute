@@ -60,6 +60,7 @@
       <div class="fade-in" style="display:flex;gap:var(--space-md);flex-wrap:wrap;justify-content:center;">
         <a href="esqr.html" class="btn btn--sm btn--primary">Take the ESQ-R Assessment</a>
         <a href="#reading" class="btn btn--sm btn--secondary">Reading Packets</a>
+        <a href="#books" class="btn btn--sm btn--secondary">Essential Books</a>
         <a href="#assessment" class="btn btn--sm btn--secondary">Assessment Tools</a>
         <a href="#forms" class="btn btn--sm btn--secondary">Forms &amp; Templates</a>
         <a href="#video" class="btn btn--sm btn--secondary">Video Resources</a>
@@ -233,9 +234,68 @@
   </section>
 
   <!-- ============================================
+       Section 1b: Essential Books
+       ============================================ -->
+  <section class="section section--alt" id="books">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__tag">Core Library</span>
+        <h2>Essential Books</h2>
+        <p>The foundational texts that underpin the EFI curriculum. These are the books every EF coach should read and reference in practice.</p>
+      </div>
+
+      <div class="grid grid--2 stagger">
+
+        <div class="card" style="border-left:4px solid var(--module-1);">
+          <h3 style="font-size:1.1rem;">Executive Functions: What They Are, How They Work, and Why They Evolved</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Russell A. Barkley, PhD &bull; Guilford Press</p>
+          <p>Barkley's definitive scholarly text on EF as a unified system of self-regulation. Covers the evolutionary origins, neuroanatomy, and the Extended Phenotype theory that justifies environmental modification as a primary intervention.</p>
+          <span class="resource-card__meta">Foundational Theory &bull; Modules I, III, V</span>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--module-2);">
+          <h3 style="font-size:1.1rem;">A New Understanding of ADHD in Children and Adults: Executive Function Impairments</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Thomas E. Brown, PhD &bull; Routledge</p>
+          <p>Brown's six-cluster model of executive function and how ADHD represents impairment in cognitive management. Introduces the critical concept of "situational variability" &mdash; why clients can hyper-focus on games but not homework.</p>
+          <span class="resource-card__meta">Assessment Framework &bull; Modules I, II</span>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--module-3);">
+          <h3 style="font-size:1.1rem;">Executive Skills in Children and Adolescents: A Practical Guide to Assessment and Intervention</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Peg Dawson, EdD &amp; Richard Guare, PhD &bull; Guilford Press</p>
+          <p>The primary coaching framework text. Introduces the 12-skill Thinking/Doing model, the ESQ-R assessment, the two-tiered intervention logic, and the "Goodness of Fit" concept. The most practical resource for building your coaching practice.</p>
+          <span class="resource-card__meta">Core Coaching Text &bull; Modules II, III, IV</span>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--module-5);">
+          <h3 style="font-size:1.1rem;">Smart but Scattered: The Revolutionary "Executive Skills" Approach</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Peg Dawson, EdD &amp; Richard Guare, PhD &bull; Guilford Press</p>
+          <p>The accessible companion to the clinical text. Written for parents and educators, it translates the 11 executive skills into everyday language with ready-to-use strategies. Excellent for client education and parent coaching.</p>
+          <span class="resource-card__meta">Client Education &bull; Modules III, V</span>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--module-4);">
+          <h3 style="font-size:1.1rem;">Taking Charge of ADHD: The Complete, Authoritative Guide for Parents</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Russell A. Barkley, PhD &bull; Guilford Press</p>
+          <p>Barkley's guide for parents and professionals working with children and adolescents with ADHD. Covers the science in plain language and provides concrete behavioral strategies rooted in the inhibition model.</p>
+          <span class="resource-card__meta">Family Coaching &bull; Module V</span>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--module-6);">
+          <h3 style="font-size:1.1rem;">Coaching Students with Executive Skills Challenges</h3>
+          <p style="color:var(--color-text-muted);font-size:0.9rem;margin-bottom:var(--space-sm);">Peg Dawson, EdD &amp; Richard Guare, PhD &bull; Guilford Press</p>
+          <p>Addresses the unique dynamics of the student-coach-parent triangle of trust. Provides scripts for distinguishing coaching from therapy and tutoring, building the Collaborative Alliance, and managing scope of practice with younger clients.</p>
+          <span class="resource-card__meta">Student Coaching &bull; Modules III, VI</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
        Section 2: Assessment Tools
        ============================================ -->
-  <section class="section section--alt" id="assessment">
+  <section class="section" id="assessment">
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-header__tag">Assessment</span>
@@ -253,7 +313,10 @@
           <div>
             <h4>Executive Skills Questionnaire (ESQ-R)</h4>
             <p>The primary intake and assessment tool for the certification. A self-report measure of 36 items covering 12 executive function skills across Thinking and Doing domains. Used to create an individualized Executive Skills Profile and identify top strengths and weaknesses.</p>
-            <a href="esqr.html" class="btn btn--sm btn--primary" style="margin-top:var(--space-sm);">Take the Interactive ESQ-R</a>
+            <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;margin-top:var(--space-sm);">
+              <a href="esqr.html" class="btn btn--sm btn--primary">Take the Interactive ESQ-R</a>
+              <a href="Conv17-305-dawson-executive-skills-questionnaire.pdf" class="btn btn--sm btn--secondary" target="_blank" rel="noopener">Download PDF</a>
+            </div>
             <span class="resource-card__meta" style="margin-top:var(--space-sm);">Primary Intake Tool &bull; Dawson &amp; Guare &bull; Open Access</span>
           </div>
         </div>
@@ -266,7 +329,8 @@
           <div>
             <h4>Executive Functioning Skills Checklist</h4>
             <p>A quick-reference checklist covering all 11 executive function skills from the Dawson &amp; Guare model. Used as an observational tool during sessions and a client-facing educational handout to build awareness of specific skill domains.</p>
-            <span class="resource-card__meta">11 Skills Reference &bull; Observation &amp; Education Tool</span>
+            <a href="Executive Functioning Skills Checklist.pdf" class="btn btn--sm btn--secondary" style="margin-top:var(--space-sm);" target="_blank" rel="noopener">Download PDF</a>
+            <span class="resource-card__meta" style="margin-top:var(--space-sm);">11 Skills Reference &bull; Observation &amp; Education Tool</span>
           </div>
         </div>
 
@@ -278,7 +342,8 @@
           <div>
             <h4>Executive Function Coaching Intake Form</h4>
             <p>A structured intake template for the initial client session. Covers demographic information, presenting concerns, environmental analysis, "Goodness of Fit" assessment, current support systems, and goals. Designed to build the Collaborative Alliance from the first meeting.</p>
-            <span class="resource-card__meta">Structured Intake Template &bull; Session 1 Tool</span>
+            <a href="Executive Function Coaching Intake Form.pdf" class="btn btn--sm btn--secondary" style="margin-top:var(--space-sm);" target="_blank" rel="noopener">Download PDF</a>
+            <span class="resource-card__meta" style="margin-top:var(--space-sm);">Structured Intake Template &bull; Session 1 Tool</span>
           </div>
         </div>
 
@@ -403,6 +468,34 @@
         <p>Key lectures and presentations referenced throughout the certification curriculum. These freely available videos provide essential theoretical context for each module.</p>
       </div>
 
+      <!-- Curated Playlist Embed -->
+      <div class="fade-in" style="margin-bottom:var(--space-3xl);">
+        <div style="background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--border-radius-lg);overflow:hidden;">
+          <div style="position:relative;padding-bottom:56.25%;height:0;">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLWl-x_5Cg96atsaiCT_muFtDX9vLa-LnT" title="EFI Curated Video Playlist" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div style="padding:var(--space-lg) var(--space-xl);">
+            <h3 style="margin-bottom:var(--space-sm);">EFI Curated Video Playlist &mdash; 10 Videos</h3>
+            <p style="font-size:0.9rem;margin-bottom:var(--space-md);">A curated collection of lectures, TED talks, and coaching exercises covering EF theory, metacognition, focus, and brain optimization. Over 5 hours of free content.</p>
+            <ol style="font-size:0.85rem;color:var(--color-text-light);margin-bottom:var(--space-lg);padding-left:var(--space-lg);line-height:1.8;">
+              <li><strong>Executive Function Skills</strong> &mdash; GandellJoy <span style="color:var(--color-text-muted);">(9:16)</span></li>
+              <li><strong>How Your Brain's Executive Function Works</strong> &mdash; Sabine Doebel, TED <span style="color:var(--color-text-muted);">(11:31)</span></li>
+              <li><strong>Executive Function Wheel Coaching Exercise</strong> &mdash; GandellJoy <span style="color:var(--color-text-muted);">(16:39)</span></li>
+              <li><strong>Top Executive Function Skills to Turn It Around</strong> &mdash; Seth Perler <span style="color:var(--color-text-muted);">(1:02:36)</span></li>
+              <li><strong>Strategies for Supporting Executive Functions with Sarah Ward</strong> &mdash; School Psyched Podcast <span style="color:var(--color-text-muted);">(9:30)</span></li>
+              <li><strong>Metacognition: An Important Skill for Modern Times</strong> &mdash; Brendan Conway-Smith, TEDx <span style="color:var(--color-text-muted);">(11:16)</span></li>
+              <li><strong>How to Unlock Insane Focus on Command</strong> &mdash; Rian Doris <span style="color:var(--color-text-muted);">(32:32)</span></li>
+              <li><strong>Can You Trust Your Own Brain?</strong> &mdash; Heather Berlin, Big Think <span style="color:var(--color-text-muted);">(6:22)</span></li>
+              <li><strong>The Most Productive Way to Meditate</strong> &mdash; Rian Doris <span style="color:var(--color-text-muted);">(9:11)</span></li>
+              <li><strong>How to Optimize Cognitive Function &amp; Brain Health</strong> &mdash; Dr. Mark D'Esposito, Huberman Lab <span style="color:var(--color-text-muted);">(2:32:38)</span></li>
+            </ol>
+            <a href="https://www.youtube.com/playlist?list=PLWl-x_5Cg96atsaiCT_muFtDX9vLa-LnT" target="_blank" rel="noopener" class="btn btn--sm btn--secondary">Open Full Playlist on YouTube</a>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="text-align:center;margin-bottom:var(--space-xl);">Module-Aligned Lectures</h3>
+
       <div class="grid grid--2 stagger">
 
         <div class="resource-card">
@@ -411,8 +504,8 @@
           </div>
           <div>
             <h4>Barkley &mdash; "30 Essential Ideas about ADHD"</h4>
-            <p>Dr. Russell Barkley's comprehensive lecture distilling the core principles of ADHD and executive function. Covers inhibition as the keystone, the Extended Phenotype, temporal myopia, and why EF deficits are disorders of performance, not knowledge.</p>
-            <span class="resource-card__meta">Module I &bull; Foundational Lecture</span>
+            <p>Dr. Russell Barkley's comprehensive lecture (2h 51m) distilling the core principles of ADHD and executive function. Covers inhibition as the keystone, the Extended Phenotype, temporal myopia, and why EF deficits are disorders of performance, not knowledge. Presented at CADDAC.</p>
+            <span class="resource-card__meta">Module I &bull; Foundational Lecture &bull; 2h 51m</span>
           </div>
         </div>
 
@@ -421,9 +514,22 @@
             <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
           <div>
-            <h4>Harvard Center &mdash; "Building the Brain's Air Traffic Control"</h4>
-            <p>The Harvard Center on the Developing Child's presentation on how executive function develops from infancy through adulthood. Uses the "air traffic control" metaphor to explain the interplay of working memory, inhibitory control, and cognitive flexibility.</p>
-            <span class="resource-card__meta">Module I &bull; Developmental Framework</span>
+            <h4>Harvard Center &mdash; "Executive Function: Skills for Life and Learning"</h4>
+            <p>The Harvard Center on the Developing Child's InBrief video on how executive function develops from infancy through adulthood. Companion video to the "Building the Brain's Air Traffic Control System" working paper.</p>
+            <a href="https://developingchild.harvard.edu/resources/videos/inbrief-executive-function-skills-for-life-and-learning/" target="_blank" rel="noopener" class="btn btn--sm btn--secondary" style="margin-top:var(--space-sm);">Watch on Harvard.edu</a>
+            <span class="resource-card__meta" style="margin-top:var(--space-sm);">Module I &bull; Developmental Framework</span>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div class="resource-card__icon" style="background:var(--color-accent);color:var(--color-white);">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <h4>Sabine Doebel &mdash; "How Your Brain's Executive Function Works"</h4>
+            <p>An accessible TED Talk on how executive function develops in social contexts and why "brain training" apps don't work. Excellent primer for anyone new to executive function science. Featured as the first video in our curated playlist.</p>
+            <a href="https://www.youtube.com/watch?v=qAC-5hTK-4c" target="_blank" rel="noopener" class="btn btn--sm btn--secondary" style="margin-top:var(--space-sm);">Watch on YouTube</a>
+            <span class="resource-card__meta" style="margin-top:var(--space-sm);">Introduction &bull; TED Talk &bull; 10m</span>
           </div>
         </div>
 
@@ -471,6 +577,49 @@
           </div>
         </div>
 
+        <div class="resource-card">
+          <div class="resource-card__icon" style="background:var(--module-1);color:var(--color-white);">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <h4>Harvard &mdash; "Building the Brain's Air Traffic Control System"</h4>
+            <p>The complete working paper (PDF) explaining how early experiences shape the development of executive function. Accompanies the InBrief video and provides the scientific foundation for the "air traffic control" metaphor used throughout the curriculum.</p>
+            <a href="https://developingchild.harvard.edu/wp-content/uploads/2024/10/How-Early-Experiences-Shape-the-Development-of-Executive-Function.pdf" target="_blank" rel="noopener" class="btn btn--sm btn--secondary" style="margin-top:var(--space-sm);">Read Working Paper (PDF)</a>
+            <span class="resource-card__meta" style="margin-top:var(--space-sm);">Module I &bull; Research Paper</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- External Resources -->
+  <section class="section" id="external">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-header__tag">External Links</span>
+        <h2>Professional Organizations &amp; External Resources</h2>
+        <p>Key organizations and freely available guides referenced throughout the certification program.</p>
+      </div>
+
+      <div class="grid grid--3 stagger">
+        <a href="https://developingchild.harvard.edu/resource-guides/guide-executive-function/" target="_blank" rel="noopener" class="card" style="text-decoration:none;color:inherit;border-top:4px solid var(--module-1);">
+          <h4>Harvard Center on the Developing Child</h4>
+          <p style="font-size:0.9rem;">A Guide to Executive Function &mdash; comprehensive resource explaining what EF is, how it develops, and how it can be supported at every stage of life.</p>
+          <span class="resource-card__meta">Free Resource Guide</span>
+        </a>
+
+        <a href="https://Enhancing-and-Practicing-Executive-Function-Skills-with-Children-from-Infancy-to-Adolescence-1.pdf" target="_blank" rel="noopener" class="card" style="text-decoration:none;color:inherit;border-top:4px solid var(--module-5);">
+          <h4>Harvard Activities Guide</h4>
+          <p style="font-size:0.9rem;">Enhancing &amp; Practicing Executive Function Skills &mdash; age-graded activity guides for building EF capacity in children and adolescents. Included in the Module V materials.</p>
+          <span class="resource-card__meta">Download PDF &bull; Module V</span>
+        </a>
+
+        <a href="https://github.com/jacobpopcantstop/TheExecutiveFunctioningInstitute" target="_blank" rel="noopener" class="card" style="text-decoration:none;color:inherit;border-top:4px solid var(--color-text);">
+          <h4>EFI on GitHub</h4>
+          <p style="font-size:0.9rem;">The entire EFI curriculum, website, and resources are open source. Contribute, fork, suggest improvements, or adapt the materials for your own community.</p>
+          <span class="resource-card__meta">Open Source &bull; MIT License</span>
+        </a>
       </div>
     </div>
   </section>
