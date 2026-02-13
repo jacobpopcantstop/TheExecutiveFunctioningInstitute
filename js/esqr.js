@@ -178,23 +178,46 @@
     container.innerHTML = '';
 
     var maxScore = 7;
+    var thinkingSkills = SKILLS.filter(function (s) { return s.domain === 'thinking'; })
+      .sort(function (a, b) { return scores[b.id] - scores[a.id]; });
+    var doingSkills = SKILLS.filter(function (s) { return s.domain === 'doing'; })
+      .sort(function (a, b) { return scores[b.id] - scores[a.id]; });
+
     var html = '<div class="esqr-bars">';
 
-    SKILLS.forEach(function (skill) {
+    // Thinking group (left)
+    html += '<div class="esqr-domain-group">';
+    html += '<div class="esqr-domain-label esqr-domain-label--thinking">Thinking</div>';
+    html += '<div class="esqr-domain-bars">';
+    thinkingSkills.forEach(function (skill) {
       var score = scores[skill.id];
       var pct = (score / maxScore) * 100;
-      var domainClass = skill.domain === 'thinking' ? 'esqr-bar--thinking' : 'esqr-bar--doing';
-
       html += '<div class="esqr-bar-group">';
       html += '<div class="esqr-bar-wrapper">';
-      html += '<div class="esqr-bar ' + domainClass + '" style="height:' + pct + '%;background:' + skill.color + ';" title="' + skill.name + ': ' + score + '/7">';
+      html += '<div class="esqr-bar esqr-bar--thinking" style="height:' + pct + '%;" title="' + skill.name + ': ' + score + '/7">';
       html += '<span class="esqr-bar__value">' + score + '</span>';
-      html += '</div>';
-      html += '</div>';
+      html += '</div></div>';
       html += '<div class="esqr-bar__label">' + skill.name + '</div>';
-      html += '<div class="esqr-bar__domain">' + skill.domain + '</div>';
       html += '</div>';
     });
+    html += '</div></div>';
+
+    // Doing group (right)
+    html += '<div class="esqr-domain-group">';
+    html += '<div class="esqr-domain-label esqr-domain-label--doing">Doing</div>';
+    html += '<div class="esqr-domain-bars">';
+    doingSkills.forEach(function (skill) {
+      var score = scores[skill.id];
+      var pct = (score / maxScore) * 100;
+      html += '<div class="esqr-bar-group">';
+      html += '<div class="esqr-bar-wrapper">';
+      html += '<div class="esqr-bar esqr-bar--doing" style="height:' + pct + '%;" title="' + skill.name + ': ' + score + '/7">';
+      html += '<span class="esqr-bar__value">' + score + '</span>';
+      html += '</div></div>';
+      html += '<div class="esqr-bar__label">' + skill.name + '</div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
 
     html += '</div>';
     html += '<div class="esqr-chart-legend">';

@@ -3,7 +3,47 @@
    Main JavaScript
    ============================================ */
 
+/* Apply saved theme immediately to prevent flash */
+(function () {
+  var saved = localStorage.getItem('efi_theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
+
+  /* --- Dark Mode Toggle --- */
+  (function () {
+    var THEME_KEY = 'efi_theme';
+
+    // Create toggle button in nav
+    var navInner = document.querySelector('.nav__inner');
+    if (navInner) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dark-toggle';
+      btn.setAttribute('aria-label', 'Toggle dark mode');
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      btn.textContent = isDark ? '\u2600' : '\u263E';
+      btn.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+
+      btn.addEventListener('click', function () {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem(THEME_KEY, next);
+        btn.textContent = next === 'dark' ? '\u2600' : '\u263E';
+        btn.title = next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+      });
+
+      // Insert before the mobile toggle button
+      var mobileToggle = navInner.querySelector('.nav__toggle');
+      if (mobileToggle) {
+        navInner.insertBefore(btn, mobileToggle);
+      } else {
+        navInner.appendChild(btn);
+      }
+    }
+  })();
 
   /* --- SVG Icon Templates --- */
   var hamburgerSVG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';

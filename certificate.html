@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate of Completion | The Executive Function Institute</title>
+  <meta name="description" content="Your official EFI Certificate of Completion for the Certified Executive Function Coach program.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>&#129504;</text></svg>">
+  <style>
+    .cert {
+      max-width: 850px;
+      margin: 0 auto;
+      border: 3px solid var(--color-primary);
+      border-radius: 12px;
+      padding: 60px 50px;
+      background: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .cert::before, .cert::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 3px solid rgba(30, 58, 95, 0.08);
+      border-radius: 50%;
+    }
+    .cert::before { top: -60px; left: -60px; }
+    .cert::after { bottom: -60px; right: -60px; }
+    .cert__header { text-align: center; margin-bottom: 40px; }
+    .cert__logo { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; }
+    .cert__title { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: var(--color-primary); margin: 16px 0 8px; line-height: 1.2; }
+    .cert__subtitle { font-size: 1.1rem; color: var(--color-text-light); font-style: italic; }
+    .cert__body { text-align: center; margin: 40px 0; }
+    .cert__presented { font-size: 0.9rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .cert__name { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; color: var(--color-heading); margin: 16px 0; border-bottom: 2px solid var(--color-primary); display: inline-block; padding: 0 40px 8px; }
+    .cert__desc { max-width: 550px; margin: 20px auto 0; line-height: 1.7; color: var(--color-text-light); }
+    .cert__footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--color-border); }
+    .cert__detail { text-align: center; }
+    .cert__detail-label { font-size: 0.75rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .cert__detail-value { font-weight: 700; color: var(--color-heading); margin-top: 4px; }
+    .cert__seal { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); color: white; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 900; font-size: 1.2rem; }
+    @media print {
+      body > *:not(.cert-wrapper) { display: none !important; }
+      .cert-wrapper { padding: 0; }
+      .cert-actions { display: none !important; }
+      .cert { border: 3px solid #1e3a5f; box-shadow: none; }
+    }
+    @media (max-width: 768px) {
+      .cert { padding: 30px 20px; }
+      .cert__title { font-size: 1.5rem; }
+      .cert__name { font-size: 1.8rem; padding: 0 20px 6px; }
+      .cert__footer { flex-direction: column; align-items: center; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="dashboard.html" class="nav__link">Dashboard</a>
+        <a href="store.html" class="nav__link">Store</a>
+        <span class="nav__auth"></span>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll Now</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <!-- Gate: Not purchased -->
+  <section class="section" id="cert-gate" style="min-height:60vh;display:flex;align-items:center;">
+    <div class="container text-center">
+      <h1>Certificate of Completion</h1>
+      <p class="lead" id="gate-message">Loading...</p>
+      <div id="gate-actions" style="margin-top:var(--space-xl);display:none;">
+        <a href="store.html" class="btn btn--primary btn--lg">Purchase Certificate</a>
+        <a href="login.html?redirect=certificate.html" class="btn btn--secondary btn--lg" style="margin-left:var(--space-md);" id="gate-login">Log In</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificate Display -->
+  <section class="section cert-wrapper" id="cert-section" style="display:none;background:var(--color-bg-alt);padding-top:var(--space-2xl);padding-bottom:var(--space-2xl);">
+    <div class="container">
+      <div class="cert-actions text-center" style="margin-bottom:var(--space-xl);">
+        <button type="button" class="btn btn--primary btn--lg" id="print-cert">Print / Save as PDF</button>
+        <a href="dashboard.html" class="btn btn--secondary btn--lg" style="margin-left:var(--space-md);">Back to Dashboard</a>
+      </div>
+
+      <div class="cert" id="certificate-doc">
+        <div class="cert__header">
+          <div class="cert__logo">The Executive Function Institute</div>
+          <div class="cert__title">Certificate of Completion</div>
+          <div class="cert__subtitle">Certified Executive Function Coach (CEFC)</div>
+        </div>
+        <div class="cert__body">
+          <div class="cert__presented">This certifies that</div>
+          <div class="cert__name" id="cert-name"></div>
+          <p class="cert__desc">has successfully completed the Executive Function Institute's Certified Executive Function Coach program, demonstrating competency in the neuropsychology of self-regulation, evidence-based assessment, and intervention design grounded in the work of Barkley, Brown, and Dawson &amp; Guare.</p>
+        </div>
+        <div class="cert__footer">
+          <div class="cert__detail">
+            <div class="cert__detail-label">Date Issued</div>
+            <div class="cert__detail-value" id="cert-date"></div>
+          </div>
+          <div class="cert__seal">EFI</div>
+          <div class="cert__detail">
+            <div class="cert__detail-label">Credential ID</div>
+            <div class="cert__detail-value" id="cert-id"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo" style="color:var(--color-white);"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+          <p>An open-source program providing rigorous, science-based Executive Function Coaching Certification grounded in neuroscience and evidence-based practice.</p>
+        </div>
+        <div><h4>Program</h4><ul class="footer__links"><li><a href="curriculum.html">Curriculum</a></li><li><a href="certification.html">Certification</a></li><li><a href="resources.html">Resources</a></li><li><a href="enroll.html">Enroll</a></li></ul></div>
+        <div><h4>Modules</h4><ul class="footer__links"><li><a href="module-1.html">Neuropsychology</a></li><li><a href="module-2.html">Assessment</a></li><li><a href="module-3.html">Coaching Framework</a></li><li><a href="module-4.html">Applied Methods</a></li><li><a href="module-5.html">Special Populations</a></li><li><a href="module-6.html">Professional Practice</a></li></ul></div>
+        <div><h4>Learn More</h4><ul class="footer__links"><li><a href="about.html">About EFI</a></li><li><a href="about.html#models">Theoretical Models</a></li><li><a href="resources.html#reading">Reading Packets</a></li><li><a href="https://github.com/jacobpopcantstop/TheExecutiveFunctioningInstitute" target="_blank" rel="noopener">GitHub</a></li></ul></div>
+      </div>
+      <div class="footer__bottom">
+        <span>The Executive Function Institute &mdash; Open-Source Education</span>
+        <span>Built on the research of Barkley, Brown, Dawson &amp; Guare, and Ward</span>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function() {
+    var gate = document.getElementById('cert-gate');
+    var certSection = document.getElementById('cert-section');
+    var gateMsg = document.getElementById('gate-message');
+    var gateActions = document.getElementById('gate-actions');
+
+    if (!EFI.Auth.isLoggedIn()) {
+      gateMsg.textContent = 'Please log in to view your certificate.';
+      gateActions.style.display = 'flex';
+      gateActions.style.justifyContent = 'center';
+      gateActions.style.gap = 'var(--space-md)';
+      return;
+    }
+
+    if (!EFI.Auth.hasPurchased('certificate')) {
+      gateMsg.textContent = 'You haven\'t purchased a Certificate of Completion yet.';
+      gateActions.style.display = 'flex';
+      gateActions.style.justifyContent = 'center';
+      gateActions.style.gap = 'var(--space-md)';
+      document.getElementById('gate-login').style.display = 'none';
+      return;
+    }
+
+    // Show certificate
+    gate.style.display = 'none';
+    certSection.style.display = 'block';
+
+    var user = EFI.Auth.getCurrentUser();
+    document.getElementById('cert-name').textContent = user.name;
+
+    // Find the purchase date for the certificate
+    var certPurchase = null;
+    (user.purchases || []).forEach(function(p) {
+      p.items.forEach(function(item) {
+        if (item.id === 'certificate') certPurchase = p;
+      });
+    });
+
+    var issueDate = certPurchase ? new Date(certPurchase.date) : new Date();
+    document.getElementById('cert-date').textContent = issueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Generate credential ID from email hash
+    var hash = 0;
+    for (var i = 0; i < user.email.length; i++) {
+      hash = ((hash << 5) - hash) + user.email.charCodeAt(i);
+      hash |= 0;
+    }
+    document.getElementById('cert-id').textContent = 'EFI-CEFC-' + Math.abs(hash).toString(36).toUpperCase().substring(0, 8);
+
+    // Print button
+    document.getElementById('print-cert').addEventListener('click', function() {
+      window.print();
+    });
+  })();
+  </script>
+</body>
+</html>
