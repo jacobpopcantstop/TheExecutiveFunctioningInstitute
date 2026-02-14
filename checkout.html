@@ -257,6 +257,10 @@
           detailHtml += '</div>';
         }
 
+        if (purchase.items.some(function(i) { return i.id === 'certificate-frame'; })) {
+          detailHtml += '<p style="margin-top:var(--space-md);color:var(--color-text-muted);">Framed fulfillment ordered. Shipping coordination details will appear in your dashboard purchase history.</p>';
+        }
+
         document.getElementById('success-details').innerHTML = detailHtml;
         successEl.scrollIntoView({ behavior: 'smooth' });
       }, 1500);
