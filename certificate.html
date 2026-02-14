@@ -168,8 +168,19 @@
       return;
     }
 
-    if (!EFI.Auth.hasPurchased('certificate')) {
-      gateMsg.textContent = 'You haven\'t purchased a Certificate of Completion yet.';
+    var certStatus = EFI.Auth.getCertificationStatus();
+
+    if (!certStatus.eligibleForCertificate) {
+      gateMsg.innerHTML = 'You still need to complete certification requirements before your certificate can be issued. Visit your <a href="dashboard.html">dashboard</a> to submit module work and capstone evidence.';
+      gateActions.style.display = 'flex';
+      gateActions.style.justifyContent = 'center';
+      gateActions.style.gap = 'var(--space-md)';
+      document.getElementById('gate-login').style.display = 'none';
+      return;
+    }
+
+    if (!certStatus.certificatePurchased) {
+      gateMsg.textContent = 'You are certification-eligible, but you have not purchased your Certificate of Completion yet.';
       gateActions.style.display = 'flex';
       gateActions.style.justifyContent = 'center';
       gateActions.style.gap = 'var(--space-md)';
@@ -194,6 +205,10 @@
 
     var issueDate = certPurchase ? new Date(certPurchase.date) : new Date();
     document.getElementById('cert-date').textContent = issueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    if (!certStatus.framedCertificatePurchased) {
+      document.getElementById('cert-id').insertAdjacentHTML('afterend', '<p style="font-size:0.85rem;color:var(--color-text-muted);margin-top:var(--space-sm);">Digital certificate issued. Want print + frame shipping? <a href="store.html">Purchase framed fulfillment</a>.</p>');
+    }
 
     // Generate credential ID from email hash
     var hash = 0;
