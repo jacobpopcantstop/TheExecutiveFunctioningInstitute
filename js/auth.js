@@ -207,6 +207,10 @@ EFI.Auth = (function () {
       }
       updateCartBadge();
     });
+
+    if (window.EFI && typeof window.EFI.highlightActiveNavLinks === 'function') {
+      window.EFI.highlightActiveNavLinks();
+    }
   }
 
   /* Init on page load */

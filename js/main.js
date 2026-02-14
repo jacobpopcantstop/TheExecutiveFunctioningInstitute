@@ -11,6 +11,23 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function highlightActiveNavLinks() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav__link').forEach(function (link) {
+      link.classList.remove('nav__link--active');
+      link.removeAttribute('aria-current');
+
+      var href = link.getAttribute('href');
+      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        link.classList.add('nav__link--active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+  }
+
+  window.EFI = window.EFI || {};
+  window.EFI.highlightActiveNavLinks = highlightActiveNavLinks;
+
   /* --- Dark Mode Toggle --- */
   (function () {
     var THEME_KEY = 'efi_theme';
@@ -86,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
         closeNav();
         navToggle.focus();
       }
+    });
+
+    // Close nav when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!navLinks.classList.contains('open')) return;
+      if (navLinks.contains(e.target) || navToggle.contains(e.target)) return;
+      closeNav();
     });
   }
 
@@ -320,14 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* --- Active nav link highlighting --- */
-  var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav__link').forEach(function (link) {
-    var href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-      link.classList.add('nav__link--active');
-      link.setAttribute('aria-current', 'page');
-    }
-  });
+  highlightActiveNavLinks();
 
   /* --- Enrollment / Contact Form Handler --- */
   var form = document.getElementById('contact-form') || document.getElementById('enroll-form');
