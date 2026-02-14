@@ -28,6 +28,59 @@ document.addEventListener('DOMContentLoaded', function () {
   window.EFI = window.EFI || {};
   window.EFI.highlightActiveNavLinks = highlightActiveNavLinks;
 
+  (function injectModuleReadingPanel() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var readingByModule = {
+      'module-1.html': [
+        { title: 'Barkley (2012): Executive Functions, What They Are', url: 'https://www.routledge.com/Executive-Functions-What-They-Are-How-They-Work-and-Why-They-Evolved/Barkley/p/book/9781462506965' },
+        { title: 'Harvard Center on the Developing Child: InBrief', url: 'https://developingchild.harvard.edu/resources/inbrief-executive-function/' }
+      ],
+      'module-2.html': [
+        { title: 'Dawson & Guare ESQ-R materials', url: 'resources.html#assessments' },
+        { title: 'BRIEF-2 overview', url: 'https://www.parinc.com/Products/Pkey/39' }
+      ],
+      'module-3.html': [
+        { title: 'Dawson & Guare coaching framework excerpts', url: 'resources.html#reading' },
+        { title: 'ICF Core Competencies', url: 'https://coachingfederation.org/credentials-and-standards/core-competencies' }
+      ],
+      'module-4.html': [
+        { title: 'Sarah Ward 360 Thinking tools', url: 'resources.html#tools' },
+        { title: 'Time blindness and scaffolding talk', url: 'resources.html#video' }
+      ],
+      'module-5.html': [
+        { title: 'Harvard EF skill-building guide', url: 'https://developingchild.harvard.edu/resource-guides/guide-executive-function/' },
+        { title: 'Enhancing & Practicing EF Skills (paper)', url: 'Enhancing-and-Practicing-Executive-Function-Skills-with-Children-from-Infancy-to-Adolescence-1.pdf' }
+      ],
+      'module-6.html': [
+        { title: 'ICF Code of Ethics', url: 'https://coachingfederation.org/ethics/code-of-ethics' },
+        { title: 'Certification requirements and rubric', url: 'certification.html' }
+      ]
+    };
+
+    var requiredReadings = readingByModule[currentPage];
+    if (!requiredReadings) return;
+
+    var moduleContainer = document.querySelector('main .container');
+    var anchorSection = document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    if (!moduleContainer || !anchorSection || document.getElementById('module-reading-highlight')) return;
+
+    var card = document.createElement('div');
+    card.id = 'module-reading-highlight';
+    card.className = 'card module-reading-highlight';
+    var html = '<div class="module-reading-highlight__title"><h3 style="margin-bottom:0;">Required Further Reading</h3><span class="module-reading-highlight__badge">Required</span></div>';
+    html += '<p style="margin-top:var(--space-sm);color:var(--color-text-light);">Complete these references before marking this module done. They are used by rubric-based grading and capstone evaluation.</p>';
+    html += '<ul class="checklist" style="margin-top:var(--space-md);">';
+    requiredReadings.forEach(function (reading) {
+      var external = /^https?:/.test(reading.url);
+      html += '<li><a href="' + reading.url + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + reading.title + '</a></li>';
+    });
+    html += '</ul>';
+    html += '<a href="resources.html#reading" class="btn btn--secondary btn--sm" style="margin-top:var(--space-md);">Open Complete Reading Packet</a>';
+    card.innerHTML = html;
+
+    anchorSection.parentNode.insertBefore(card, anchorSection);
+  })();
+
   /* --- Dark Mode Toggle --- */
   (function () {
     var THEME_KEY = 'efi_theme';

@@ -128,6 +128,10 @@
   var progressText = document.getElementById('progress-text');
   var errorMsg = document.getElementById('esqr-error');
   var resultsSection = document.getElementById('esqr-results');
+  var downloadBtn = document.getElementById('esqr-download-btn');
+  var shareBtn = document.getElementById('esqr-share-btn');
+  var shareStatus = document.getElementById('esqr-share-status');
+  var lastResultsPayload = null;
 
   if (!form) return;
 
@@ -280,6 +284,78 @@
 
     document.getElementById('thinking-avg').textContent = thinkingAvg.toFixed(1) + ' / 7';
     document.getElementById('doing-avg').textContent = doingAvg.toFixed(1) + ' / 7';
+
+    lastResultsPayload = {
+      generatedAt: new Date().toISOString(),
+      strengths: top3,
+      growthAreas: bottom3,
+      domainAverages: {
+        thinking: Number(thinkingAvg.toFixed(2)),
+        doing: Number(doingAvg.toFixed(2))
+      },
+      allScores: scores
+    };
+
+    localStorage.setItem('efi_esqr_results', JSON.stringify(lastResultsPayload));
+  }
+
+  function buildShareText() {
+    if (!lastResultsPayload) return '';
+    var strengths = lastResultsPayload.strengths.map(function (s) { return s.name + ' (' + s.score + '/7)'; }).join(', ');
+    var growth = lastResultsPayload.growthAreas.map(function (s) { return s.name + ' (' + s.score + '/7)'; }).join(', ');
+    return 'My EFI ESQ-R summary\nStrengths: ' + strengths + '\nGrowth areas: ' + growth + '\nThinking avg: ' + lastResultsPayload.domainAverages.thinking + '/7\nDoing avg: ' + lastResultsPayload.domainAverages.doing + '/7';
+  }
+
+  function setShareStatus(message) {
+    if (shareStatus) shareStatus.textContent = message;
+  }
+
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', function () {
+      if (!lastResultsPayload) {
+        setShareStatus('Generate your profile first, then download.');
+        return;
+      }
+      var blob = new Blob([JSON.stringify(lastResultsPayload, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      setShareStatus('Results downloaded.');
+    });
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      var text = buildShareText();
+      if (!text) {
+        setShareStatus('Generate your profile first, then share.');
+        return;
+      }
+      if (navigator.share) {
+        navigator.share({
+          title: 'My EFI ESQ-R Results',
+          text: text,
+          url: window.location.href
+        }).then(function () {
+          setShareStatus('Shared successfully.');
+        }).catch(function () {
+          setShareStatus('Share canceled.');
+        });
+        return;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          setShareStatus('Summary copied to clipboard.');
+        }, function () {
+          setShareStatus('Unable to copy automatically.');
+        });
+      }
+    });
   }
 
   /* --- Form Submit --- */
