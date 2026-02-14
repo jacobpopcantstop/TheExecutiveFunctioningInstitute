@@ -385,8 +385,9 @@
       </div>
 
       <div class="esqr-results-actions">
-        <button type="button" class="btn btn--secondary" id="esqr-download-btn">Download Results (JSON)</button>
-        <button type="button" class="btn btn--secondary" id="esqr-share-btn">Share Results Summary</button>
+        <button type="button" class="btn btn--secondary" id="esqr-download-png-btn">Download Results (PNG)</button>
+        <button type="button" class="btn btn--secondary" id="esqr-download-pdf-btn">Download Results (PDF)</button>
+        <button type="button" class="btn btn--secondary" id="esqr-share-btn">Share Results Snapshot</button>
       </div>
       <p id="esqr-share-status" class="text-center" style="margin-top:var(--space-sm);color:var(--color-text-muted);"></p>
 
@@ -467,6 +468,8 @@
 
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="js/esqr.js"></script>
 </body>
 </html>

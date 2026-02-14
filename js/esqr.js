@@ -128,7 +128,8 @@
   var progressText = document.getElementById('progress-text');
   var errorMsg = document.getElementById('esqr-error');
   var resultsSection = document.getElementById('esqr-results');
-  var downloadBtn = document.getElementById('esqr-download-btn');
+  var downloadPngBtn = document.getElementById('esqr-download-png-btn');
+  var downloadPdfBtn = document.getElementById('esqr-download-pdf-btn');
   var shareBtn = document.getElementById('esqr-share-btn');
   var shareStatus = document.getElementById('esqr-share-status');
   var lastResultsPayload = null;
@@ -310,22 +311,82 @@
     if (shareStatus) shareStatus.textContent = message;
   }
 
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', function () {
-      if (!lastResultsPayload) {
-        setShareStatus('Generate your profile first, then download.');
-        return;
-      }
-      var blob = new Blob([JSON.stringify(lastResultsPayload, null, 2)], { type: 'application/json' });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      setShareStatus('Results downloaded.');
+  function renderResultsImageBlob() {
+    if (!resultsSection || resultsSection.hidden) {
+      return Promise.reject(new Error('Generate your profile first, then export.'));
+    }
+    if (!window.html2canvas) {
+      return Promise.reject(new Error('Export engine did not load. Please refresh and try again.'));
+    }
+    return window.html2canvas(resultsSection, {
+      scale: 2,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      logging: false
+    }).then(function (canvas) {
+      return new Promise(function (resolve) {
+        canvas.toBlob(function (blob) {
+          resolve({ blob: blob, canvas: canvas });
+        }, 'image/png');
+      });
+    });
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  if (downloadPngBtn) {
+    downloadPngBtn.addEventListener('click', function () {
+      renderResultsImageBlob().then(function (result) {
+        if (!result.blob) throw new Error('Unable to render PNG export.');
+        downloadBlob(result.blob, 'efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.png');
+        setShareStatus('PNG downloaded.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to export PNG.');
+      });
+    });
+  }
+
+  if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', function () {
+      renderResultsImageBlob().then(function (result) {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          throw new Error('PDF engine did not load. Please refresh and try again.');
+        }
+        var jsPDF = window.jspdf.jsPDF;
+        var pageWidth = 210;
+        var pageHeight = 297;
+        var margin = 10;
+        var contentWidth = pageWidth - (margin * 2);
+        var contentHeight = (result.canvas.height * contentWidth) / result.canvas.width;
+        var pdf = new jsPDF('p', 'mm', 'a4');
+        var imageData = result.canvas.toDataURL('image/png');
+        var y = margin;
+        var heightLeft = contentHeight;
+
+        pdf.addImage(imageData, 'PNG', margin, y, contentWidth, contentHeight);
+        heightLeft -= (pageHeight - margin * 2);
+
+        while (heightLeft > 0) {
+          y = heightLeft - contentHeight + margin;
+          pdf.addPage();
+          pdf.addImage(imageData, 'PNG', margin, y, contentWidth, contentHeight);
+          heightLeft -= (pageHeight - margin * 2);
+        }
+
+        pdf.save('efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.pdf');
+        setShareStatus('PDF downloaded.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to export PDF.');
+      });
     });
   }
 
@@ -336,25 +397,31 @@
         setShareStatus('Generate your profile first, then share.');
         return;
       }
-      if (navigator.share) {
-        navigator.share({
-          title: 'My EFI ESQ-R Results',
-          text: text,
-          url: window.location.href
-        }).then(function () {
-          setShareStatus('Shared successfully.');
-        }).catch(function () {
-          setShareStatus('Share canceled.');
-        });
-        return;
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () {
-          setShareStatus('Summary copied to clipboard.');
-        }, function () {
-          setShareStatus('Unable to copy automatically.');
-        });
-      }
+
+      renderResultsImageBlob().then(function (result) {
+        if (navigator.canShare && navigator.share && result.blob) {
+          var file = new File([result.blob], 'efi-esqr-results.png', { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            return navigator.share({
+              title: 'My EFI ESQ-R Results',
+              text: text,
+              files: [file]
+            }).then(function () {
+              setShareStatus('Results snapshot shared successfully.');
+              return;
+            });
+          }
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(function () {
+            setShareStatus('Device does not support file sharing here. Summary copied to clipboard instead.');
+          });
+        }
+        throw new Error('Sharing is not supported on this browser.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to share results.');
+      });
     });
   }
 
