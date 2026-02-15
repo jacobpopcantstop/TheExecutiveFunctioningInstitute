@@ -1,25 +1,121 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Educator-to-Coach Launchpad | EFI</title><meta name="description" content="Free 5-day educator-to-coach email launchpad signup and curriculum sequence." /><link rel="canonical" href="https://executivefunctioninginstitute.com/educator-launchpad.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Educator-to-Coach Launchpad | EFI</title>
+  <meta name="description" content="Free 5-day educator-to-coach email launchpad signup and curriculum sequence." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/educator-launchpad.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
 <body>
-<a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Landing</a><a href="certification.html" class="nav__link">Certification</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
-<header class="page-header"><div class="container"><h1>5-Day Educator-to-Coach Launchpad</h1><p>Join a short free sequence covering offer design, scope, messaging, and first-client outreach.</p></div></header>
-<main id="main-content"><section class="section"><div class="container container--narrow"><div class="tool-panel"><h2>Signup</h2><form id="launchpad-form"><div class="form-group"><label for="lp-name">Name</label><input id="lp-name" class="form-control" required></div><div class="form-group"><label for="lp-email">Email</label><input id="lp-email" class="form-control" type="email" required></div><button class="btn btn--primary" type="submit">Start Free Course</button></form><p id="launchpad-output" class="notice" style="display:none;margin-top:1rem;"></p><div class="journey-links"><a class="btn btn--secondary btn--sm" href="gap-analyzer.html">Gap Analyzer</a><a class="btn btn--primary btn--sm" href="enroll.html">Full Certification</a></div></div></div></section></main>
-<footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
-<script src="js/main.js"></script>
-<script>
-document.getElementById('launchpad-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  var payload = {
-    name: document.getElementById('lp-name').value,
-    email: document.getElementById('lp-email').value,
-    enrolledAt: new Date().toISOString(),
-    sequence: ['Day 1: EF niche positioning','Day 2: Offer architecture','Day 3: Ethical scope','Day 4: Messaging and outreach','Day 5: First-client plan']
-  };
-  localStorage.setItem('efi_launchpad_signup', JSON.stringify(payload));
-  var out = document.getElementById('launchpad-output');
-  out.style.display = 'block';
-  out.textContent = 'You are enrolled. Prototype delivery logic stored locally; connect this form to your email provider webhook/API in production.';
-});
-</script>
-</body></html>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="teacher-to-coach.html" class="nav__link">Landing</a>
+        <a href="further-sources.html" class="nav__link">Sources</a>
+        <a href="certification.html" class="nav__link">Certification</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1>5-Day Educator-to-Coach Launchpad</h1>
+      <p>Join a short free sequence covering offer design, scope, messaging, and first-client outreach.</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="tool-panel">
+          <h2>Signup</h2>
+          <form id="launchpad-form" novalidate>
+            <div class="form-group">
+              <label for="lp-name">Name</label>
+              <input id="lp-name" class="form-control" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="lp-email">Email</label>
+              <input id="lp-email" class="form-control" type="email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <input id="lp-consent" type="checkbox" required />
+              <label for="lp-consent">I consent to receive launch emails and agree to EFI privacy terms.</label>
+            </div>
+            <button class="btn btn--primary" type="submit" id="launchpad-submit" data-analytics-event="launchpad_submit_click">Start Free Course</button>
+          </form>
+          <p id="launchpad-output" class="notice" style="display:none;margin-top:1rem;"></p>
+          <div class="journey-links">
+            <a class="btn btn--secondary btn--sm" href="gap-analyzer.html" data-analytics-event="launchpad_to_gap">Gap Analyzer</a>
+            <a class="btn btn--primary btn--sm" href="enroll.html" data-analytics-event="launchpad_to_enroll">Full Certification</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('launchpad-form');
+      var out = document.getElementById('launchpad-output');
+      var submit = document.getElementById('launchpad-submit');
+
+      function setMessage(msg, ok) {
+        out.style.display = 'block';
+        out.textContent = msg;
+        out.style.borderColor = ok ? 'rgba(30, 132, 73, 0.25)' : 'rgba(192,57,43,0.4)';
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+
+        submit.disabled = true;
+        submit.textContent = 'Submitting...';
+
+        var payload = {
+          name: document.getElementById('lp-name').value.trim(),
+          email: document.getElementById('lp-email').value.trim(),
+          consent: document.getElementById('lp-consent').checked,
+          lead_type: 'launchpad_email_course',
+          source: 'educator-launchpad.html'
+        };
+
+        try {
+          var res = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          var data = await res.json();
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Signup failed');
+
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('launchpad_signup_success', { lead_id: data.lead_id || '' });
+          }
+
+          setMessage('You are enrolled. Check your inbox for Day 1 and a copy of the full 5-day outline.', true);
+          form.reset();
+        } catch (err) {
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('launchpad_signup_error', { error: String(err.message || err) });
+          }
+          setMessage(err.message || 'Unable to submit right now. Please try again.', false);
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Start Free Course';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -67,10 +67,10 @@
 8. ✅ Expanded sitemap coverage to include all newly added routes.
 
 ## Wave 6 Remaining (Next Integration Sprint)
-- Replace prototype localStorage lead capture with server/API integrations (ESP + CRM + consent logging).
-- Replace placeholder download assets with final branded PDFs and signed delivery links.
+- ✅ Replace prototype localStorage lead capture with server/API integrations (ESP + CRM + consent logging).
+- ✅ Replace placeholder download assets with working PDF assets and signed delivery links.
 - Replace placeholder directory records with CMS-backed searchable profiles and moderation workflow.
-- Add analytics event instrumentation for funnel steps (landing -> calculator -> signup -> enroll).
+- ✅ Add analytics event instrumentation for funnel steps (landing -> calculator -> signup -> enroll).
 - Add production video hosting pipeline (storage, captions, bandwidth policy, fallback CDN logic).
 
 ## Wave 7: Further Sources Integration (This Pass)
@@ -80,3 +80,27 @@
 4. ✅ Added module-level citation blocks to Theory/Practice/Business landing pages.
 5. ✅ Added source-hub validation script `scripts/check_source_hub.py`.
 6. ✅ Enforced source-hub checks through `scripts/release_gate.py`.
+
+## Wave 8: Deployment Integration and UX Hardening (This Pass)
+1. ✅ Added server-backed Netlify API endpoints:
+   `/api/leads`, `/api/sign-download`, `/api/download-file`, `/api/track-event`.
+2. ✅ Rewired launch/funnel forms to API-based lead capture with explicit consent handling.
+3. ✅ Implemented signed gated-download flow for lead magnets.
+4. ✅ Added analytics transport (`EFI.Analytics`) and funnel event hooks.
+5. ✅ Added PDF integrity validation script (`scripts/check_pdfs.py`) and enforced it in release gate.
+6. ✅ Replaced invalid placeholder lead-magnet assets with functioning PDF files.
+7. ✅ Applied UX fixes for fixed-nav overlap on plain pages and improved form interaction states.
+8. ✅ Updated OpenAPI contract (`docs/api/openapi.yaml`) to reflect production funnel endpoints.
+
+## Wave 8 Remaining
+- Wire CRM/ESP webhook endpoints as environment variables in Netlify production (`EFI_CRM_WEBHOOK_URL`, `EFI_ESP_WEBHOOK_URL`).
+- Rotate and set production signing secret (`EFI_DOWNLOAD_SIGNING_SECRET`) before launch.
+- Add server-side persistence/storage for lead and analytics records (current delivery is webhook-first).
+- Implement CMS-backed directory management and moderation.
+- Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
+
+## Wave 9: UX and Asset Reliability Audit (This Pass)
+1. ✅ Added sitewide UX audit script (`scripts/check_ux_audit.py`) and resolved flagged structural issues.
+2. ✅ Achieved 100% structural UX baseline score in automated audit.
+3. ✅ Added explicit labels/skip links on previously under-specified utility pages and verification flow.
+4. ✅ Added PDF validity checks to release quality gates and validated all linked local PDFs.

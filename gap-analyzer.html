@@ -1,17 +1,100 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Executive Function Skills Gap Analyzer | EFI</title><meta name="description" content="Download gate for the Executive Function Skills Gap Analyzer asset." /><link rel="canonical" href="https://executivefunctioninginstitute.com/gap-analyzer.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Function Skills Gap Analyzer | EFI</title>
+  <meta name="description" content="Secure lead-magnet gate for the Executive Function Skills Gap Analyzer." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/gap-analyzer.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
 <body>
-<a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Business</a><a href="module-c-interventions.html" class="nav__link">Practice</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
-<header class="page-header"><div class="container"><h1>Executive Function Skills Gap Analyzer</h1><p>Lead magnet delivery gate for educators and coaches evaluating service readiness.</p></div></header>
-<main id="main-content"><section class="section"><div class="container container--narrow"><div class="tool-panel"><h2>Request Download</h2><form id="gate-form-a"><div class="form-group"><label>Email</label><input class="form-control" id="gate-email-a" type="email" required /></div><button class="btn btn--primary" type="submit">Unlock PDF</button></form><div id="gate-out-a" class="tool-output" aria-live="polite"></div></div></div></section></main>
-<footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
-<script src="js/main.js"></script>
-<script>
-document.getElementById('gate-form-a').addEventListener('submit', function(e){
-  e.preventDefault();
-  localStorage.setItem('efi_gate_gap_analyzer', document.getElementById('gate-email-a').value);
-  document.getElementById('gate-out-a').innerHTML = 'Access granted: <a href="docs/assets/executive-function-skills-gap-analyzer.pdf" target="_blank" rel="noopener">Download the Skills Gap Analyzer (PDF)</a>.';
-});
-</script>
-</body></html>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="teacher-to-coach.html" class="nav__link">Business</a>
+        <a href="further-sources.html" class="nav__link">Sources</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button>
+    </div>
+  </nav>
+
+  <header class="page-header"><div class="container"><h1>Executive Function Skills Gap Analyzer</h1><p>Secure lead magnet delivery with consent logging and signed download links.</p></div></header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="tool-panel">
+          <h2>Request Download</h2>
+          <form id="gate-form-a" novalidate>
+            <div class="form-group"><label for="gate-email-a">Email</label><input class="form-control" id="gate-email-a" type="email" required autocomplete="email" /></div>
+            <div class="form-group"><input id="gate-consent-a" type="checkbox" required /> <label for="gate-consent-a">I consent to receive EFI resources and updates.</label></div>
+            <button class="btn btn--primary" type="submit" id="gate-submit-a" data-analytics-event="gap_gate_submit_click">Unlock PDF</button>
+          </form>
+          <div id="gate-out-a" class="tool-output" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('gate-form-a');
+      var out = document.getElementById('gate-out-a');
+      var submit = document.getElementById('gate-submit-a');
+
+      function message(html) { out.innerHTML = html; }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+
+        submit.disabled = true;
+        submit.textContent = 'Generating secure link...';
+
+        var email = document.getElementById('gate-email-a').value.trim();
+        var consent = document.getElementById('gate-consent-a').checked;
+
+        try {
+          var leadRes = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: email,
+              consent: consent,
+              lead_type: 'download_gap_analyzer',
+              source: 'gap-analyzer.html'
+            })
+          });
+          var leadData = await leadRes.json();
+          if (!leadRes.ok || !leadData.ok) throw new Error(leadData.error || 'Unable to capture lead');
+
+          var signRes = await fetch('/api/sign-download?asset=gap-analyzer');
+          var signData = await signRes.json();
+          if (!signRes.ok || !signData.ok) throw new Error(signData.error || 'Unable to sign download link');
+
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('lead_magnet_unlocked', { magnet: 'gap-analyzer', lead_id: leadData.lead_id || '' });
+          }
+
+          message('Access granted: <a href="' + signData.url + '" target="_blank" rel="noopener">Download the Skills Gap Analyzer (PDF)</a>. Link expires in 15 minutes.');
+        } catch (err) {
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('lead_magnet_error', { magnet: 'gap-analyzer', error: String(err.message || err) });
+          }
+          message('Unable to unlock download right now. Please try again in a moment.');
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Unlock PDF';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

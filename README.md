@@ -58,6 +58,15 @@ The curriculum integrates three foundational models:
 
 Open `index.html` in any web browser. No build tools or dependencies required — the site is built with vanilla HTML, CSS, and JavaScript.
 
+## Quality Gates
+
+- `python3 scripts/check_links.py` — validates local links.
+- `python3 scripts/check_accessibility.py` — static accessibility checks.
+- `python3 scripts/check_pdfs.py` — validates local linked PDFs are real PDF files.
+- `python3 scripts/check_source_hub.py` — validates Further Sources integration.
+- `python3 scripts/check_ux_audit.py` — structural UX audit baseline.
+- `python3 scripts/release_gate.py` — consolidated deployment gate.
+
 ## License
 
 Open-source curriculum built on publicly available, peer-reviewed research.

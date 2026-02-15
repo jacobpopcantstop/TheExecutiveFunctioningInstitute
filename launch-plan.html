@@ -1,17 +1,101 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>90-Day Coaching Business Launch Plan | EFI</title><meta name="description" content="Download gate for the 90-Day Coaching Business Launch Plan." /><link rel="canonical" href="https://executivefunctioninginstitute.com/launch-plan.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>90-Day Coaching Business Launch Plan | EFI</title>
+  <meta name="description" content="Secure lead-magnet gate for the 90-Day Coaching Business Launch Plan." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/launch-plan.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
 <body>
-<a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Business</a><a href="educator-launchpad.html" class="nav__link">Launchpad</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
-<header class="page-header"><div class="container"><h1>90-Day Coaching Business Launch Plan</h1><p>Lead magnet gate and onboarding path into certification.</p></div></header>
-<main id="main-content"><section class="section"><div class="container container--narrow"><div class="tool-panel"><h2>Unlock the Plan</h2><form id="gate-form-b"><div class="form-group"><label>Email</label><input class="form-control" id="gate-email-b" type="email" required /></div><button class="btn btn--primary" type="submit">Unlock PDF</button></form><div id="gate-out-b" class="tool-output" aria-live="polite"></div></div></div></section></main>
-<footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
-<script src="js/main.js"></script>
-<script>
-document.getElementById('gate-form-b').addEventListener('submit', function(e){
-  e.preventDefault();
-  localStorage.setItem('efi_gate_launch_plan', document.getElementById('gate-email-b').value);
-  document.getElementById('gate-out-b').innerHTML = 'Access granted: <a href="docs/assets/90-day-coaching-business-launch-plan.pdf" target="_blank" rel="noopener">Download the 90-Day Launch Plan (PDF)</a>.';
-});
-</script>
-</body></html>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="teacher-to-coach.html" class="nav__link">Business</a>
+        <a href="educator-launchpad.html" class="nav__link">Launchpad</a>
+        <a href="further-sources.html" class="nav__link">Sources</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button>
+    </div>
+  </nav>
+
+  <header class="page-header"><div class="container"><h1>90-Day Coaching Business Launch Plan</h1><p>Secure lead magnet delivery with consent logging and signed links.</p></div></header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="tool-panel">
+          <h2>Unlock the Plan</h2>
+          <form id="gate-form-b" novalidate>
+            <div class="form-group"><label for="gate-email-b">Email</label><input class="form-control" id="gate-email-b" type="email" required autocomplete="email" /></div>
+            <div class="form-group"><input id="gate-consent-b" type="checkbox" required /> <label for="gate-consent-b">I consent to receive EFI resources and updates.</label></div>
+            <button class="btn btn--primary" type="submit" id="gate-submit-b" data-analytics-event="launch_plan_gate_submit_click">Unlock PDF</button>
+          </form>
+          <div id="gate-out-b" class="tool-output" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('gate-form-b');
+      var out = document.getElementById('gate-out-b');
+      var submit = document.getElementById('gate-submit-b');
+
+      function message(html) { out.innerHTML = html; }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+
+        submit.disabled = true;
+        submit.textContent = 'Generating secure link...';
+
+        var email = document.getElementById('gate-email-b').value.trim();
+        var consent = document.getElementById('gate-consent-b').checked;
+
+        try {
+          var leadRes = await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: email,
+              consent: consent,
+              lead_type: 'download_launch_plan',
+              source: 'launch-plan.html'
+            })
+          });
+          var leadData = await leadRes.json();
+          if (!leadRes.ok || !leadData.ok) throw new Error(leadData.error || 'Unable to capture lead');
+
+          var signRes = await fetch('/api/sign-download?asset=launch-plan');
+          var signData = await signRes.json();
+          if (!signRes.ok || !signData.ok) throw new Error(signData.error || 'Unable to sign download link');
+
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('lead_magnet_unlocked', { magnet: 'launch-plan', lead_id: leadData.lead_id || '' });
+          }
+
+          message('Access granted: <a href="' + signData.url + '" target="_blank" rel="noopener">Download the 90-Day Launch Plan (PDF)</a>. Link expires in 15 minutes.');
+        } catch (err) {
+          if (window.EFI && EFI.Analytics) {
+            EFI.Analytics.track('lead_magnet_error', { magnet: 'launch-plan', error: String(err.message || err) });
+          }
+          message('Unable to unlock download right now. Please try again in a moment.');
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Unlock PDF';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
