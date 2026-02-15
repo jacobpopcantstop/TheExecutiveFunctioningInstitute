@@ -1,0 +1,53 @@
+Strategic Blueprint for the Executive Functioning Institute
+Canonical Further Sources Compilation
+Last integrated: February 15, 2026
+
+Purpose
+- Centralize authoritative EF resources across Barkley, Brown, Dawson/Guare, and Ward/Jacobsen.
+- Map each source to curriculum, intervention, and business implementation pages.
+
+Core Integration Tracks
+1) Barkley: Inhibition model, time blindness, evidence-based treatment standards.
+2) Brown: Six-cluster cognitive model and internal experience of executive dysfunction.
+3) Dawson/Guare: 11 executive skills and skill-specific intervention planning.
+4) Ward/Jacobsen: 360 Thinking and Get Ready * Do * Done visual-spatial planning.
+
+Priority Works Cited for Site Integration
+- 30 Essential Ideas, 1B Inhibition/Impulsivity/Emotion: https://www.youtube.com/watch?v=wg6cfsnmqyg
+- 30 Essential Ideas, 5A ADHD is Time Blindness: https://www.youtube.com/watch?v=wmV8HQUuPEk
+- 30 Essential Ideas, 7B The 30% Rule: https://www.youtube.com/watch?v=4OVS16Abo80
+- 30 Essential Ideas, 9C Avoid Treatments That Do Not Work: https://www.youtube.com/watch?v=CiKg9luac8Y
+- 30 Essential Ideas, 10E Meds Real or Placebo: https://www.youtube.com/watch?v=JHe6UHXIqEo
+- Barkley books: https://russellbarkley.org/books.html
+- Executive Functions (Guilford): https://www.guilford.com/books/Executive-Functions/Russell-Barkley/9781462545933
+- Barkley unifying theory (Psychological Bulletin, 1997): https://pubmed.ncbi.nlm.nih.gov/9000892/
+- Barkley fact sheet (EF and self-regulation): https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf
+- BDEFS validation: https://pmc.ncbi.nlm.nih.gov/articles/PMC8010583/
+
+- Brown six aspects (CHADD PDF): https://chadd.org/wp-content/uploads/2018/06/ATTN_02_08_Executive_Functions_by_Thomas_Brown.pdf
+- Brown EF model: https://www.brownadhdclinic.com/brown-ef-model-adhd
+- Brown media/videos: https://www.brownadhdclinic.com/media-video-podcasts
+- Brown EF/A webinar handout: https://www.pearsonclinical.ca/content/dam/school/global/clinical/ca/assets/brown-efa/brown-efa-webinar-handouts-18-04-23.pdf
+
+- Smart but Scattered books: https://www.smartbutscatteredkids.com/books/
+- Smart but Scattered Guide to Success (Guilford): https://www.guilford.com/books/The-Smart-but-Scattered-Guide-to-Success/Dawson-Guare/9781462516964
+- ESQ-R self-report tool: https://www.smartbutscatteredkids.com/resources/esq-r-self-report-assessment-tool/
+- EF reproducible forms (public PDF): https://cms2.revize.com/revize/augustaschools/Executive%20Functioning%20Reproducable%20Forms.pdf
+
+- 360 Thinking model white paper: https://sarahwardidanmark.dk/wp-content/uploads/2021/05/WARD-360-grader.pdf
+- Get Ready Do Done: https://www.efpractice.com/getreadydodone
+- Cognitive Connections home: https://www.efpractice.com/
+
+- Course schema guidance: https://developers.google.com/search/docs/appearance/structured-data/course
+- LearningResource schema: https://schema.org/LearningResource
+- FAQPage schema strategy: https://goelastic.com/seo-for-educational-institutions/
+
+- OER Commons: https://www.oercommons.org/
+- Creative Commons OER: https://creativecommons.org/about/education/education-oer-resources/
+
+- NBEFC certification track: https://www.nbefc.org/executive-functioning-coach-certification/
+- EFCA market/certification references: https://www.executivefunctioncoachingacademy.com/post/certification-programs
+
+Implementation Note
+- This source file is authoritative for EFI web citations until superseded.
+- Pages should link here through `further-sources.html` and maintain module-to-source mapping.

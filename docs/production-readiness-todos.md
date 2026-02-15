@@ -72,3 +72,11 @@
 - Replace placeholder directory records with CMS-backed searchable profiles and moderation workflow.
 - Add analytics event instrumentation for funnel steps (landing -> calculator -> signup -> enroll).
 - Add production video hosting pipeline (storage, captions, bandwidth policy, fallback CDN logic).
+
+## Wave 7: Further Sources Integration (This Pass)
+1. ✅ Added canonical root source file: `Further Sources`.
+2. ✅ Rebuilt `further-sources.html` as a citation hub mapped directly to the canonical source corpus.
+3. ✅ Embedded high-priority Barkley segment videos from the cited list.
+4. ✅ Added module-level citation blocks to Theory/Practice/Business landing pages.
+5. ✅ Added source-hub validation script `scripts/check_source_hub.py`.
+6. ✅ Enforced source-hub checks through `scripts/release_gate.py`.

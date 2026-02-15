@@ -35,6 +35,8 @@ The Executive Function Institute provides a rigorous six-module certification cu
 - **community.html** — Community recap/forum digest hub
 - **scope-of-practice.html** — Coaching vs therapy legal/scope guidance
 - **accreditation.html** — NBEFC/ICF alignment status page
+- **further-sources.html** — Canonical citations hub mapped from the root `Further Sources` dossier
+- **Further Sources** — Root-level canonical source corpus used for citation integration
 
 ## Curriculum Modules
 
