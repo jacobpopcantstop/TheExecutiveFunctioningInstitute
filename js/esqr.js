@@ -128,6 +128,30 @@
   var progressText = document.getElementById('progress-text');
   var errorMsg = document.getElementById('esqr-error');
   var resultsSection = document.getElementById('esqr-results');
+  var downloadPngBtn = document.getElementById('esqr-download-png-btn');
+  var downloadPdfBtn = document.getElementById('esqr-download-pdf-btn');
+  var shareBtn = document.getElementById('esqr-share-btn');
+  var shareStatus = document.getElementById('esqr-share-status');
+  var historyEl = document.getElementById('esqr-history');
+  var lastResultsPayload = null;
+  var HISTORY_KEY = 'efi_esqr_history';
+
+  function renderHistory() {
+    if (!historyEl) return;
+    var history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+    if (!history.length) {
+      historyEl.style.display = 'none';
+      return;
+    }
+    var html = '<h4 style="margin-bottom:var(--space-sm);">Recent ESQ-R Snapshots</h4><ul class="checklist">';
+    history.slice(-5).reverse().forEach(function (entry) {
+      html += '<li>' + new Date(entry.generatedAt).toLocaleString() + ' &mdash; Top strengths: ' + entry.strengths.map(function (s) { return s.name; }).join(', ') + '</li>';
+    });
+    html += '</ul>';
+    historyEl.innerHTML = html;
+    historyEl.style.display = 'block';
+  }
 
   if (!form) return;
 
@@ -280,9 +304,153 @@
 
     document.getElementById('thinking-avg').textContent = thinkingAvg.toFixed(1) + ' / 7';
     document.getElementById('doing-avg').textContent = doingAvg.toFixed(1) + ' / 7';
+
+    lastResultsPayload = {
+      generatedAt: new Date().toISOString(),
+      strengths: top3,
+      growthAreas: bottom3,
+      domainAverages: {
+        thinking: Number(thinkingAvg.toFixed(2)),
+        doing: Number(doingAvg.toFixed(2))
+      },
+      allScores: scores
+    };
+
+    localStorage.setItem('efi_esqr_results', JSON.stringify(lastResultsPayload));
+    var history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+    history.push(lastResultsPayload);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-20)));
+    renderHistory();
+  }
+
+  function buildShareText() {
+    if (!lastResultsPayload) return '';
+    var strengths = lastResultsPayload.strengths.map(function (s) { return s.name + ' (' + s.score + '/7)'; }).join(', ');
+    var growth = lastResultsPayload.growthAreas.map(function (s) { return s.name + ' (' + s.score + '/7)'; }).join(', ');
+    return 'My EFI ESQ-R summary\nStrengths: ' + strengths + '\nGrowth areas: ' + growth + '\nThinking avg: ' + lastResultsPayload.domainAverages.thinking + '/7\nDoing avg: ' + lastResultsPayload.domainAverages.doing + '/7';
+  }
+
+  function setShareStatus(message) {
+    if (shareStatus) shareStatus.textContent = message;
+  }
+
+  function renderResultsImageBlob() {
+    if (!resultsSection || resultsSection.hidden) {
+      return Promise.reject(new Error('Generate your profile first, then export.'));
+    }
+    if (!window.html2canvas) {
+      return Promise.reject(new Error('Export engine did not load. Please refresh and try again.'));
+    }
+    return window.html2canvas(resultsSection, {
+      scale: 2,
+      backgroundColor: '#ffffff',
+      useCORS: true,
+      logging: false
+    }).then(function (canvas) {
+      return new Promise(function (resolve) {
+        canvas.toBlob(function (blob) {
+          resolve({ blob: blob, canvas: canvas });
+        }, 'image/png');
+      });
+    });
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  if (downloadPngBtn) {
+    downloadPngBtn.addEventListener('click', function () {
+      renderResultsImageBlob().then(function (result) {
+        if (!result.blob) throw new Error('Unable to render PNG export.');
+        downloadBlob(result.blob, 'efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.png');
+        setShareStatus('PNG downloaded.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to export PNG.');
+      });
+    });
+  }
+
+  if (downloadPdfBtn) {
+    downloadPdfBtn.addEventListener('click', function () {
+      renderResultsImageBlob().then(function (result) {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          throw new Error('PDF engine did not load. Please refresh and try again.');
+        }
+        var jsPDF = window.jspdf.jsPDF;
+        var pageWidth = 210;
+        var pageHeight = 297;
+        var margin = 10;
+        var contentWidth = pageWidth - (margin * 2);
+        var contentHeight = (result.canvas.height * contentWidth) / result.canvas.width;
+        var pdf = new jsPDF('p', 'mm', 'a4');
+        var imageData = result.canvas.toDataURL('image/png');
+        var y = margin;
+        var heightLeft = contentHeight;
+
+        pdf.addImage(imageData, 'PNG', margin, y, contentWidth, contentHeight);
+        heightLeft -= (pageHeight - margin * 2);
+
+        while (heightLeft > 0) {
+          y = heightLeft - contentHeight + margin;
+          pdf.addPage();
+          pdf.addImage(imageData, 'PNG', margin, y, contentWidth, contentHeight);
+          heightLeft -= (pageHeight - margin * 2);
+        }
+
+        pdf.save('efi-esqr-results-' + new Date().toISOString().slice(0, 10) + '.pdf');
+        setShareStatus('PDF downloaded.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to export PDF.');
+      });
+    });
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      var text = buildShareText();
+      if (!text) {
+        setShareStatus('Generate your profile first, then share.');
+        return;
+      }
+
+      renderResultsImageBlob().then(function (result) {
+        if (navigator.canShare && navigator.share && result.blob) {
+          var file = new File([result.blob], 'efi-esqr-results.png', { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            return navigator.share({
+              title: 'My EFI ESQ-R Results',
+              text: text,
+              files: [file]
+            }).then(function () {
+              setShareStatus('Results snapshot shared successfully.');
+              return;
+            });
+          }
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text).then(function () {
+            setShareStatus('Device does not support file sharing here. Summary copied to clipboard instead.');
+          });
+        }
+        throw new Error('Sharing is not supported on this browser.');
+      }).catch(function (err) {
+        setShareStatus(err.message || 'Unable to share results.');
+      });
+    });
   }
 
   /* --- Form Submit --- */
+  renderHistory();
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 

@@ -33,6 +33,25 @@ EFI.Auth = (function () {
     return 'h' + Math.abs(hash).toString(36);
   }
 
+  function getDefaultProgress() {
+    return {
+      modules: {},
+      esqrCompleted: false,
+      submissions: {},
+      capstone: { status: 'not_submitted' }
+    };
+  }
+
+  function normalizeProgress(progress) {
+    var merged = progress || {};
+    if (!merged.modules) merged.modules = {};
+    if (!merged.submissions) merged.submissions = {};
+    if (!merged.capstone) merged.capstone = { status: 'not_submitted' };
+    if (!merged.capstone.status) merged.capstone.status = 'not_submitted';
+    if (typeof merged.esqrCompleted !== 'boolean') merged.esqrCompleted = false;
+    return merged;
+  }
+
   /* --- Auth API --- */
   function register(name, email, password) {
     var users = getUsers();
@@ -46,9 +65,10 @@ EFI.Auth = (function () {
     users[key] = {
       name: name.trim(),
       email: key,
+      role: 'learner',
       passwordHash: hashPassword(password),
       createdAt: new Date().toISOString(),
-      progress: { modules: {}, esqrCompleted: false },
+      progress: getDefaultProgress(),
       purchases: []
     };
     saveUsers(users);
@@ -91,7 +111,28 @@ EFI.Auth = (function () {
     var session = getSession();
     if (!session) return null;
     var users = getUsers();
-    return users[session.email] || null;
+    var user = users[session.email] || null;
+    if (user && !user.role) user.role = 'learner';
+    if (user && user.progress) user.progress = normalizeProgress(user.progress);
+    return user;
+  }
+
+  function getRole() {
+    var user = getCurrentUser();
+    return user ? (user.role || 'learner') : 'guest';
+  }
+
+  function hasRole(roles) {
+    var role = getRole();
+    if (!Array.isArray(roles)) roles = [roles];
+    return roles.indexOf(role) !== -1;
+  }
+
+  function requireRole(roles, redirectPath) {
+    if (!requireAuth()) return false;
+    if (hasRole(roles)) return true;
+    window.location.href = redirectPath || 'dashboard.html';
+    return false;
   }
 
   function updateUser(updates) {
@@ -193,6 +234,106 @@ EFI.Auth = (function () {
     });
   }
 
+  function getCertificationStatus(userArg) {
+    var user = userArg || getCurrentUser();
+    if (!user) {
+      return {
+        modulesCompleted: 0,
+        allModulesCompleted: false,
+        capstonePassed: false,
+        certificatePurchased: false,
+        framedCertificatePurchased: false,
+        eligibleForCertificate: false,
+        fullyCertified: false
+      };
+    }
+
+    user.progress = normalizeProgress(user.progress);
+    var moduleIds = ['1', '2', '3', '4', '5', '6'];
+    var modulesCompleted = moduleIds.filter(function (id) { return !!user.progress.modules[id]; }).length;
+    var allModulesCompleted = modulesCompleted === moduleIds.length;
+    var capstonePassed = user.progress.capstone.status === 'passed';
+    var certificatePurchased = (user.purchases || []).some(function (p) {
+      return p.items.some(function (i) { return i.id === 'certificate'; });
+    });
+    var framedCertificatePurchased = (user.purchases || []).some(function (p) {
+      return p.items.some(function (i) { return i.id === 'certificate-frame'; });
+    });
+    var eligibleForCertificate = allModulesCompleted && capstonePassed;
+
+    return {
+      modulesCompleted: modulesCompleted,
+      allModulesCompleted: allModulesCompleted,
+      capstonePassed: capstonePassed,
+      certificatePurchased: certificatePurchased,
+      framedCertificatePurchased: framedCertificatePurchased,
+      eligibleForCertificate: eligibleForCertificate,
+      fullyCertified: eligibleForCertificate && certificatePurchased
+    };
+  }
+
+  function submitCapstone(evidenceUrl, notes) {
+    var user = getCurrentUser();
+    if (!user) return { ok: false, error: 'Please log in first.' };
+    user.progress = normalizeProgress(user.progress);
+    user.progress.capstone = {
+      status: 'submitted',
+      submittedAt: new Date().toISOString(),
+      evidenceUrl: (evidenceUrl || '').trim(),
+      notes: (notes || '').trim()
+    };
+    updateUser({ progress: user.progress });
+    return { ok: true, capstone: user.progress.capstone };
+  }
+
+  function runAutoGrading() {
+    var user = getCurrentUser();
+    if (!user) return { ok: false, error: 'Please log in first.' };
+    user.progress = normalizeProgress(user.progress);
+
+    Object.keys(user.progress.submissions).forEach(function (moduleId) {
+      var submission = user.progress.submissions[moduleId];
+      if (!submission || submission.status === 'passed') return;
+      var evidence = (submission.evidenceUrl || '') + ' ' + (submission.notes || '');
+      var score = Math.max(70, Math.min(98, 70 + evidence.length % 29));
+      submission.score = score;
+      submission.status = score >= 75 ? 'passed' : 'needs-revision';
+      submission.gradedAt = new Date().toISOString();
+      user.progress.modules[moduleId] = submission.status === 'passed';
+    });
+
+    if (user.progress.capstone && user.progress.capstone.status === 'submitted') {
+      var hasCapstoneReview = (user.purchases || []).some(function (p) {
+        return p.items.some(function (i) { return i.id === 'capstone-review'; });
+      });
+      if (hasCapstoneReview) {
+        user.progress.capstone.status = 'passed';
+        user.progress.capstone.gradedAt = new Date().toISOString();
+        user.progress.capstone.score = 92;
+      } else {
+        user.progress.capstone.status = 'awaiting-payment';
+      }
+    }
+
+    updateUser({ progress: user.progress });
+    return { ok: true, progress: user.progress, status: getCertificationStatus(user) };
+  }
+
+  function saveModuleSubmission(moduleId, evidenceUrl, notes) {
+    var user = getCurrentUser();
+    if (!user) return { ok: false, error: 'Please log in first.' };
+    user.progress = normalizeProgress(user.progress);
+    var key = String(moduleId);
+    user.progress.submissions[key] = {
+      status: 'submitted',
+      submittedAt: new Date().toISOString(),
+      evidenceUrl: (evidenceUrl || '').trim(),
+      notes: (notes || '').trim()
+    };
+    updateUser({ progress: user.progress });
+    return { ok: true, submission: user.progress.submissions[key] };
+  }
+
   /* --- Nav Auth UI --- */
   function initNavAuth() {
     var session = getSession();
@@ -207,6 +348,10 @@ EFI.Auth = (function () {
       }
       updateCartBadge();
     });
+
+    if (window.EFI && typeof window.EFI.highlightActiveNavLinks === 'function') {
+      window.EFI.highlightActiveNavLinks();
+    }
   }
 
   /* Init on page load */
@@ -231,7 +376,14 @@ EFI.Auth = (function () {
     getCartTotal: getCartTotal,
     getPurchases: getPurchases,
     addPurchase: addPurchase,
-    hasPurchased: hasPurchased
+    hasPurchased: hasPurchased,
+    getCertificationStatus: getCertificationStatus,
+    submitCapstone: submitCapstone,
+    runAutoGrading: runAutoGrading,
+    saveModuleSubmission: saveModuleSubmission
+    ,getRole: getRole
+    ,hasRole: hasRole
+    ,requireRole: requireRole
   };
 })();
 
