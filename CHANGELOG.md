@@ -19,6 +19,8 @@
 - Server-backed lead capture and signed PDF gate flows on `educator-launchpad.html`, `gap-analyzer.html`, and `launch-plan.html`.
 - PDF integrity validation script `scripts/check_pdfs.py`.
 - UX audit script `scripts/check_ux_audit.py` and utility-page UX fixes (skip links, labels, form semantics).
+- Commerce upgrade pass: updated professional pricing, persistent 40% sale UI, and stronger store access across pages.
+- Uptime probe workflow for production routes (`.github/workflows/uptime-check.yml`).
 
 ### Changed
 - Authentication password handling upgraded to PBKDF2 (`crypto.subtle`) with migration from legacy hashes.
@@ -30,3 +32,4 @@
 - Added PDF integrity checks into the consolidated release gate.
 - Updated deployment environment template and baseline docs for webhook/signing configuration.
 - Added roadmap and checklist updates for API validation and UX audit quality gates.
+- Fixed dark-mode token issue causing black-on-black text in specific contexts.

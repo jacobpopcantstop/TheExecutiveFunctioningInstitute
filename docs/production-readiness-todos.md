@@ -97,10 +97,18 @@
 - Rotate and set production signing secret (`EFI_DOWNLOAD_SIGNING_SECRET`) before launch.
 - Add server-side persistence/storage for lead and analytics records (current delivery is webhook-first).
 - Implement CMS-backed directory management and moderation.
-- Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
+- 🔄 Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
 
 ## Wave 9: UX and Asset Reliability Audit (This Pass)
 1. ✅ Added sitewide UX audit script (`scripts/check_ux_audit.py`) and resolved flagged structural issues.
 2. ✅ Achieved 100% structural UX baseline score in automated audit.
 3. ✅ Added explicit labels/skip links on previously under-specified utility pages and verification flow.
 4. ✅ Added PDF validity checks to release quality gates and validated all linked local PDFs.
+
+## Wave 10: Commerce UX and Conversion Improvements (This Pass)
+1. ✅ Updated store pricing to professional strategy and standardized sale pricing display.
+2. ✅ Added persistent 40% off sale banner and floating store CTA sitewide.
+3. ✅ Added automatic Store link injection to navigation where missing.
+4. ✅ Enhanced cart/checkout display with struck MSRP + explicit savings visibility.
+5. ✅ Improved store copy for confident, aspirational tone without aggressive sales language.
+6. ✅ Added uptime probe workflow (`.github/workflows/uptime-check.yml`) for key production routes.

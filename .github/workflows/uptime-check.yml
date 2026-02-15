@@ -1,0 +1,25 @@
+name: uptime-check
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe key EFI routes
+        env:
+          BASE_URL: https://executivefunctioninginstitute.com
+        run: |
+          set -euo pipefail
+          paths=("/" "/esqr.html" "/dashboard.html" "/verify.html" "/health.html")
+          for p in "${paths[@]}"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$BASE_URL$p")
+            echo "$p -> $code"
+            if [ "$code" -lt 200 ] || [ "$code" -ge 400 ]; then
+              echo "Probe failed for $p"
+              exit 1
+            fi
+          done

@@ -138,6 +138,49 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })();
 
+  (function ensureStoreVisibility() {
+    document.querySelectorAll('.nav__links').forEach(function (links) {
+      if (links.querySelector('a[href="store.html"]')) return;
+      var store = document.createElement('a');
+      store.href = 'store.html';
+      store.className = 'nav__link';
+      store.textContent = 'Store';
+      store.setAttribute('data-analytics-event', 'nav_store_click');
+
+      var authNode = links.querySelector('.nav__auth');
+      var ctaNode = links.querySelector('.nav__link--cta');
+      if (authNode) {
+        links.insertBefore(store, authNode);
+      } else if (ctaNode) {
+        links.insertBefore(store, ctaNode);
+      } else {
+        links.appendChild(store);
+      }
+    });
+  })();
+
+  (function injectSaleBanner() {
+    if (document.querySelector('.sale-banner')) return;
+    var banner = document.createElement('div');
+    banner.className = 'sale-banner';
+    banner.innerHTML =
+      '<span class="sale-banner__tag">40% OFF</span>' +
+      '<span class="sale-banner__text">Professional services sale is live.</span>' +
+      '<a href="store.html" class="btn btn--sm" data-analytics-event="sale_banner_store_click">Shop Offer</a>';
+    document.body.appendChild(banner);
+  })();
+
+  (function injectFloatingStoreCTA() {
+    if (window.location.pathname.split('/').pop() === 'store.html') return;
+    if (document.querySelector('.floating-store-cta')) return;
+    var cta = document.createElement('a');
+    cta.href = 'store.html';
+    cta.className = 'floating-store-cta';
+    cta.textContent = 'Open Store';
+    cta.setAttribute('data-analytics-event', 'floating_store_click');
+    document.body.appendChild(cta);
+  })();
+
   (function injectRoadmapHubLinks() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (['index.html', 'curriculum.html', 'resources.html'].indexOf(currentPage) === -1) return;
