@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: EFI Certification and Funnel API (Draft)
-  version: 0.4.0
+  version: 0.5.0
 servers:
   - url: https://executivefunctioninginstitute.com/api
 paths:
@@ -21,6 +21,9 @@ paths:
                 consent: { type: boolean }
                 lead_type: { type: string }
                 source: { type: string }
+                offer_code: { type: string }
+                discount_percent: { type: number }
+                metadata: { type: object }
       responses:
         '200':
           description: Lead accepted
@@ -215,6 +218,7 @@ paths:
                 module_id: { type: string }
                 evidence_url: { type: string }
                 notes: { type: string }
+                secret: { type: string, description: "Required when action=process_due_feedback and EFI_SUBMISSIONS_CRON_SECRET is configured" }
       responses:
         '200':
           description: Submission accepted or release processing completed

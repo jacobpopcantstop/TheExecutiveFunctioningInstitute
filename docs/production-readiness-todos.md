@@ -140,3 +140,13 @@
 9. ✅ Converted dashboard submission messaging to asynchronous delayed-release behavior.
 10. ✅ Added six unit tests (`tests/ai-rubric.test.mjs`) and enforced them in release gate.
 11. ✅ Removed synchronous/video lecture marketing claims from key certification and curriculum-facing pages.
+
+## Wave 13: Persistence + Async Processing Hardening (This Pass)
+1. ✅ Added durable lead storage path in backend (`efi_leads` via Supabase with memory fallback).
+2. ✅ Added durable analytics event storage path in backend (`efi_events` via Supabase with memory fallback).
+3. ✅ Updated `/api/leads` and `/api/track-event` to persist first, then fanout to CRM/ESP hooks.
+4. ✅ Added scheduled function `process-due-feedback` for 24-hour feedback release processing.
+5. ✅ Added secret-gated protection for manual due-feedback processor invocation (`EFI_SUBMISSIONS_CRON_SECRET`).
+6. ✅ Removed client-side auto-trigger of grading processor to enforce server-side release control.
+7. ✅ Updated legal terms language to production-ready contract framing (removed prototype disclaimer).
+8. ✅ Added explicit video accessibility note/caption guidance on Further Sources embed hub.

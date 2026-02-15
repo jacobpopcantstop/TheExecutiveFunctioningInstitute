@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { json, parseBody, fanout } = require('./_common');
+const db = require('./_db');
 
 exports.handler = async function (event) {
   if (event.httpMethod !== 'POST') return json(405, { ok: false, error: 'Method not allowed' });
@@ -22,6 +23,7 @@ exports.handler = async function (event) {
     }
   };
 
+  const storage = await db.saveEvent(evt);
   const delivery = await fanout({ type: 'analytics_event', event: evt });
-  return json(200, { ok: true, event_id: evt.event_id, delivery });
+  return json(200, { ok: true, event_id: evt.event_id, storage: storage.storage, delivery });
 };

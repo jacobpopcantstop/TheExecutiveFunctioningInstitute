@@ -2,6 +2,12 @@ const { json, parseBody, fanout } = require('./_common');
 const db = require('./_db');
 const ai = require('./_ai_rubric');
 
+function cronSecretMatches(input) {
+  const expected = String(process.env.EFI_SUBMISSIONS_CRON_SECRET || '').trim();
+  if (!expected) return true;
+  return String(input || '').trim() === expected;
+}
+
 function releaseAt24h() {
   return new Date(Date.now() + (24 * 60 * 60 * 1000)).toISOString();
 }
@@ -134,6 +140,9 @@ exports.handler = async function (event) {
       });
     }
     if (action === 'process_due_feedback') {
+      if (!cronSecretMatches(body.secret || (event.headers['x-efi-cron-secret'] || event.headers['X-EFI-Cron-Secret']))) {
+        return json(401, { ok: false, error: 'Unauthorized feedback processor invocation' });
+      }
       return processDueFeedback();
     }
     return json(400, { ok: false, error: 'Unsupported action' });

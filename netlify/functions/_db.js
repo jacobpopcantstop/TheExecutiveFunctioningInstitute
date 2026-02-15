@@ -5,7 +5,9 @@ const MEM = {
   progress: new Map(),
   purchases: new Map(),
   payments: new Map(),
-  submissions: new Map()
+  submissions: new Map(),
+  leads: new Map(),
+  events: new Map()
 };
 
 function nowIso() {
@@ -278,6 +280,65 @@ async function getDueFeedback(now) {
   return { storage: 'memory', submissions: due };
 }
 
+async function saveLead(lead) {
+  const id = String(lead.lead_id || '').trim();
+  if (!id) return { ok: false, storage: 'memory' };
+  MEM.leads.set(id, lead);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest('efi_leads', {
+        method: 'POST',
+        body: [{
+          lead_id: id,
+          captured_at: lead.captured_at || nowIso(),
+          email: lead.email || null,
+          name: lead.name || null,
+          source: lead.source || null,
+          lead_type: lead.lead_type || null,
+          consent: lead.consent || {},
+          campaign: lead.campaign || null,
+          metadata: lead.metadata || {},
+          context: lead.context || {}
+        }]
+      });
+      return { ok: true, storage: 'supabase' };
+    } catch (err) {
+      return { ok: true, storage: 'memory' };
+    }
+  }
+
+  return { ok: true, storage: 'memory' };
+}
+
+async function saveEvent(evt) {
+  const id = String(evt.event_id || '').trim();
+  if (!id) return { ok: false, storage: 'memory' };
+  MEM.events.set(id, evt);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest('efi_events', {
+        method: 'POST',
+        body: [{
+          event_id: id,
+          at: evt.at || nowIso(),
+          event_name: evt.event_name || '',
+          page: evt.page || null,
+          source: evt.source || null,
+          properties: evt.properties || {},
+          context: evt.context || {}
+        }]
+      });
+      return { ok: true, storage: 'supabase' };
+    } catch (err) {
+      return { ok: true, storage: 'memory' };
+    }
+  }
+
+  return { ok: true, storage: 'memory' };
+}
+
 module.exports = {
   hasSupabase,
   upsertProgress,
@@ -289,5 +350,7 @@ module.exports = {
   createSubmission,
   updateSubmission,
   listSubmissions,
-  getDueFeedback
+  getDueFeedback,
+  saveLead,
+  saveEvent
 };
