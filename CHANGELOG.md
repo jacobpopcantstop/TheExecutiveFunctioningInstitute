@@ -7,8 +7,10 @@
 - Static accessibility checker and CI workflow.
 - Netlify deployment headers/CSP baseline.
 - Release checklist and API contract starter docs.
+- Consolidated deployment gate script (`scripts/release_gate.py`) and CI workflow (`.github/workflows/release-gate.yml`).
 
 ### Changed
 - Authentication password handling upgraded to PBKDF2 (`crypto.subtle`) with migration from legacy hashes.
 - Login/register handlers updated to async auth calls.
 - Expanded canonical URL coverage and sitemap route coverage.
+- Canonical tags and sitemap URLs normalized to `https://executivefunctioninginstitute.com`.

@@ -45,3 +45,9 @@
 - Implement server-backed auth/session APIs and payment webhook ingestion.
 - Move certificate verification to signed server records.
 - Add reviewer grading queue persistence and audit logs.
+
+## Wave 5: Deployment Gate Hardening (Executed)
+1. ✅ Normalized canonical domain references to `executivefunctioninginstitute.com` across all public routes.
+2. ✅ Normalized sitemap to absolute production URLs for consistent SEO indexing.
+3. ✅ Added single-command release gate (`python3 scripts/release_gate.py`) that runs syntax, local link, accessibility, canonical, sitemap, and Netlify header checks.
+4. ✅ Added CI workflow (`.github/workflows/release-gate.yml`) to enforce deployment gates on push/PR.
