@@ -12,10 +12,12 @@
   <main id="main-content" class="section">
     <div class="container container--narrow">
       <h1>Verify Certificate</h1>
-      <p>Enter a credential ID (for example: <code>EFI-CEFC-XXXXXXX</code>) to validate in this prototype environment.</p>
+      <p>Enter a credential ID (for example: <code>EFI-CEFC-XXXXXXX</code>) to validate against signed purchase records.</p>
       <form id="verify-form">
         <label for="verify-id">Credential ID</label>
         <input id="verify-id" class="form-control" type="text" required placeholder="EFI-CEFC-..." style="margin-bottom:var(--space-md);">
+        <label for="verify-receipt">Signed Receipt Token</label>
+        <input id="verify-receipt" class="form-control" type="text" required placeholder="Paste signed receipt token" style="margin-bottom:var(--space-md);">
         <button class="btn btn--primary" type="submit">Verify</button>
       </form>
       <div id="verify-result" class="card" style="margin-top:var(--space-lg);display:none;"></div>
@@ -24,30 +26,33 @@
   </main>
   <script>
   (function(){
-    function makeId(email){
-      var h=0; for(var i=0;i<email.length;i++){ h=((h<<5)-h)+email.charCodeAt(i); h|=0; }
-      return 'EFI-CEFC-'+Math.abs(h).toString(36).toUpperCase().substring(0,8);
-    }
     document.getElementById('verify-form').addEventListener('submit', function(e){
       e.preventDefault();
       var id = document.getElementById('verify-id').value.trim().toUpperCase();
-      var users = {}; try { users = JSON.parse(localStorage.getItem('efi_users')) || {}; } catch (err) {}
-      var match = null;
-      Object.keys(users).forEach(function(k){
-        var u = users[k];
-        var hasCert = (u.purchases||[]).some(function(p){ return (p.items||[]).some(function(i){ return i.id === 'certificate'; }); });
-        if (hasCert && makeId(u.email) === id) match = u;
-      });
+      var receipt = document.getElementById('verify-receipt').value.trim() || new URLSearchParams(window.location.search).get('receipt') || '';
       var out = document.getElementById('verify-result');
       out.style.display = 'block';
-      if (!match) {
-        out.innerHTML = '<h3>Not Found</h3><p>No certificate match found in this environment.</p>';
+      if (!receipt) {
+        out.innerHTML = '<h3>Verification Requires Receipt</h3><p>This verification flow requires a signed receipt token from certificate issuance.</p>';
         return;
       }
-      out.innerHTML = '<h3>Verified</h3><p><strong>Name:</strong> ' + match.name + '</p><p><strong>Email:</strong> ' + match.email + '</p><p><strong>Status:</strong> Certificate located in prototype records.</p>';
+
+      fetch('/api/verify?receipt=' + encodeURIComponent(receipt) + '&product=certificate&credential_id=' + encodeURIComponent(id))
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.ok || !data.verified) {
+            out.innerHTML = '<h3>Not Verified</h3><p>No signed certificate match found for this credential ID.</p>';
+            return;
+          }
+          out.innerHTML = '<h3>Verified</h3><p><strong>Credential ID:</strong> ' + data.receipt.credential_id + '</p><p><strong>Issued:</strong> ' + new Date(data.receipt.issued_at).toLocaleDateString() + '</p><p><strong>Status:</strong> Verified via server-signed purchase record.</p>';
+        }).catch(function () {
+          out.innerHTML = '<h3>Verification Error</h3><p>Could not contact the verification service.</p>';
+        });
     });
     var preset = new URLSearchParams(window.location.search).get('id');
     if (preset) document.getElementById('verify-id').value = preset;
+    var presetReceipt = new URLSearchParams(window.location.search).get('receipt');
+    if (presetReceipt) document.getElementById('verify-receipt').value = presetReceipt;
   })();
   </script>
   <script src="js/main.js"></script>

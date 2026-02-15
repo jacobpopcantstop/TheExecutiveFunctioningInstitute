@@ -13,6 +13,7 @@ The Executive Function Institute provides a rigorous six-module certification cu
 - **curriculum.html** — Complete six-module curriculum overview with units, topics, and assignments
 - **certification.html** — Certification requirements, capstone practicum, peer review, and ethics
 - **resources.html** — Open-source reading packets, assessment tools, downloadable forms, and video resources
+- **getting-started.html** — Guided onboarding for parents, educators, and professionals
 - **enroll.html** — Enrollment interest form and program information
 - **module-1.html** — Module 1: Neuropsychology of Self-Regulation
 - **module-2.html** — Module 2: Assessment Protocols & Intake Strategy
@@ -65,6 +66,7 @@ Open `index.html` in any web browser. No build tools or dependencies required �
 - `python3 scripts/check_pdfs.py` — validates local linked PDFs are real PDF files.
 - `python3 scripts/check_source_hub.py` — validates Further Sources integration.
 - `python3 scripts/check_ux_audit.py` — structural UX audit baseline.
+- `python3 scripts/check_console_logs.py` — blocks `console.log` and `debugger` in production JS.
 - `python3 scripts/release_gate.py` — consolidated deployment gate.
 
 ## License

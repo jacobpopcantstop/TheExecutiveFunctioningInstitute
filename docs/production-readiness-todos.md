@@ -112,3 +112,18 @@
 4. ✅ Enhanced cart/checkout display with struck MSRP + explicit savings visibility.
 5. ✅ Improved store copy for confident, aspirational tone without aggressive sales language.
 6. ✅ Added uptime probe workflow (`.github/workflows/uptime-check.yml`) for key production routes.
+
+## Wave 11: Launch Blocker Mitigation + Guided UX (This Pass)
+1. ✅ Replaced non-dismissible sale bar behavior with dismissible state persisted in browser storage.
+2. ✅ Added server-signed purchase verification contract (`/api/verify`) and wired checkout issuance flow.
+3. ✅ Added verification endpoint for signed credential checks and connected certificate/verify pages.
+4. ✅ Added server progress sync API scaffold (`/api/sync-progress`) and auth sync hooks.
+5. ✅ Added Stripe webhook ingestion scaffold (`/api/stripe-webhook`) with signature verification support.
+6. ✅ Upgraded client telemetry to server transport (`/api/track-event`) while retaining local debug buffer.
+7. ✅ Refactored ESQ-R to config-driven architecture (`data/esqr-config.json`) for SME-editable content.
+8. ✅ Added lazy-loading for `html2canvas` and `jspdf` in ESQ-R export actions.
+9. ✅ Added consented ESQ-R lead capture flow to `/api/leads` for email follow-up and offers.
+10. ✅ Added `getting-started.html` guided onboarding path for parents, educators, and professionals.
+11. ✅ Added 404 broken-link reporting action wired to analytics event stream.
+12. ✅ Updated privacy policy from prototype language to production-aligned collection/processing disclosure.
+13. ✅ Added release gate check to block `console.log`/`debugger` in production JS.

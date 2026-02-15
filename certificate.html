@@ -192,7 +192,7 @@
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
   <script>
-  (function() {
+  (async function() {
     var gate = document.getElementById('cert-gate');
     var certSection = document.getElementById('cert-section');
     var gateMsg = document.getElementById('gate-message');
@@ -207,7 +207,6 @@
     }
 
     var certStatus = EFI.Auth.getCertificationStatus();
-
     var hasCertificatePurchase = certStatus.certificatePurchased;
 
     if (!certStatus.eligibleForCertificate && !hasCertificatePurchase) {
@@ -253,17 +252,29 @@
     document.getElementById('cert-date').textContent = issueDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
     if (!certStatus.framedCertificatePurchased) {
-      document.getElementById('cert-id').insertAdjacentHTML('afterend', '<p style="font-size:0.85rem;color:var(--color-text-muted);margin-top:var(--space-sm);">Digital certificate issued. Want print + frame shipping? <a href="store.html">Purchase framed fulfillment</a>.</p>');
+      document.getElementById('cert-id').insertAdjacentHTML('afterend', '<p style=\"font-size:0.85rem;color:var(--color-text-muted);margin-top:var(--space-sm);\">Digital certificate issued. Want print + frame shipping? <a href=\"store.html\">Purchase framed fulfillment</a>.</p>');
     }
 
-    // Generate credential ID from email hash
     var hash = 0;
     for (var i = 0; i < user.email.length; i++) {
       hash = ((hash << 5) - hash) + user.email.charCodeAt(i);
       hash |= 0;
     }
-    document.getElementById('cert-id').textContent = 'EFI-CEFC-' + Math.abs(hash).toString(36).toUpperCase().substring(0, 8);
-    document.getElementById('cert-verify-link').href = 'verify.html?id=' + encodeURIComponent(document.getElementById('cert-id').textContent);
+    var fallbackId = 'EFI-CEFC-' + Math.abs(hash).toString(36).toUpperCase().substring(0, 8);
+    var signedCheck = await EFI.Auth.verifyPurchasedProduct('certificate', fallbackId);
+    if (!signedCheck || !signedCheck.verified) {
+      gate.style.display = 'block';
+      certSection.style.display = 'none';
+      gateMsg.textContent = 'Certificate purchase could not be validated by server verification.';
+      gateActions.style.display = 'flex';
+      gateActions.style.justifyContent = 'center';
+      gateActions.style.gap = 'var(--space-md)';
+      return;
+    }
+    var credentialId = (signedCheck.receipt && signedCheck.receipt.credential_id) || fallbackId;
+    var receipt = EFI.Auth.getLatestReceiptFor('certificate');
+    document.getElementById('cert-id').textContent = credentialId;
+    document.getElementById('cert-verify-link').href = 'verify.html?id=' + encodeURIComponent(credentialId) + (receipt ? '&receipt=' + encodeURIComponent(receipt) : '');
 
     // Print button
     document.getElementById('print-cert').addEventListener('click', function() {

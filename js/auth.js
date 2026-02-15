@@ -13,6 +13,18 @@ EFI.Auth = (function () {
   var CART_KEY = 'efi_cart';
   var PURCHASES_KEY = 'efi_purchases';
 
+  function apiFetch(path, opts) {
+    if (!window.fetch) return Promise.reject(new Error('Browser does not support fetch.'));
+    return fetch(path, opts || {}).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok || data.ok === false) {
+          throw new Error(data.error || 'Request failed');
+        }
+        return data;
+      });
+    });
+  }
+
   /* --- Helpers --- */
   function getUsers() {
     try { return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; } catch (e) { return {}; }
@@ -120,6 +132,11 @@ EFI.Auth = (function () {
     };
     saveUsers(users);
     setSession(users[key]);
+    apiFetch('/api/sync-progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: key, progress: users[key].progress })
+    }).catch(function () {});
     return { ok: true, user: users[key] };
   }
 
@@ -149,6 +166,14 @@ EFI.Auth = (function () {
     if (!isValid) {
       return { ok: false, error: 'Incorrect password. Please try again.' };
     }
+    apiFetch('/api/sync-progress?email=' + encodeURIComponent(key))
+      .then(function (remote) {
+        if (remote && remote.ok && remote.progress) {
+          user.progress = normalizeProgress(remote.progress);
+          users[key] = user;
+          saveUsers(users);
+        }
+      }).catch(function () {});
     setSession(user);
     return { ok: true, user: user };
   }
@@ -248,6 +273,13 @@ EFI.Auth = (function () {
     }
     users[session.email] = user;
     saveUsers(users);
+    if (updates && updates.progress) {
+      apiFetch('/api/sync-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email, progress: updates.progress })
+      }).catch(function () {});
+    }
     return true;
   }
 
@@ -313,18 +345,31 @@ EFI.Auth = (function () {
 
   function addPurchase(items) {
     var user = getCurrentUser();
-    if (!user) return false;
-    var purchase = {
-      id: 'ord-' + Date.now().toString(36),
-      date: new Date().toISOString(),
-      items: items,
-      total: items.reduce(function (s, i) { return s + i.price; }, 0)
-    };
-    var purchases = user.purchases || [];
-    purchases.push(purchase);
-    updateUser({ purchases: purchases });
-    clearCart();
-    return purchase;
+    if (!user) return Promise.reject(new Error('Please log in first.'));
+
+    return apiFetch('/api/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'issue_purchase',
+        email: user.email,
+        items: items
+      })
+    }).then(function (res) {
+      var purchase = res.purchase || {
+        id: 'ord-' + Date.now().toString(36),
+        date: new Date().toISOString(),
+        items: items,
+        total: items.reduce(function (s, i) { return s + i.price; }, 0)
+      };
+      purchase.receipt = res.receipt || null;
+      purchase.credentialId = res.credential_id || null;
+      var purchases = user.purchases || [];
+      purchases.push(purchase);
+      updateUser({ purchases: purchases });
+      clearCart();
+      return purchase;
+    });
   }
 
   function hasPurchased(productId) {
@@ -332,6 +377,25 @@ EFI.Auth = (function () {
     return purchases.some(function (p) {
       return p.items.some(function (item) { return item.id === productId; });
     });
+  }
+
+  function getLatestReceiptFor(productId) {
+    var purchases = getPurchases();
+    var token = null;
+    purchases.forEach(function (p) {
+      var match = (p.items || []).some(function (item) { return item.id === productId; });
+      if (match && p.receipt) token = p.receipt;
+    });
+    return token;
+  }
+
+  function verifyPurchasedProduct(productId, credentialId) {
+    var receipt = getLatestReceiptFor(productId);
+    if (!receipt) return Promise.resolve({ ok: false, verified: false, error: 'No signed purchase receipt found.' });
+    var qs = '?receipt=' + encodeURIComponent(receipt) + '&product=' + encodeURIComponent(productId);
+    if (credentialId) qs += '&credential_id=' + encodeURIComponent(credentialId);
+    return apiFetch('/api/verify' + qs, { method: 'GET' })
+      .catch(function (err) { return { ok: false, verified: false, error: err.message }; });
   }
 
   function getCertificationStatus(userArg) {
@@ -482,6 +546,8 @@ EFI.Auth = (function () {
     getPurchases: getPurchases,
     addPurchase: addPurchase,
     hasPurchased: hasPurchased,
+    getLatestReceiptFor: getLatestReceiptFor,
+    verifyPurchasedProduct: verifyPurchasedProduct,
     getCertificationStatus: getCertificationStatus,
     submitCapstone: submitCapstone,
     runAutoGrading: runAutoGrading,

@@ -2428,8 +2428,19 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 .journey-links {
   margin-top: var(--space-lg);
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   flex-wrap: wrap;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.button-group--center {
+  justify-content: center;
 }
 
 .sale-banner {
@@ -2440,7 +2451,7 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   z-index: 1200;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
   background: linear-gradient(90deg, #b91c1c, #dc2626);
   color: #fff;
   border-radius: 999px;
@@ -2477,6 +2488,27 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   border-color: #ffe4e6;
 }
 
+.sale-banner__close {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.14);
+  color: #fff;
+  border-radius: 999px;
+  width: 1.7rem;
+  height: 1.7rem;
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sale-banner__close:hover {
+  background: rgba(0, 0, 0, 0.24);
+}
+
 .floating-store-cta {
   position: fixed;
   right: 14px;
@@ -2495,6 +2527,10 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 .floating-store-cta:hover {
   color: #fff;
   transform: translateY(-1px);
+}
+
+body.has-sale-banner .floating-store-cta {
+  bottom: 86px;
 }
 
 .store-sale-chip {
@@ -2591,6 +2627,11 @@ body.has-topic-clusters.has-topic-clusters-plain main {
     right: 10px;
     transform: none;
     justify-content: center;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .button-group {
+    gap: var(--space-sm);
   }
 }
 
@@ -2747,6 +2788,10 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 
 [data-theme="dark"] .sale-banner {
   background: linear-gradient(90deg, #991b1b, #be123c);
+}
+
+[data-theme="dark"] .sale-banner__close {
+  background: rgba(255, 255, 255, 0.14);
 }
 
 [data-theme="dark"] .section--dark {
