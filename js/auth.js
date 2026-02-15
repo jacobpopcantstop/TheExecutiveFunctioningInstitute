@@ -22,8 +22,8 @@ EFI.Auth = (function () {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
-  function hashPassword(pw) {
-    // Simple hash for demo — NOT cryptographically secure
+  function hashPasswordLegacy(pw) {
+    // Legacy hash retained for migration of older local demo users.
     var hash = 0;
     for (var i = 0; i < pw.length; i++) {
       var ch = pw.charCodeAt(i);
@@ -31,6 +31,50 @@ EFI.Auth = (function () {
       hash |= 0;
     }
     return 'h' + Math.abs(hash).toString(36);
+  }
+
+  function bytesToBase64(bytes) {
+    var binary = '';
+    bytes.forEach(function (b) { binary += String.fromCharCode(b); });
+    return btoa(binary);
+  }
+
+  function base64ToBytes(base64) {
+    var binary = atob(base64);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
+
+  async function hashPassword(pw, saltBase64) {
+    if (!window.crypto || !window.crypto.subtle) {
+      return { algo: 'legacy', digest: hashPasswordLegacy(pw) };
+    }
+
+    var saltBytes = saltBase64 ? base64ToBytes(saltBase64) : window.crypto.getRandomValues(new Uint8Array(16));
+    var keyMaterial = await window.crypto.subtle.importKey(
+      'raw',
+      new TextEncoder().encode(pw),
+      { name: 'PBKDF2' },
+      false,
+      ['deriveBits']
+    );
+    var derivedBits = await window.crypto.subtle.deriveBits(
+      {
+        name: 'PBKDF2',
+        salt: saltBytes,
+        iterations: 120000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      256
+    );
+
+    return {
+      algo: 'pbkdf2-sha256',
+      salt: bytesToBase64(saltBytes),
+      digest: bytesToBase64(new Uint8Array(derivedBits))
+    };
   }
 
   function getDefaultProgress() {
@@ -53,7 +97,7 @@ EFI.Auth = (function () {
   }
 
   /* --- Auth API --- */
-  function register(name, email, password) {
+  async function register(name, email, password) {
     var users = getUsers();
     var key = email.toLowerCase().trim();
     if (users[key]) {
@@ -62,11 +106,14 @@ EFI.Auth = (function () {
     if (password.length < 6) {
       return { ok: false, error: 'Password must be at least 6 characters.' };
     }
+    var hashed = await hashPassword(password);
     users[key] = {
       name: name.trim(),
       email: key,
       role: 'learner',
-      passwordHash: hashPassword(password),
+      passwordHash: hashed.digest,
+      passwordSalt: hashed.salt || null,
+      passwordAlgo: hashed.algo,
       createdAt: new Date().toISOString(),
       progress: getDefaultProgress(),
       purchases: []
@@ -76,14 +123,30 @@ EFI.Auth = (function () {
     return { ok: true, user: users[key] };
   }
 
-  function login(email, password) {
+  async function login(email, password) {
     var users = getUsers();
     var key = email.toLowerCase().trim();
     var user = users[key];
     if (!user) {
       return { ok: false, error: 'No account found with this email address.' };
     }
-    if (user.passwordHash !== hashPassword(password)) {
+    var isValid = false;
+    if ((user.passwordAlgo || 'legacy') === 'pbkdf2-sha256') {
+      var hashed = await hashPassword(password, user.passwordSalt);
+      isValid = hashed.digest === user.passwordHash;
+    } else {
+      isValid = hashPasswordLegacy(password) === user.passwordHash;
+      if (isValid) {
+        var migrated = await hashPassword(password);
+        user.passwordHash = migrated.digest;
+        user.passwordSalt = migrated.salt || null;
+        user.passwordAlgo = migrated.algo;
+        users[key] = user;
+        saveUsers(users);
+      }
+    }
+
+    if (!isValid) {
       return { ok: false, error: 'Incorrect password. Please try again.' };
     }
     setSession(user);
@@ -377,7 +440,12 @@ EFI.Auth = (function () {
     var authLinks = document.querySelectorAll('.nav__auth');
     authLinks.forEach(function (el) {
       if (session) {
+        var user = getCurrentUser();
+        var opsLink = (user && (user.role === 'admin' || user.role === 'reviewer'))
+          ? '<a href="admin.html" class="nav__link">Admin</a>'
+          : '';
         el.innerHTML = '<a href="dashboard.html" class="nav__link">Dashboard</a>' +
+          opsLink +
           '<a href="store.html" class="nav__link" style="position:relative;">Store <span class="cart-badge">0</span></a>';
       } else {
         el.innerHTML = '<a href="login.html" class="nav__link">Login</a>' +

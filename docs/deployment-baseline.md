@@ -19,3 +19,11 @@
 ## 5) Observability
 - Client telemetry exists; wire transport to server log ingestion.
 - Add uptime checks on key pages (`index`, `esqr`, `dashboard`, `verify`).
+
+## Security Header Baseline
+- Added `netlify.toml` with strict default headers (CSP, HSTS, XFO, XCTO, Referrer-Policy, Permissions-Policy).
+- Keep `unsafe-inline` temporary until inline scripts are refactored into external files with nonce/hash strategy.
+
+## QA Automation Additions
+- Added static accessibility lint: `python3 scripts/check_accessibility.py`.
+- Added GitHub Actions workflow `.github/workflows/accessibility-check.yml` to run accessibility checks on push/PR.

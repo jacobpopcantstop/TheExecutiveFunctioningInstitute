@@ -1,87 +1,47 @@
-# Implementation Roadmap: Top 10 To-Dos (Execution Status)
+# Implementation Roadmap: Production Readiness Tracker
 
-This tracker converts the roadmap into deployable increments.
+## Wave 1 (Completed)
+1. ✅ Auth RBAC scaffold (`getRole/hasRole/requireRole`).
+2. ✅ Grading/certification workflow surfaced in dashboard.
+3. 🔄 Payment verification hardening (server webhook pending).
+4. ✅ Module citation panel across modules.
+5. ✅ Automated local link validation in CI.
+6. 🔄 Icon normalization across all pages.
+7. ✅ ESQ-R snapshot durability in local history.
+8. ✅ Certificate verification route (`verify.html`).
+9. ✅ Client telemetry baseline (`EFI.Telemetry`).
+10. ✅ Privacy/Terms pages and global legal footer links.
 
-1. ✅ **Auth model groundwork (RBAC scaffold)**
-   - Added role fields and `getRole/hasRole/requireRole` helpers in `js/auth.js`.
+## Wave 2 (Completed/In Progress)
+1. ✅ Prototype data export/import/reset tools.
+2. ✅ Telemetry operations page.
+3. ✅ Sitemap expansion for legal/ops pages.
+4. ✅ Role hardening for ops surfaces.
+5. 🔄 Server-backed certificate verification API.
+6. 🔄 Server-backed ESQ-R storage.
+7. ✅ Scheduled external link checks.
+8. ✅ Canonical + JSON-LD phase 1.
+9. 🔄 Accessibility automation (expanded in Wave 4).
+10. ✅ Deployment baseline scaffolding (`.env.example`, `serve.sh`, `health.html`).
 
-2. ✅ **Grading/certification transparency in UI**
-   - Existing dashboard workflow retained; added citation context panel to module pages via `js/main.js`.
+## Wave 4: 15 Deployment-Focused Items Executed in This Pass
+1. ✅ Upgraded password hashing to PBKDF2 (`crypto.subtle`) with per-user salt.
+2. ✅ Added transparent migration path for legacy password hashes.
+3. ✅ Converted login/register flows to async auth calls.
+4. ✅ Added role-gated reviewer/admin operations page (`admin.html`).
+5. ✅ Added admin link rendering for reviewer/admin nav state.
+6. ✅ Extended sitemap with `admin.html` route.
+7. ✅ Expanded canonical tags across major HTML pages.
+8. ✅ Added Netlify deployment config with security headers + CSP baseline.
+9. ✅ Added static accessibility audit script (`scripts/check_accessibility.py`).
+10. ✅ Added accessibility CI workflow (`.github/workflows/accessibility-check.yml`).
+11. ✅ Added release checklist document (`docs/release-checklist.md`).
+12. ✅ Added changelog scaffold (`CHANGELOG.md`).
+13. ✅ Added OpenAPI draft contract (`docs/api/openapi.yaml`).
+14. ✅ Added prototype data retention/backup policy (`docs/data-retention-policy.md`).
+15. ✅ Updated deployment baseline doc with security + accessibility guidance.
 
-3. 🔄 **Payment verification hardening**
-   - Prototype still local-state. Next: webhook-backed purchase verification service.
-
-4. ✅ **Module citation audit visibility**
-   - Injected module citation/evidence panel on all module pages.
-
-5. ✅ **Automated link validation in CI**
-   - Added `scripts/check_links.py` and `.github/workflows/link-check.yml`.
-
-6. 🔄 **Icon normalization**
-   - Continued replacing emoji icons with single-color SVGs; more pages remain.
-
-7. ✅ **ESQ-R report durability**
-   - Added local ESQ-R report history and surfaced recent snapshots in UI.
-
-8. ✅ **Certificate verification path**
-   - Added `verify.html` and certificate deep-link to verification URL with credential ID.
-
-9. ✅ **Client observability baseline**
-   - Added client-side error and unhandled rejection logging (`EFI.Telemetry`) in `js/main.js`.
-
-10. ✅ **Data governance surface docs**
-   - Added `privacy.html` and `terms.html`; dynamically appended legal links in footer.
-
----
-
-## Next 10 Logical To-Dos (Wave 2)
-
-1. ✅ **Prototype data portability tools**
-   - Added export/import/reset helpers in auth and dashboard controls for local environment continuity.
-
-2. ✅ **Operations visibility page**
-   - Added `telemetry.html` UI to inspect and clear client error logs.
-
-3. ✅ **Sitemap expansion**
-   - Added legal + verification + telemetry pages to `sitemap.xml`.
-
-4. ✅ **Route hardening for role-specific surfaces**
-   - Restricted telemetry and ops controls to reviewer/admin roles.
-
-5. 🔄 **Server-backed certificate verification API**
-   - Current verify page reads local prototype records only.
-
-6. 🔄 **Server-backed snapshot storage for ESQ-R exports**
-   - Current snapshot history is browser-local only.
-
-7. ✅ **Automated external link checks (scheduled)**
-   - Added external link mode to checker and weekly scheduled CI run.
-
-8. ✅ **Semantic data and SEO metadata pass (phase 1)**
-   - Added canonical and JSON-LD to key pages.
-
-9. 🔄 **Accessibility QA pass**
-   - Add automated axe checks and keyboard-only test matrix in CI.
-
-10. ✅ **Deployment baseline scaffolding (phase 1)**
-   - Added env template, serve script, deployment baseline doc, and health page.
-
----
-
-## Next 10 Logical To-Dos (Wave 3)
-
-1. Add backend API skeleton for auth/session/purchase endpoints.
-2. Add signed certificate verification endpoint and schema.
-3. Add reviewer/admin dashboard route and role guard.
-4. Replace remaining emoji icons site-wide.
-5. Add accessibility test workflow (axe/pa11y).
-6. Add CSP/security headers deployment guidance.
-7. Add canonical URL and JSON-LD to all major pages.
-8. Add release checklist and versioned changelog.
-9. Add API contract docs (OpenAPI draft).
-10. Add backup/restore and data retention policy docs.
-
-## Next Execution Sprint
-- Implement reviewer/admin page with role gate.
-- Add accessible audit automation in CI.
-- Move verification + grading persistence to server prototype.
+## Next Sprint
+- Implement server-backed auth/session APIs and payment webhook ingestion.
+- Move certificate verification to signed server records.
+- Add reviewer grading queue persistence and audit logs.

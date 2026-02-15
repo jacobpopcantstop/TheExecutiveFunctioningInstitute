@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: EFI Certification API (Draft)
+  version: 0.1.0
+servers:
+  - url: https://api.executivefunctioninginstitute.com
+paths:
+  /auth/register:
+    post:
+      summary: Register a learner account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name: { type: string }
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+      responses:
+        '201':
+          description: Account created
+  /certifications/{certId}/verify:
+    get:
+      summary: Verify certificate status by credential id
+      parameters:
+        - in: path
+          name: certId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Verification response
+  /grading/auto:
+    post:
+      summary: Trigger auto-grading for completed submissions
+      responses:
+        '202':
+          description: Grading job accepted

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviewer Operations | The Executive Function Institute</title>
+  <meta name="description" content="Reviewer and admin operations workspace for grading queue, verification actions, and deployment diagnostics." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/admin.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main Navigation">
+      <div class="container nav__inner">
+        <a class="logo" href="index.html" aria-label="EFI Home">Executive Function Institute</a>
+        <button class="nav__toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+        <div class="nav__links" role="menubar">
+          <a href="index.html" class="nav__link" role="menuitem">Home</a>
+          <a href="curriculum.html" class="nav__link" role="menuitem">Curriculum</a>
+          <a href="resources.html" class="nav__link" role="menuitem">Resources</a>
+          <a href="certification.html" class="nav__link" role="menuitem">Certification</a>
+          <span class="nav__auth"></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero hero--small">
+      <div class="container">
+        <h1>Reviewer & Admin Operations</h1>
+        <p class="hero__subtitle">Prototype controls for grading, certificate verification, and release readiness.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid grid--2">
+        <article class="card">
+          <h2>Grading Queue Priorities</h2>
+          <ul class="checklist">
+            <li>Review pending module evidence and run rubric scoring.</li>
+            <li>Confirm capstone review purchase exists before marking pass.</li>
+            <li>Record reviewer notes before certificate eligibility update.</li>
+          </ul>
+          <a class="btn btn--secondary btn--sm" href="dashboard.html">Open Learner Dashboard View</a>
+        </article>
+
+        <article class="card">
+          <h2>Certificate Operations</h2>
+          <ul class="checklist">
+            <li>Use the verification tool before final certificate release.</li>
+            <li>Confirm framed fulfillment purchase before print workflow.</li>
+            <li>Escalate suspicious cert IDs to compliance review.</li>
+          </ul>
+          <a class="btn btn--secondary btn--sm" href="verify.html">Open Verification Tool</a>
+        </article>
+
+        <article class="card">
+          <h2>Platform QA</h2>
+          <ul class="checklist">
+            <li>Run local/external link checks before deployment.</li>
+            <li>Review telemetry errors each release cycle.</li>
+            <li>Execute accessibility checker on changed pages.</li>
+          </ul>
+          <div class="cluster" style="margin-top:var(--space-md)">
+            <a class="btn btn--outline btn--sm" href="telemetry.html">Open Telemetry</a>
+            <a class="btn btn--outline btn--sm" href="health.html">Health Endpoint</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Release Checklist</h2>
+          <p>Follow the release and governance checklist before production cutover.</p>
+          <a class="btn btn--secondary btn--sm" href="docs/release-checklist.md">Open Checklist</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p>&copy; <span id="year"></span> The Executive Function Institute. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!EFI.Auth.requireRole(['admin', 'reviewer'], 'dashboard.html')) return;
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
