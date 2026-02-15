@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Special Educator's Guide to Becoming an EF Coach | EFI</title>
+  <meta name="description" content="Landing page for educators moving into executive function coaching with ROI planning and transition supports." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/teacher-to-coach.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="module-b-pedagogy.html" class="nav__link">Pedagogy</a><a href="educator-launchpad.html" class="nav__link">Email Course</a><a href="certification.html" class="nav__link">Certification</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
+
+  <header class="page-header"><div class="container"><h1>The Special Educator's Guide to Becoming an EF Coach</h1><p>Navigate burnout, identity shifts, and income transition with an evidence-based coaching model.</p></div></header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container grid grid--2 gap-2xl">
+        <div class="card"><h2>Transition Realities</h2><ul class="checklist"><li>From grading compliance to building self-regulation</li><li>From district constraints to scalable private practice</li><li>From fixed salary to client-capacity planning</li></ul><div class="journey-links"><a class="btn btn--secondary btn--sm" href="educator-launchpad.html">5-Day Launchpad</a><a class="btn btn--primary btn--sm" href="gap-analyzer.html">Skills Gap Analyzer</a></div></div>
+        <div class="tool-panel"><h2>Coaching ROI Calculator</h2><p>Estimate weekly client load required to replace your salary at common rate points.</p><form id="roi-form"><div class="form-group"><label for="salary">Current annual salary (USD)</label><input id="salary" class="form-control" type="number" min="1" value="70000" required></div><div class="form-group"><label for="hours">Billable hours per client per month</label><input id="hours" class="form-control" type="number" min="1" value="4" required></div><div class="form-group"><label for="rate">Target hourly rate</label><select id="rate" class="form-control"><option value="150">$150/hr</option><option value="200" selected>$200/hr</option><option value="250">$250/hr</option></select></div><button class="btn btn--primary" type="submit">Calculate</button></form><div id="roi-output" class="tool-output" aria-live="polite"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('roi-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var salary = Number(document.getElementById('salary').value || 0);
+      var monthlyHours = Number(document.getElementById('hours').value || 1);
+      var rate = Number(document.getElementById('rate').value || 200);
+      var annualBillableHours = salary / rate;
+      var monthlyBillableHours = annualBillableHours / 12;
+      var clients = monthlyBillableHours / monthlyHours;
+      var rounded = Math.ceil(clients);
+      document.getElementById('roi-output').innerHTML = 'At <strong>$' + rate + '/hr</strong>, replacing <strong>$' + salary.toLocaleString() + '</strong> requires about <strong>' + Math.ceil(monthlyBillableHours) + ' billable hours/month</strong>, or approximately <strong>' + rounded + ' active clients</strong> at ' + monthlyHours + ' hours each.';
+    });
+  </script>
+</body>
+</html>

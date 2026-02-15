@@ -66,6 +66,62 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function injectTopicClusters() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (document.querySelector('.topic-clusters')) return;
+    var nav = document.querySelector('.nav');
+    if (!nav || !nav.parentNode) return;
+
+    var clusters = [
+      { href: 'module-a-neuroscience.html', label: 'Theory', pages: ['module-a-neuroscience.html', 'barkley-model-guide.html', 'barkley-vs-brown.html', 'brown-clusters-tool.html', 'ward-360-thinking.html'] },
+      { href: 'module-c-interventions.html', label: 'Practice', pages: ['module-b-pedagogy.html', 'module-c-interventions.html', 'community.html', 'scope-of-practice.html'] },
+      { href: 'teacher-to-coach.html', label: 'Business', pages: ['teacher-to-coach.html', 'educator-launchpad.html', 'coach-directory.html', 'accreditation.html', 'gap-analyzer.html', 'launch-plan.html'] }
+    ];
+
+    var wrap = document.createElement('div');
+    wrap.className = 'topic-clusters';
+    var inner = document.createElement('div');
+    inner.className = 'topic-clusters__inner';
+    clusters.forEach(function (cluster) {
+      var a = document.createElement('a');
+      a.className = 'topic-clusters__link';
+      if (cluster.pages.indexOf(currentPage) >= 0) a.classList.add('topic-clusters__link--active');
+      a.href = cluster.href;
+      a.textContent = cluster.label;
+      inner.appendChild(a);
+    });
+    wrap.appendChild(inner);
+    nav.insertAdjacentElement('afterend', wrap);
+    document.body.classList.add('has-topic-clusters');
+  })();
+
+  (function injectRoadmapHubLinks() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (['index.html', 'curriculum.html', 'resources.html'].indexOf(currentPage) === -1) return;
+    if (document.getElementById('roadmap-hub-links')) return;
+    var anchor = document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    if (!anchor || !anchor.parentNode) return;
+
+    var section = document.createElement('section');
+    section.id = 'roadmap-hub-links';
+    section.className = 'section section--alt';
+    section.innerHTML =
+      '<div class=\"container\">' +
+        '<div class=\"section-header\">' +
+          '<span class=\"section-header__tag\">Topic Clusters</span>' +
+          '<h2>Theory, Practice, Business</h2>' +
+          '<p>Follow the internal learning path: theory pages feed practice pages, then transition into certification and business implementation.</p>' +
+        '</div>' +
+        '<div class=\"content-hub-grid\">' +
+          '<article class=\"hub-card\"><h3>Theory</h3><p>Neuroscience and model hubs for Barkley, Brown, and comparative framing.</p><a class=\"btn btn--secondary btn--sm\" href=\"module-a-neuroscience.html\">Open Theory Hub</a></article>' +
+          '<article class=\"hub-card\"><h3>Practice</h3><p>Intervention playbooks, pedagogy shift tools, and 360 Thinking implementation.</p><a class=\"btn btn--secondary btn--sm\" href=\"module-c-interventions.html\">Open Practice Hub</a></article>' +
+          '<article class=\"hub-card\"><h3>Business</h3><p>Teacher-to-coach transition assets, launch funnels, and directory/community growth pages.</p><a class=\"btn btn--secondary btn--sm\" href=\"teacher-to-coach.html\">Open Business Hub</a></article>' +
+        '</div>' +
+      '</div>';
+
+    anchor.parentNode.insertBefore(section, anchor);
+  })();
+
   (function injectModuleReadingPanel() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     var readingByModule = {

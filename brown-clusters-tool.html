@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brown's 6 Clusters Pre-Diagnostic Tool | EFI</title>
+  <meta name="description" content="Interactive pre-diagnostic checklist based on Brown's six executive function clusters." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/brown-clusters-tool.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="module-a-neuroscience.html" class="nav__link">Theory</a><a href="module-c-interventions.html" class="nav__link">Practice</a><a href="certification.html" class="nav__link">Certification</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
+  <header class="page-header"><div class="container"><h1>Brown's 6 Clusters: Pre-Diagnostic Checklist</h1><p>This is an educational screener for pattern recognition, not a diagnosis.</p></div></header>
+  <main id="main-content">
+    <section class="section"><div class="container container--narrow"><div class="tool-panel"><h2>Rate Struggle Level</h2><p>Select one statement per cluster.</p><form id="brown-form">
+      <div class="form-group"><label>1. Activation (starting/organizing)</label><select class="form-control" name="activation"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <div class="form-group"><label>2. Focus</label><select class="form-control" name="focus"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <div class="form-group"><label>3. Effort</label><select class="form-control" name="effort"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <div class="form-group"><label>4. Emotion</label><select class="form-control" name="emotion"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <div class="form-group"><label>5. Memory</label><select class="form-control" name="memory"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <div class="form-group"><label>6. Action Monitoring</label><select class="form-control" name="action"><option value="0">Minimal</option><option value="1">Mild</option><option value="2">Moderate</option><option value="3">High</option></select></div>
+      <button class="btn btn--primary" type="submit">Generate Pattern Summary</button>
+    </form><div id="brown-output" class="tool-output" aria-live="polite"></div><div class="journey-links"><a class="btn btn--secondary btn--sm" href="module-c-interventions.html">Map to Interventions</a><a class="btn btn--primary btn--sm" href="certification.html">Train as Certified Coach</a></div></div></div></section>
+  </main>
+  <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('brown-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = new FormData(e.target);
+      var scored = [];
+      var total = 0;
+      data.forEach(function (value, key) {
+        var v = Number(value);
+        total += v;
+        scored.push({ key: key, value: v });
+      });
+      scored.sort(function (a, b) { return b.value - a.value; });
+      var top = scored.slice(0, 2).map(function (i) { return i.key; }).join(', ');
+      var tier = total >= 12 ? 'high-complexity support need' : (total >= 7 ? 'targeted support need' : 'light support need');
+      document.getElementById('brown-output').innerHTML = '<strong>Pattern Summary:</strong> Top concern areas: ' + top + '. Overall profile indicates <strong>' + tier + '</strong>. Use this to guide conversation, then run formal assessment workflows.';
+    });
+  </script>
+</body>
+</html>
