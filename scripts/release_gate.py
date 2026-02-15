@@ -104,6 +104,7 @@ def main() -> int:
         run_command(["python3", "scripts/check_pdfs.py"], "pdf integrity check")
         run_command(["python3", "scripts/check_source_hub.py"], "further sources integration check")
         run_command(["python3", "scripts/check_console_logs.py"], "console/debugger check")
+        run_command(["node", "--test", "tests/ai-rubric.test.mjs"], "unit tests")
         check_canonical_tags()
         check_sitemap()
         check_netlify_headers()

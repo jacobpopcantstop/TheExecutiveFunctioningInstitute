@@ -127,3 +127,16 @@
 11. ✅ Added 404 broken-link reporting action wired to analytics event stream.
 12. ✅ Updated privacy policy from prototype language to production-aligned collection/processing disclosure.
 13. ✅ Added release gate check to block `console.log`/`debugger` in production JS.
+
+## Wave 12: Managed Auth + Durable Data + AI Review Delay (This Pass)
+1. ✅ Added managed auth API (`/api/auth`) with Supabase integration hooks and frontend managed-session fallback logic.
+2. ✅ Added durable data abstraction (`netlify/functions/_db.js`) with Supabase/Postgres-first behavior and memory fallback.
+3. ✅ Rewired progress sync endpoint to durable data abstraction.
+4. ✅ Rewired purchase verification to persist purchases and enforce verified Stripe intents in live mode.
+5. ✅ Enhanced Stripe webhook ingestion to persist payment intent statuses for checkout verification.
+6. ✅ Added AI rubric engine (`netlify/functions/_ai_rubric.js`) with Gemini caller and deterministic fallback grader.
+7. ✅ Added submissions API (`/api/submissions`) for module/capstone grading with 24-hour delayed feedback release.
+8. ✅ Added due-feedback notifier processing via webhook fanout for post-delay email workflows.
+9. ✅ Converted dashboard submission messaging to asynchronous delayed-release behavior.
+10. ✅ Added six unit tests (`tests/ai-rubric.test.mjs`) and enforced them in release gate.
+11. ✅ Removed synchronous/video lecture marketing claims from key certification and curriculum-facing pages.

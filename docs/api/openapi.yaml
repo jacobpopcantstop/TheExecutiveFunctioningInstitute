@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: EFI Certification and Funnel API (Draft)
-  version: 0.3.0
+  version: 0.4.0
 servers:
   - url: https://executivefunctioninginstitute.com/api
 paths:
@@ -154,3 +154,67 @@ paths:
       responses:
         '200':
           description: Event accepted
+  /auth:
+    get:
+      summary: Managed authentication config or current user profile lookup
+      parameters:
+        - in: query
+          name: action
+          required: true
+          schema:
+            type: string
+            enum: [config, me]
+      responses:
+        '200':
+          description: Auth config or profile resolved
+    post:
+      summary: Managed authentication register/login/logout actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [register, login, logout]
+                name: { type: string }
+                email: { type: string, format: email }
+                password: { type: string }
+                access_token: { type: string }
+      responses:
+        '200':
+          description: Auth action completed
+  /submissions:
+    get:
+      summary: Fetch submission review statuses for a user
+      parameters:
+        - in: query
+          name: email
+          required: true
+          schema: { type: string, format: email }
+      responses:
+        '200':
+          description: Submission statuses returned
+    post:
+      summary: Submit module/capstone for AI rubric grading or process due feedback release notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [submit_module, submit_capstone, process_due_feedback]
+                email: { type: string, format: email }
+                module_id: { type: string }
+                evidence_url: { type: string }
+                notes: { type: string }
+      responses:
+        '200':
+          description: Submission accepted or release processing completed

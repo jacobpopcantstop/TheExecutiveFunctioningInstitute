@@ -1,11 +1,5 @@
 const { json, parseBody } = require('./_common');
-
-const CACHE_KEY = '__EFI_PROGRESS_CACHE__';
-
-function getCache() {
-  if (!global[CACHE_KEY]) global[CACHE_KEY] = new Map();
-  return global[CACHE_KEY];
-}
+const db = require('./_db');
 
 exports.handler = async function (event) {
   const method = event.httpMethod;
@@ -13,9 +7,8 @@ exports.handler = async function (event) {
   if (method === 'GET') {
     const email = String((event.queryStringParameters || {}).email || '').trim().toLowerCase();
     if (!email || !email.includes('@')) return json(400, { ok: false, error: 'Valid email query parameter is required' });
-    const cache = getCache();
-    const record = cache.get(email);
-    return json(200, { ok: true, found: !!record, progress: record ? record.progress : null, updated_at: record ? record.updated_at : null, storage: 'function-memory' });
+    const record = await db.getProgress(email);
+    return json(200, { ok: true, found: record.found, progress: record.progress, updated_at: record.updated_at, storage: record.storage });
   }
 
   if (method === 'POST') {
@@ -27,11 +20,8 @@ exports.handler = async function (event) {
     if (!email || !email.includes('@')) return json(400, { ok: false, error: 'Valid email is required' });
     if (!progress) return json(400, { ok: false, error: 'progress object is required' });
 
-    const cache = getCache();
-    const updated_at = new Date().toISOString();
-    cache.set(email, { progress, updated_at });
-
-    return json(200, { ok: true, updated_at, storage: 'function-memory' });
+    const result = await db.upsertProgress(email, progress);
+    return json(200, { ok: true, updated_at: result.updated_at, storage: result.storage });
   }
 
   return json(405, { ok: false, error: 'Method not allowed' });

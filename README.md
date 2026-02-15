@@ -2,6 +2,14 @@
 
 An open-source, science-based Executive Function Coaching Certification program grounded in the work of Barkley, Brown, Dawson & Guare, and Ward.
 
+## Delivery Model
+
+EFI is an asynchronous-first product:
+- No synchronous classes
+- No required video lectures
+- No group projects
+- Core paid offers focus on certification, assignment/test review, alumni network access, and individual 1:1 EF coaching
+
 ## About
 
 The Executive Function Institute provides a rigorous six-module certification curriculum that trains professionals to become Certified Executive Function Coaches (CEFC). The program bridges the gap between theoretical neuroscience and practical coaching, training coaches to be the "external frontal lobe" their clients need.
@@ -59,6 +67,8 @@ The curriculum integrates three foundational models:
 
 Open `index.html` in any web browser. No build tools or dependencies required — the site is built with vanilla HTML, CSS, and JavaScript.
 
+For managed auth + durable persistence deployment, provision Supabase tables with `docs/supabase-schema.sql`.
+
 ## Quality Gates
 
 - `python3 scripts/check_links.py` — validates local links.
@@ -68,6 +78,7 @@ Open `index.html` in any web browser. No build tools or dependencies required �
 - `python3 scripts/check_ux_audit.py` — structural UX audit baseline.
 - `python3 scripts/check_console_logs.py` — blocks `console.log` and `debugger` in production JS.
 - `python3 scripts/release_gate.py` — consolidated deployment gate.
+- `node --test tests/ai-rubric.test.mjs` — unit tests for rubric grading utilities.
 
 ## License
 

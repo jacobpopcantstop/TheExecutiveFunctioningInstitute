@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { json, requiredEnv } = require('./_common');
+const db = require('./_db');
 
 function verifyStripeSignature(rawBody, headerValue, secret) {
   if (!headerValue || !secret) return false;
@@ -46,11 +47,42 @@ exports.handler = async function (event) {
   }
 
   const eventType = String(payload.type || 'unknown');
+  const obj = payload.data && payload.data.object ? payload.data.object : {};
+  let paymentIntentId = '';
+  let email = '';
+  let amount = null;
+  let currency = null;
+  let status = 'unknown';
 
-  // Persistence hook:
-  // On production, persist successful checkout events in your DB and associate
-  // purchase status with the authenticated user account before fulfillment.
-  console.log('[EFI_STRIPE_WEBHOOK_EVENT]', JSON.stringify({ type: eventType, id: payload.id || null }));
+  if (eventType === 'payment_intent.succeeded') {
+    paymentIntentId = String(obj.id || '');
+    email = String((obj.receipt_email || (obj.metadata && obj.metadata.email) || '')).toLowerCase();
+    amount = typeof obj.amount_received === 'number' ? obj.amount_received / 100 : null;
+    currency = String(obj.currency || '').toUpperCase();
+    status = 'succeeded';
+  } else if (eventType === 'checkout.session.completed') {
+    paymentIntentId = String(obj.payment_intent || '');
+    email = String((obj.customer_details && obj.customer_details.email) || (obj.metadata && obj.metadata.email) || '').toLowerCase();
+    amount = typeof obj.amount_total === 'number' ? obj.amount_total / 100 : null;
+    currency = String(obj.currency || '').toUpperCase();
+    status = 'succeeded';
+  } else if (eventType === 'payment_intent.payment_failed') {
+    paymentIntentId = String(obj.id || '');
+    email = String((obj.receipt_email || (obj.metadata && obj.metadata.email) || '')).toLowerCase();
+    amount = typeof obj.amount === 'number' ? obj.amount / 100 : null;
+    currency = String(obj.currency || '').toUpperCase();
+    status = 'failed';
+  }
 
-  return json(200, { ok: true, received: true, event_type: eventType });
+  if (paymentIntentId) {
+    await db.savePaymentIntent(paymentIntentId, {
+      status,
+      email: email || null,
+      amount,
+      currency,
+      raw: payload
+    });
+  }
+
+  return json(200, { ok: true, received: true, event_type: eventType, payment_intent_id: paymentIntentId || null });
 };

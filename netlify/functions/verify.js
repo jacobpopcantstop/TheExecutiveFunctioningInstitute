@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { json, parseBody, requiredEnv } = require('./_common');
+const db = require('./_db');
 
 function b64urlEncode(input) {
   return Buffer.from(input).toString('base64url');
@@ -55,7 +56,7 @@ function makeCredentialId(email) {
   return 'EFI-CEFC-' + Math.abs(h).toString(36).toUpperCase().substring(0, 8);
 }
 
-function issuePurchase(body) {
+async function issuePurchase(body) {
   const email = String(body.email || '').trim().toLowerCase();
   const items = Array.isArray(body.items) ? body.items : [];
   if (!email || !email.includes('@')) return json(400, { ok: false, error: 'Valid email is required' });
@@ -73,11 +74,22 @@ function issuePurchase(body) {
     }
   };
 
-  if (process.env.EFI_STRIPE_ENFORCE === 'true' && !body.payment_intent_id) {
-    return json(402, {
-      ok: false,
-      error: 'Live mode requires payment_intent_id validated by Stripe webhook.'
-    });
+  if (process.env.EFI_STRIPE_ENFORCE === 'true') {
+    const paymentIntentId = String(body.payment_intent_id || '').trim();
+    if (!paymentIntentId) {
+      return json(402, {
+        ok: false,
+        error: 'Live mode requires payment_intent_id validated by Stripe webhook.'
+      });
+    }
+    const verified = await db.hasVerifiedPayment(paymentIntentId);
+    if (!verified) {
+      return json(402, {
+        ok: false,
+        error: 'Payment intent is not verified yet. Retry after webhook confirmation.'
+      });
+    }
+    purchase.payment_intent_id = paymentIntentId;
   }
 
   const receiptPayload = {
@@ -90,6 +102,12 @@ function issuePurchase(body) {
   };
 
   const receipt = makeReceipt(receiptPayload);
+  await db.addPurchase(email, {
+    ...purchase,
+    receipt,
+    credentialId: receiptPayload.credential_id
+  }).catch(() => {});
+
   return json(200, {
     ok: true,
     purchase,
