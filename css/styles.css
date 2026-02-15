@@ -402,6 +402,13 @@ p {
   font-size: 0.9rem;
 }
 
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 /* --- Hero Section --- */
 .hero {
   position: relative;
@@ -2259,6 +2266,10 @@ body.has-topic-clusters .page-header {
   padding-top: calc(104px + var(--space-4xl));
 }
 
+body.has-topic-clusters.has-topic-clusters-plain main {
+  padding-top: 104px;
+}
+
 .content-hub-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2319,6 +2330,7 @@ body.has-topic-clusters .page-header {
   border: 1px dashed var(--color-border);
   background: var(--color-bg-alt);
   min-height: 3rem;
+  line-height: 1.5;
 }
 
 .matrix {
@@ -2441,6 +2453,10 @@ body.has-topic-clusters .page-header {
 
   body.has-topic-clusters .page-header {
     padding-top: calc(96px + var(--space-3xl));
+  }
+
+  body.has-topic-clusters.has-topic-clusters-plain main {
+    padding-top: 96px;
   }
 
   .content-hub-grid,

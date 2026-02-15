@@ -17,8 +17,8 @@
   <main id="main-content">
     <section class="section">
       <div class="container grid grid--2 gap-2xl">
-        <div class="card"><h2>Transition Realities</h2><ul class="checklist"><li>From grading compliance to building self-regulation</li><li>From district constraints to scalable private practice</li><li>From fixed salary to client-capacity planning</li></ul><div class="journey-links"><a class="btn btn--secondary btn--sm" href="educator-launchpad.html">5-Day Launchpad</a><a class="btn btn--primary btn--sm" href="gap-analyzer.html">Skills Gap Analyzer</a></div></div>
-        <div class="tool-panel"><h2>Coaching ROI Calculator</h2><p>Estimate weekly client load required to replace your salary at common rate points.</p><form id="roi-form"><div class="form-group"><label for="salary">Current annual salary (USD)</label><input id="salary" class="form-control" type="number" min="1" value="70000" required></div><div class="form-group"><label for="hours">Billable hours per client per month</label><input id="hours" class="form-control" type="number" min="1" value="4" required></div><div class="form-group"><label for="rate">Target hourly rate</label><select id="rate" class="form-control"><option value="150">$150/hr</option><option value="200" selected>$200/hr</option><option value="250">$250/hr</option></select></div><button class="btn btn--primary" type="submit">Calculate</button></form><div id="roi-output" class="tool-output" aria-live="polite"></div></div>
+        <div class="card"><h2>Transition Realities</h2><ul class="checklist"><li>From grading compliance to building self-regulation</li><li>From district constraints to scalable private practice</li><li>From fixed salary to client-capacity planning</li></ul><div class="journey-links"><a class="btn btn--secondary btn--sm" href="educator-launchpad.html" data-analytics-event="teacher_to_coach_to_launchpad">5-Day Launchpad</a><a class="btn btn--primary btn--sm" href="gap-analyzer.html" data-analytics-event="teacher_to_coach_to_gap_analyzer">Skills Gap Analyzer</a></div></div>
+        <div class="tool-panel"><h2>Coaching ROI Calculator</h2><p>Estimate weekly client load required to replace your salary at common rate points.</p><form id="roi-form"><div class="form-group"><label for="salary">Current annual salary (USD)</label><input id="salary" class="form-control" type="number" min="1" value="70000" required></div><div class="form-group"><label for="hours">Billable hours per client per month</label><input id="hours" class="form-control" type="number" min="1" value="4" required></div><div class="form-group"><label for="rate">Target hourly rate</label><select id="rate" class="form-control"><option value="150">$150/hr</option><option value="200" selected>$200/hr</option><option value="250">$250/hr</option></select></div><button class="btn btn--primary" type="submit" data-analytics-event="roi_calculate_submit">Calculate</button></form><div id="roi-output" class="tool-output" aria-live="polite"></div></div>
       </div>
     </section>
 
@@ -50,6 +50,14 @@
       var clients = monthlyBillableHours / monthlyHours;
       var rounded = Math.ceil(clients);
       document.getElementById('roi-output').innerHTML = 'At <strong>$' + rate + '/hr</strong>, replacing <strong>$' + salary.toLocaleString() + '</strong> requires about <strong>' + Math.ceil(monthlyBillableHours) + ' billable hours/month</strong>, or approximately <strong>' + rounded + ' active clients</strong> at ' + monthlyHours + ' hours each.';
+      if (window.EFI && EFI.Analytics) {
+        EFI.Analytics.track('roi_calculated', {
+          salary: salary,
+          rate: rate,
+          monthly_hours_per_client: monthlyHours,
+          estimated_clients: rounded
+        });
+      }
     });
   </script>
 </body>

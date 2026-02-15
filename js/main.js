@@ -54,6 +54,46 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function initAnalytics() {
+    function post(payload) {
+      if (!window.fetch) return Promise.resolve();
+      return fetch('/api/track-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function () {});
+    }
+
+    function track(eventName, properties) {
+      var page = window.location.pathname.split('/').pop() || 'index.html';
+      var params = new URLSearchParams(window.location.search || '');
+      var source = params.get('utm_source') || params.get('source') || document.referrer || 'direct';
+      return post({
+        event_name: eventName,
+        page: page,
+        source: source,
+        properties: properties || {}
+      });
+    }
+
+    window.EFI.Analytics = {
+      track: track
+    };
+
+    track('page_view', {
+      title: document.title
+    });
+
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('[data-analytics-event]') : null;
+      if (!el) return;
+      track(el.getAttribute('data-analytics-event'), {
+        label: el.getAttribute('data-analytics-label') || el.textContent.trim().slice(0, 80)
+      });
+    });
+  })();
+
   (function injectFooterLegalLinks() {
     var footers = document.querySelectorAll('.footer__bottom');
     if (!footers.length) return;
@@ -93,6 +133,9 @@ document.addEventListener('DOMContentLoaded', function () {
     wrap.appendChild(inner);
     nav.insertAdjacentElement('afterend', wrap);
     document.body.classList.add('has-topic-clusters');
+    if (!document.querySelector('.hero') && !document.querySelector('.page-header')) {
+      document.body.classList.add('has-topic-clusters-plain');
+    }
   })();
 
   (function injectRoadmapHubLinks() {

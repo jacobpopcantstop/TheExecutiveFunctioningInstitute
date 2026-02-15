@@ -101,6 +101,7 @@ def main() -> int:
         run_command(["node", "--check", "js/main.js", "js/auth.js", "js/esqr.js"], "js syntax")
         run_command(["python3", "scripts/check_links.py"], "local link check")
         run_command(["python3", "scripts/check_accessibility.py"], "accessibility check")
+        run_command(["python3", "scripts/check_pdfs.py"], "pdf integrity check")
         run_command(["python3", "scripts/check_source_hub.py"], "further sources integration check")
         check_canonical_tags()
         check_sitemap()

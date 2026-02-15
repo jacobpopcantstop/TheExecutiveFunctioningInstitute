@@ -2,7 +2,8 @@
 
 ## 1) Environment
 - Copy `.env.example` into environment-specific configuration.
-- Set `BASE_URL`, `API_BASE_URL`, Stripe keys, and certificate signing secret.
+- Set `BASE_URL`, `API_BASE_URL`, Stripe keys, certificate signing secret.
+- Set funnel API secrets: `EFI_DOWNLOAD_SIGNING_SECRET`, `EFI_CRM_WEBHOOK_URL`, `EFI_ESP_WEBHOOK_URL`.
 
 ## 2) CI gates
 - Run local link checks on PR/push (`scripts/check_links.py`).
@@ -17,8 +18,13 @@
 - Enable signed certificate issuance and verification API.
 
 ## 5) Observability
-- Client telemetry exists; wire transport to server log ingestion.
+- Client telemetry + funnel analytics transport exists (`/api/track-event`); wire webhook targets to CRM/analytics ingestion.
 - Add uptime checks on key pages (`index`, `esqr`, `dashboard`, `verify`).
+
+## 6) Lead Magnets + Signed Delivery
+- Lead forms now post to `/api/leads` with consent required.
+- Download gates now request signed URLs via `/api/sign-download` and resolve through `/api/download-file`.
+- Rotate signing secret before production cutover and set short expiry windows.
 
 ## Security Header Baseline
 - Added `netlify.toml` with strict default headers (CSP, HSTS, XFO, XCTO, Referrer-Policy, Permissions-Policy).
@@ -27,3 +33,5 @@
 ## QA Automation Additions
 - Added static accessibility lint: `python3 scripts/check_accessibility.py`.
 - Added GitHub Actions workflow `.github/workflows/accessibility-check.yml` to run accessibility checks on push/PR.
+- Added PDF integrity checks: `python3 scripts/check_pdfs.py`.
+- Added source-hub integration checks: `python3 scripts/check_source_hub.py`.

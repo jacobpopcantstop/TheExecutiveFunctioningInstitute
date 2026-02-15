@@ -1,41 +1,81 @@
 openapi: 3.0.3
 info:
-  title: EFI Certification API (Draft)
-  version: 0.1.0
+  title: EFI Certification and Funnel API (Draft)
+  version: 0.2.0
 servers:
-  - url: https://api.executivefunctioninginstitute.com
+  - url: https://executivefunctioninginstitute.com/api
 paths:
-  /auth/register:
+  /leads:
     post:
-      summary: Register a learner account
+      summary: Capture a consented lead and fan-out to CRM/ESP webhooks
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [name, email, password]
+              required: [email, consent, lead_type, source]
               properties:
                 name: { type: string }
                 email: { type: string, format: email }
-                password: { type: string, format: password }
+                consent: { type: boolean }
+                lead_type: { type: string }
+                source: { type: string }
       responses:
-        '201':
-          description: Account created
-  /certifications/{certId}/verify:
+        '200':
+          description: Lead accepted
+  /sign-download:
     get:
-      summary: Verify certificate status by credential id
+      summary: Generate a short-lived signed URL for gated PDF download
       parameters:
-        - in: path
-          name: certId
+        - in: query
+          name: asset
+          required: true
+          schema:
+            type: string
+            enum: [gap-analyzer, launch-plan]
+      responses:
+        '200':
+          description: Signed URL generated
+  /download-file:
+    get:
+      summary: Validate signed parameters and redirect to protected PDF asset
+      parameters:
+        - in: query
+          name: asset
+          required: true
+          schema: { type: string }
+        - in: query
+          name: exp
+          required: true
+          schema: { type: integer }
+        - in: query
+          name: sig
           required: true
           schema: { type: string }
       responses:
-        '200':
-          description: Verification response
-  /grading/auto:
+        '302':
+          description: Redirect to static asset
+        '403':
+          description: Invalid signature
+        '410':
+          description: Link expired
+  /track-event:
     post:
-      summary: Trigger auto-grading for completed submissions
+      summary: Capture client analytics/UX funnel events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event_name, page]
+              properties:
+                event_name: { type: string }
+                page: { type: string }
+                source: { type: string }
+                properties:
+                  type: object
       responses:
-        '202':
-          description: Grading job accepted
+        '200':
+          description: Event accepted
