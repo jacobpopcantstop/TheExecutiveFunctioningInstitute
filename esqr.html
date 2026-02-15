@@ -351,6 +351,7 @@
       <div class="card" id="esqr-lead-card" style="margin-bottom:var(--space-xl);">
         <h3 style="margin-top:0;">Save My Results + Receive EF Tools and Discount Codes</h3>
         <p style="color:var(--color-text-light);">Enter your email to save your ESQ-R summary and receive practical resources, updates, and occasional coaching offers.</p>
+        <p id="esqr-offer-preview" class="notice" hidden></p>
         <form id="esqr-lead-form">
           <div class="grid grid--2" style="gap:var(--space-md);">
             <div class="form-group">
@@ -368,7 +369,7 @@
           </label>
           <div class="button-group" style="margin-top:var(--space-md);">
             <button type="submit" class="btn btn--primary btn--sm">Save + Subscribe</button>
-            <span id="esqr-lead-status" style="color:var(--color-text-muted);"></span>
+            <span id="esqr-lead-status" style="color:var(--color-text-muted);" role="status" aria-live="polite"></span>
           </div>
         </form>
       </div>

@@ -20,6 +20,7 @@
   var historyEl = document.getElementById('esqr-history');
   var leadForm = document.getElementById('esqr-lead-form');
   var leadStatus = document.getElementById('esqr-lead-status');
+  var leadOfferPreview = document.getElementById('esqr-offer-preview');
 
   var HISTORY_KEY = 'efi_esqr_history';
   var RESULT_KEY = 'efi_esqr_results';
@@ -34,6 +35,25 @@
 
   function setLeadStatus(message) {
     if (leadStatus) leadStatus.textContent = message;
+  }
+
+  function deriveOffer(bottomSkills) {
+    var primary = bottomSkills && bottomSkills.length ? String(bottomSkills[0].id || '') : '';
+    var bySkill = {
+      'task-initiation': { code: 'START40', focus: 'starting tasks consistently' },
+      'planning': { code: 'PLAN40', focus: 'planning and sequencing' },
+      'time-management': { code: 'TIME40', focus: 'time management systems' },
+      'organization': { code: 'ORDER40', focus: 'organization workflows' },
+      'sustained-attention': { code: 'FOCUS40', focus: 'attention support' },
+      'emotional-control': { code: 'CALM40', focus: 'emotional regulation under load' },
+      'goal-directed-persistence': { code: 'MOMENTUM40', focus: 'follow-through and consistency' }
+    };
+    var selected = bySkill[primary] || { code: 'ESQR40', focus: 'executive function coaching support' };
+    return {
+      code: selected.code,
+      focus: selected.focus,
+      discountPercent: 40
+    };
   }
 
   function loadScript(src) {
@@ -221,8 +241,14 @@
         thinking: Number(thinkingAvg.toFixed(2)),
         doing: Number(doingAvg.toFixed(2))
       },
-      allScores: scores
+      allScores: scores,
+      offer: deriveOffer(bottom3)
     };
+
+    if (leadOfferPreview) {
+      leadOfferPreview.hidden = false;
+      leadOfferPreview.textContent = 'Recommended offer: ' + lastResultsPayload.offer.code + ' (' + lastResultsPayload.offer.discountPercent + '% off) for ' + lastResultsPayload.offer.focus + '. Enter your email below and we will send the details.';
+    }
 
     localStorage.setItem(RESULT_KEY, JSON.stringify(lastResultsPayload));
     var history = [];
@@ -370,6 +396,79 @@
       resultsSection.hidden = false;
       resultsSection.scrollIntoView({ behavior: 'smooth' });
     });
+
+    if (leadForm) {
+      leadForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nameEl = document.getElementById('esqr-lead-name');
+        var emailEl = document.getElementById('esqr-lead-email');
+        var consentEl = document.getElementById('esqr-lead-consent');
+        var submitBtn = leadForm.querySelector('button[type="submit"]');
+        var email = emailEl ? String(emailEl.value || '').trim() : '';
+        var name = nameEl ? String(nameEl.value || '').trim() : '';
+        var consent = !!(consentEl && consentEl.checked);
+
+        if (!lastResultsPayload) {
+          setLeadStatus('Generate your ESQ-R profile first so we can save the right result set.');
+          return;
+        }
+        if (!email || email.indexOf('@') === -1) {
+          setLeadStatus('Enter a valid email to save your results.');
+          return;
+        }
+        if (!consent) {
+          setLeadStatus('Consent is required to subscribe.');
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Saving...';
+        }
+        setLeadStatus('Saving...');
+
+        fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            consent: true,
+            lead_type: 'esqr_results',
+            source: 'esqr_assessment',
+            offer_code: lastResultsPayload.offer.code,
+            discount_percent: lastResultsPayload.offer.discountPercent,
+            metadata: {
+              strengths: lastResultsPayload.strengths.map(function (s) { return s.id; }),
+              growth_areas: lastResultsPayload.growthAreas.map(function (s) { return s.id; }),
+              thinking_avg: lastResultsPayload.domainAverages.thinking,
+              doing_avg: lastResultsPayload.domainAverages.doing
+            }
+          })
+        }).then(function (res) {
+          return res.json().then(function (body) {
+            if (!res.ok || !body.ok) throw new Error((body && body.error) || 'Unable to save right now.');
+            return body;
+          });
+        }).then(function (body) {
+          var sentCode = body.offer_code || lastResultsPayload.offer.code;
+          setLeadStatus('Saved. Check your inbox for your ' + sentCode + ' discount code and next-step tools.');
+          if (window.EFI && EFI.Analytics && EFI.Analytics.track) {
+            EFI.Analytics.track('esqr_lead_capture', {
+              source: 'esqr_assessment',
+              offer_code: sentCode
+            });
+          }
+        }).catch(function (err) {
+          setLeadStatus(err.message || 'Unable to save right now.');
+        }).finally(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Save + Subscribe';
+          }
+        });
+      });
+    }
   }
 
   loadConfig()
@@ -385,45 +484,3 @@
       }
     });
 })();
-    if (leadForm) {
-      leadForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var nameEl = document.getElementById('esqr-lead-name');
-        var emailEl = document.getElementById('esqr-lead-email');
-        var consentEl = document.getElementById('esqr-lead-consent');
-        var email = emailEl ? String(emailEl.value || '').trim() : '';
-        var name = nameEl ? String(nameEl.value || '').trim() : '';
-        var consent = !!(consentEl && consentEl.checked);
-
-        if (!email || email.indexOf('@') === -1) {
-          setLeadStatus('Enter a valid email to save your results.');
-          return;
-        }
-        if (!consent) {
-          setLeadStatus('Consent is required to subscribe.');
-          return;
-        }
-        setLeadStatus('Saving...');
-        fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            consent: true,
-            lead_type: 'esqr_results',
-            source: 'esqr_assessment'
-          })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('Unable to save right now.');
-          return res.json();
-        }).then(function () {
-          setLeadStatus('Saved. Check your inbox for tools and offers.');
-          if (window.EFI && EFI.Analytics && EFI.Analytics.track) {
-            EFI.Analytics.track('esqr_lead_capture', { source: 'esqr_assessment' });
-          }
-        }).catch(function (err) {
-          setLeadStatus(err.message || 'Unable to save right now.');
-        });
-      });
-    }

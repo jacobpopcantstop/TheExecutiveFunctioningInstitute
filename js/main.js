@@ -226,6 +226,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function injectGettingStartedFooterLink() {
+    document.querySelectorAll('.footer__links').forEach(function (list) {
+      if (list.querySelector('a[href="getting-started.html"]')) return;
+      if (!list.querySelector('a[href="curriculum.html"]')) return;
+      var item = document.createElement('li');
+      item.innerHTML = '<a href="getting-started.html">Getting Started</a>';
+      var curriculum = list.querySelector('a[href="curriculum.html"]');
+      if (curriculum && curriculum.parentNode && curriculum.parentNode.nextSibling) {
+        list.insertBefore(item, curriculum.parentNode.nextSibling);
+      } else {
+        list.appendChild(item);
+      }
+    });
+  })();
+
+  (function injectGettingStartedPrompts() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPage === 'index.html') {
+      var heroActions = document.querySelector('.hero__actions');
+      if (heroActions && !heroActions.querySelector('a[href="getting-started.html"]')) {
+        var start = document.createElement('a');
+        start.href = 'getting-started.html';
+        start.className = 'btn btn--outline-white btn--lg';
+        start.textContent = 'New? Start Here';
+        heroActions.appendChild(start);
+      }
+      return;
+    }
+    if (['resources.html', 'curriculum.html'].indexOf(currentPage) === -1) return;
+    if (document.getElementById('getting-started-guide-card')) return;
+    var headerContainer = document.querySelector('.page-header .container');
+    if (!headerContainer) return;
+    var card = document.createElement('div');
+    card.id = 'getting-started-guide-card';
+    card.className = 'card';
+    card.style.marginTop = 'var(--space-xl)';
+    card.innerHTML =
+      '<h3 style="margin-top:0;">New to EFI?</h3>' +
+      '<p style="color:var(--color-text-light);">Use the guided path for parents, educators, and professionals to find the right starting sequence in under 30 minutes.</p>' +
+      '<div class="button-group" style="margin-top:var(--space-md);">' +
+      '<a href="getting-started.html" class="btn btn--primary btn--sm">Open Getting Started Guide</a>' +
+      '<a href="esqr.html" class="btn btn--secondary btn--sm">Take Free ESQ-R</a>' +
+      '</div>';
+    headerContainer.appendChild(card);
+  })();
+
   (function injectRoadmapHubLinks() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (['index.html', 'curriculum.html', 'resources.html'].indexOf(currentPage) === -1) return;
@@ -328,6 +374,39 @@ document.addEventListener('DOMContentLoaded', function () {
     citations.forEach(function (item) { html += '<li>' + item + '</li>'; });
     html += '</ul><a href="resources.html#reading" class="btn btn--secondary btn--sm" style="margin-top:var(--space-md);">Open Reading Citations</a>';
     panel.innerHTML = html;
+    anchorSection.parentNode.insertBefore(panel, anchorSection);
+  })();
+
+  (function injectModuleAssessmentPreview() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var previewByModule = {
+      'module-1.html': { test: 'Unit Test 1: Inhibition + Time Blindness', assignment: 'Assignment 1.1 Temporal Horizon Analysis' },
+      'module-2.html': { test: 'Unit Test 2: Intake + Assessment Interpretation', assignment: 'Assignment 2.1 Intake Simulation Packet' },
+      'module-3.html': { test: 'Unit Test 3: Coaching Architecture + Ethics', assignment: 'Assignment 3.1 Ethics & Competency Portfolio' },
+      'module-4.html': { test: 'Unit Test 4: 360 Thinking + Time Systems', assignment: 'Assignment 4.1 Applied Method Integration' },
+      'module-5.html': { test: 'Unit Test 5: Special Population Strategy Design', assignment: 'Assignment 5.1 Intervention Design Project' },
+      'module-6.html': { test: 'Unit Test 6: Practice Ops + Credential Standards', assignment: 'Assignment 6.1 Launch Kit Capstone' }
+    };
+
+    var item = previewByModule[currentPage];
+    if (!item || document.getElementById('module-assessment-preview')) return;
+    var anchorSection = document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    if (!anchorSection || !anchorSection.parentNode) return;
+
+    var panel = document.createElement('div');
+    panel.id = 'module-assessment-preview';
+    panel.className = 'card module-reading-highlight';
+    panel.innerHTML =
+      '<div class="module-reading-highlight__title"><h3 style="margin-bottom:0;">Tests + Assignments Preview</h3><span class="module-reading-highlight__badge">Enrollment Required</span></div>' +
+      '<p style="margin-top:var(--space-sm);color:var(--color-text-light);">This module includes one graded unit test and one applied assignment. Public pages show the framework; full assessment tools, scoring, and credential feedback unlock after paid enrollment.</p>' +
+      '<ul class="checklist" style="margin-top:var(--space-md);">' +
+      '<li><strong>Test Preview:</strong> ' + item.test + '</li>' +
+      '<li><strong>Assignment Preview:</strong> ' + item.assignment + '</li>' +
+      '</ul>' +
+      '<div class="button-group" style="margin-top:var(--space-md);">' +
+      '<a href="enroll.html" class="btn btn--primary btn--sm">Enroll to Unlock Assessments</a>' +
+      '<a href="store.html" class="btn btn--secondary btn--sm">View Certification Pricing</a>' +
+      '</div>';
     anchorSection.parentNode.insertBefore(panel, anchorSection);
   })();
 
