@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const { json, parseBody, normalizeEmail, fanout } = require('./_common');
+const db = require('./_db');
 
 exports.handler = async function (event) {
   if (event.httpMethod !== 'POST') return json(405, { ok: false, error: 'Method not allowed' });
@@ -43,6 +44,13 @@ exports.handler = async function (event) {
     }
   };
 
+  const storage = await db.saveLead(lead);
   const delivery = await fanout({ type: 'lead_capture', lead });
-  return json(200, { ok: true, lead_id: lead.lead_id, offer_code: offerCode || null, delivery });
+  return json(200, {
+    ok: true,
+    lead_id: lead.lead_id,
+    offer_code: offerCode || null,
+    storage: storage.storage,
+    delivery
+  });
 };

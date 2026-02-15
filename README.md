@@ -68,6 +68,7 @@ The curriculum integrates three foundational models:
 Open `index.html` in any web browser. No build tools or dependencies required — the site is built with vanilla HTML, CSS, and JavaScript.
 
 For managed auth + durable persistence deployment, provision Supabase tables with `docs/supabase-schema.sql`.
+Set `EFI_SUBMISSIONS_CRON_SECRET` in production and rely on `netlify/functions/process-due-feedback.js` for delayed feedback release notifications.
 
 ## Quality Gates
 

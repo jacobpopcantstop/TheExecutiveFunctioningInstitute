@@ -4,6 +4,7 @@
 - Copy `.env.example` into environment-specific configuration.
 - Set `BASE_URL`, `API_BASE_URL`, Stripe keys, certificate signing secret.
 - Set funnel API secrets: `EFI_DOWNLOAD_SIGNING_SECRET`, `EFI_CRM_WEBHOOK_URL`, `EFI_ESP_WEBHOOK_URL`.
+- Set async feedback processor secret: `EFI_SUBMISSIONS_CRON_SECRET`.
 
 ## 2) CI gates
 - Run local link checks on PR/push (`scripts/check_links.py`).
@@ -20,6 +21,7 @@
 ## 5) Observability
 - Client telemetry + funnel analytics transport exists (`/api/track-event`); wire webhook targets to CRM/analytics ingestion.
 - Add uptime checks on key pages (`index`, `esqr`, `dashboard`, `verify`).
+- For delayed grading release, run the scheduled function `process-due-feedback` (every 30 minutes) or trigger securely with `x-efi-cron-secret`.
 
 ## 6) Lead Magnets + Signed Delivery
 - Lead forms now post to `/api/leads` with consent required.

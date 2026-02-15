@@ -579,13 +579,7 @@ EFI.Auth = (function () {
   function runAutoGrading() {
     var user = getCurrentUser();
     if (!user) return Promise.resolve({ ok: false, error: 'Please log in first.' });
-    return apiFetch('/api/submissions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'process_due_feedback' })
-    }).then(function () {
-      return apiFetch('/api/submissions?email=' + encodeURIComponent(user.email), { method: 'GET' });
-    }).then(function (res) {
+    return apiFetch('/api/submissions?email=' + encodeURIComponent(user.email), { method: 'GET' }).then(function (res) {
       user.progress = normalizeProgress(user.progress);
       (res.submissions || []).forEach(function (submission) {
         if (submission.kind === 'module' && submission.module_id) {
