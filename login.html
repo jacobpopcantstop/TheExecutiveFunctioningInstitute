@@ -14,6 +14,7 @@
   <meta property="og:description" content="Log in or create an account to access your EFI dashboard and certification services.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Executive Function Institute">
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/login.html" />
 </head>
 <body>
 
@@ -149,13 +150,13 @@
     });
 
     // Login
-    document.getElementById('login-form').addEventListener('submit', function(e) {
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       var errEl = document.getElementById('login-error');
       errEl.hidden = true;
       var email = document.getElementById('login-email').value;
       var pw = document.getElementById('login-password').value;
-      var result = EFI.Auth.login(email, pw);
+      var result = await EFI.Auth.login(email, pw);
       if (result.ok) {
         var params = new URLSearchParams(window.location.search);
         window.location.href = params.get('redirect') || 'dashboard.html';
@@ -166,7 +167,7 @@
     });
 
     // Register
-    document.getElementById('register-form').addEventListener('submit', function(e) {
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       var errEl = document.getElementById('register-error');
       errEl.hidden = true;
@@ -179,7 +180,7 @@
         errEl.hidden = false;
         return;
       }
-      var result = EFI.Auth.register(name, email, pw);
+      var result = await EFI.Auth.register(name, email, pw);
       if (result.ok) {
         window.location.href = 'dashboard.html';
       } else {

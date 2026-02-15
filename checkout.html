@@ -14,6 +14,7 @@
   <meta property="og:description" content="Complete your purchase of EFI certification services.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="The Executive Function Institute">
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/checkout.html" />
 </head>
 <body>
 
@@ -255,6 +256,10 @@
           detailHtml += '<div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--color-border);">';
           detailHtml += '<a href="certificate.html" class="btn btn--primary">View Your Certificate</a>';
           detailHtml += '</div>';
+        }
+
+        if (purchase.items.some(function(i) { return i.id === 'certificate-frame'; })) {
+          detailHtml += '<p style="margin-top:var(--space-md);color:var(--color-text-muted);">Framed fulfillment ordered. Shipping coordination details will appear in your dashboard purchase history.</p>';
         }
 
         document.getElementById('success-details').innerHTML = detailHtml;

@@ -11,6 +11,139 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  function highlightActiveNavLinks() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav__link').forEach(function (link) {
+      link.classList.remove('nav__link--active');
+      link.removeAttribute('aria-current');
+
+      var href = link.getAttribute('href');
+      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        link.classList.add('nav__link--active');
+        link.setAttribute('aria-current', 'page');
+      }
+    });
+  }
+
+  window.EFI = window.EFI || {};
+  window.EFI.highlightActiveNavLinks = highlightActiveNavLinks;
+
+  (function initTelemetry() {
+    var KEY = 'efi_client_errors';
+    function read() {
+      try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
+    }
+    function write(list) {
+      localStorage.setItem(KEY, JSON.stringify(list.slice(-50)));
+    }
+    function log(type, payload) {
+      var list = read();
+      list.push({ type: type, payload: payload, at: new Date().toISOString(), page: window.location.pathname });
+      write(list);
+    }
+    window.EFI.Telemetry = {
+      getErrors: read,
+      clearErrors: function () { localStorage.removeItem(KEY); },
+      log: log
+    };
+    window.addEventListener('error', function (e) {
+      log('error', { message: e.message, source: e.filename, line: e.lineno, col: e.colno });
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      log('promise_rejection', { reason: String(e.reason) });
+    });
+  })();
+
+  (function injectFooterLegalLinks() {
+    var footers = document.querySelectorAll('.footer__bottom');
+    if (!footers.length) return;
+    footers.forEach(function (footerBottom) {
+      if (footerBottom.querySelector('.footer__legal')) return;
+      var legal = document.createElement('span');
+      legal.className = 'footer__legal';
+      legal.innerHTML = '<a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a> &middot; <a href="verify.html">Verify Certificate</a>';
+      footerBottom.appendChild(legal);
+    });
+  })();
+
+  (function injectModuleReadingPanel() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var readingByModule = {
+      'module-1.html': [
+        { title: 'Barkley (2012): Executive Functions, What They Are', url: 'https://www.routledge.com/Executive-Functions-What-They-Are-How-They-Work-and-Why-They-Evolved/Barkley/p/book/9781462506965' },
+        { title: 'Harvard Center on the Developing Child: InBrief', url: 'https://developingchild.harvard.edu/resources/inbrief-executive-function/' }
+      ],
+      'module-2.html': [
+        { title: 'Dawson & Guare ESQ-R materials', url: 'resources.html#assessments' },
+        { title: 'BRIEF-2 overview', url: 'https://www.parinc.com/Products/Pkey/39' }
+      ],
+      'module-3.html': [
+        { title: 'Dawson & Guare coaching framework excerpts', url: 'resources.html#reading' },
+        { title: 'ICF Core Competencies', url: 'https://coachingfederation.org/credentials-and-standards/core-competencies' }
+      ],
+      'module-4.html': [
+        { title: 'Sarah Ward 360 Thinking tools', url: 'resources.html#tools' },
+        { title: 'Time blindness and scaffolding talk', url: 'resources.html#video' }
+      ],
+      'module-5.html': [
+        { title: 'Harvard EF skill-building guide', url: 'https://developingchild.harvard.edu/resource-guides/guide-executive-function/' },
+        { title: 'Enhancing & Practicing EF Skills (paper)', url: 'Enhancing-and-Practicing-Executive-Function-Skills-with-Children-from-Infancy-to-Adolescence-1.pdf' }
+      ],
+      'module-6.html': [
+        { title: 'ICF Code of Ethics', url: 'https://coachingfederation.org/ethics/code-of-ethics' },
+        { title: 'Certification requirements and rubric', url: 'certification.html' }
+      ]
+    };
+
+    var requiredReadings = readingByModule[currentPage];
+    if (!requiredReadings) return;
+
+    var moduleContainer = document.querySelector('main .container');
+    var anchorSection = document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    if (!moduleContainer || !anchorSection || document.getElementById('module-reading-highlight')) return;
+
+    var card = document.createElement('div');
+    card.id = 'module-reading-highlight';
+    card.className = 'card module-reading-highlight';
+    var html = '<div class="module-reading-highlight__title"><h3 style="margin-bottom:0;">Required Further Reading</h3><span class="module-reading-highlight__badge">Required</span></div>';
+    html += '<p style="margin-top:var(--space-sm);color:var(--color-text-light);">Complete these references before marking this module done. They are used by rubric-based grading and capstone evaluation.</p>';
+    html += '<ul class="checklist" style="margin-top:var(--space-md);">';
+    requiredReadings.forEach(function (reading) {
+      var external = /^https?:/.test(reading.url);
+      html += '<li><a href="' + reading.url + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + reading.title + '</a></li>';
+    });
+    html += '</ul>';
+    html += '<a href="resources.html#reading" class="btn btn--secondary btn--sm" style="margin-top:var(--space-md);">Open Complete Reading Packet</a>';
+    card.innerHTML = html;
+
+    anchorSection.parentNode.insertBefore(card, anchorSection);
+  })();
+
+  (function injectModuleCitationPanel() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var citationByModule = {
+      'module-1.html': ['Barkley (2012)', 'Brown (2013)', 'Harvard Center on the Developing Child'],
+      'module-2.html': ['Dawson & Guare ESQ-R', 'BRIEF-2 Technical Manual', 'Barkley Point-of-Performance principle'],
+      'module-3.html': ['Dawson & Guare intervention framework', 'ICF Core Competencies'],
+      'module-4.html': ['Ward & Jacobsen 360 Thinking', 'Temporal management literature'],
+      'module-5.html': ['Harvard EF activities guide', 'ADHD/ASD coaching adaptations literature'],
+      'module-6.html': ['ICF Code of Ethics', 'NBEFC guidance', 'Scope of practice resources']
+    };
+    var citations = citationByModule[currentPage];
+    if (!citations || document.getElementById('module-citation-panel')) return;
+    var anchorSection = document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    if (!anchorSection || !anchorSection.parentNode) return;
+    var panel = document.createElement('div');
+    panel.id = 'module-citation-panel';
+    panel.className = 'card module-reading-highlight';
+    var html = '<div class="module-reading-highlight__title"><h3 style="margin-bottom:0;">Evidence & Citation Check</h3><span class="module-reading-highlight__badge">Reviewed</span></div>';
+    html += '<p style="margin-top:var(--space-sm);color:var(--color-text-light);">This module currently maps to the following foundational references:</p><ul class="checklist" style="margin-top:var(--space-md);">';
+    citations.forEach(function (item) { html += '<li>' + item + '</li>'; });
+    html += '</ul><a href="resources.html#reading" class="btn btn--secondary btn--sm" style="margin-top:var(--space-md);">Open Reading Citations</a>';
+    panel.innerHTML = html;
+    anchorSection.parentNode.insertBefore(panel, anchorSection);
+  })();
+
   /* --- Dark Mode Toggle --- */
   (function () {
     var THEME_KEY = 'efi_theme';
@@ -86,6 +219,13 @@ document.addEventListener('DOMContentLoaded', function () {
         closeNav();
         navToggle.focus();
       }
+    });
+
+    // Close nav when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!navLinks.classList.contains('open')) return;
+      if (navLinks.contains(e.target) || navToggle.contains(e.target)) return;
+      closeNav();
     });
   }
 
@@ -320,14 +460,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* --- Active nav link highlighting --- */
-  var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav__link').forEach(function (link) {
-    var href = link.getAttribute('href');
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-      link.classList.add('nav__link--active');
-      link.setAttribute('aria-current', 'page');
-    }
-  });
+  highlightActiveNavLinks();
 
   /* --- Enrollment / Contact Form Handler --- */
   var form = document.getElementById('contact-form') || document.getElementById('enroll-form');

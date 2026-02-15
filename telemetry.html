@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Error Telemetry | The Executive Function Institute</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/telemetry.html" />
+</head>
+<body>
+  <main class="section">
+    <div class="container">
+      <h1>Client Error Telemetry (Prototype)</h1>
+      <p class="lead">This page displays browser-captured errors stored in localStorage by <code>EFI.Telemetry</code>.</p>
+      <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;margin-bottom:var(--space-md);">
+        <button class="btn btn--secondary" id="refresh-errors">Refresh</button>
+        <button class="btn btn--secondary" id="clear-errors">Clear Errors</button>
+        <a class="btn btn--secondary" href="dashboard.html">Back to Dashboard</a>
+      </div>
+      <div id="error-list"></div>
+    </div>
+  </main>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    if (window.EFI && EFI.Auth && !EFI.Auth.requireRole(['admin', 'reviewer'], 'dashboard.html')) {
+      return;
+    }
+
+    function render() {
+      var out = document.getElementById('error-list');
+      var rows = (window.EFI && EFI.Telemetry && EFI.Telemetry.getErrors()) || [];
+      if (!rows.length) {
+        out.innerHTML = '<div class="card"><p style="margin:0;">No client errors recorded.</p></div>';
+        return;
+      }
+      var html = '<div class="card"><h3>Recorded Errors (' + rows.length + ')</h3><ul style="padding-left:var(--space-lg);">';
+      rows.slice().reverse().forEach(function (r) {
+        html += '<li style="margin-bottom:var(--space-sm);"><strong>' + r.type + '</strong> @ ' + new Date(r.at).toLocaleString() + '<br><code>' + JSON.stringify(r.payload) + '</code><br><span style="font-size:0.85rem;color:var(--color-text-muted);">' + r.page + '</span></li>';
+      });
+      html += '</ul></div>';
+      out.innerHTML = html;
+    }
+    document.getElementById('refresh-errors').addEventListener('click', render);
+    document.getElementById('clear-errors').addEventListener('click', function () {
+      if (window.EFI && EFI.Telemetry) EFI.Telemetry.clearErrors();
+      render();
+    });
+    render();
+  })();
+  </script>
+</body>
+</html>
