@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Executive Function Skills Gap Analyzer | EFI</title><meta name="description" content="Download gate for the Executive Function Skills Gap Analyzer asset." /><link rel="canonical" href="https://executivefunctioninginstitute.com/gap-analyzer.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Business</a><a href="module-c-interventions.html" class="nav__link">Practice</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
+<header class="page-header"><div class="container"><h1>Executive Function Skills Gap Analyzer</h1><p>Lead magnet delivery gate for educators and coaches evaluating service readiness.</p></div></header>
+<main id="main-content"><section class="section"><div class="container container--narrow"><div class="tool-panel"><h2>Request Download</h2><form id="gate-form-a"><div class="form-group"><label>Email</label><input class="form-control" id="gate-email-a" type="email" required /></div><button class="btn btn--primary" type="submit">Unlock PDF</button></form><div id="gate-out-a" class="tool-output" aria-live="polite"></div></div></div></section></main>
+<footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('gate-form-a').addEventListener('submit', function(e){
+  e.preventDefault();
+  localStorage.setItem('efi_gate_gap_analyzer', document.getElementById('gate-email-a').value);
+  document.getElementById('gate-out-a').innerHTML = 'Access granted: <a href="docs/assets/executive-function-skills-gap-analyzer.pdf" target="_blank" rel="noopener">Download the Skills Gap Analyzer (PDF)</a>.';
+});
+</script>
+</body></html>

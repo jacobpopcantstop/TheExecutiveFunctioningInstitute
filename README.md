@@ -20,6 +20,21 @@ The Executive Function Institute provides a rigorous six-module certification cu
 - **module-4.html** — Module 4: Applied Methodologies (360 Thinking Model)
 - **module-5.html** — Module 5: Strategic Interventions & Special Populations
 - **module-6.html** — Module 6: Professional Ethics & Practice Management
+- **module-a-neuroscience.html** — Free module: neuroscience of executive function
+- **module-b-pedagogy.html** — Free module: coaching vs tutoring pedagogy shift
+- **module-c-interventions.html** — Free module: intervention frameworks
+- **barkley-model-guide.html** — Definitive Barkley inhibition model hub
+- **brown-clusters-tool.html** — Brown six-cluster interactive pre-diagnostic tool
+- **ward-360-thinking.html** — 360 Thinking and Get Ready, Do, Done hub
+- **barkley-vs-brown.html** — Comparative model analysis page
+- **teacher-to-coach.html** — Educator transition landing page + ROI calculator
+- **educator-launchpad.html** — 5-day email launchpad signup flow
+- **gap-analyzer.html** — Download gate for skills gap analyzer lead magnet
+- **launch-plan.html** — Download gate for 90-day business launch plan
+- **coach-directory.html** — Searchable certified coach directory (city/state/zip)
+- **community.html** — Community recap/forum digest hub
+- **scope-of-practice.html** — Coaching vs therapy legal/scope guidance
+- **accreditation.html** — NBEFC/ICF alignment status page
 
 ## Curriculum Modules
 

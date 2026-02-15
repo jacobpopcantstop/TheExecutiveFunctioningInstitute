@@ -51,3 +51,24 @@
 2. ✅ Normalized sitemap to absolute production URLs for consistent SEO indexing.
 3. ✅ Added single-command release gate (`python3 scripts/release_gate.py`) that runs syntax, local link, accessibility, canonical, sitemap, and Netlify header checks.
 4. ✅ Added CI workflow (`.github/workflows/release-gate.yml`) to enforce deployment gates on push/PR.
+
+## Wave 6: Strategic Market Intelligence Buildout (This Pass)
+1. ✅ Added open curriculum pages:
+   `module-a-neuroscience.html`, `module-b-pedagogy.html`, `module-c-interventions.html`.
+2. ✅ Added video hosting/embed infrastructure blocks on free module pages.
+3. ✅ Added pillar authority pages:
+   `barkley-model-guide.html`, `brown-clusters-tool.html`, `ward-360-thinking.html`, `barkley-vs-brown.html`.
+4. ✅ Added sales funnel pages/features:
+   `teacher-to-coach.html` (with ROI calculator), `educator-launchpad.html` (prototype signup flow), `gap-analyzer.html`, `launch-plan.html` (download gates).
+5. ✅ Added directory/community/trust pages:
+   `coach-directory.html`, `community.html`, `scope-of-practice.html`, `accreditation.html`.
+6. ✅ Added sitewide Theory/Practice/Business cluster navigation injection in `js/main.js`.
+7. ✅ Added schema markup (`Course` + `EducationalOrganization`) on `curriculum.html` and `certification.html`.
+8. ✅ Expanded sitemap coverage to include all newly added routes.
+
+## Wave 6 Remaining (Next Integration Sprint)
+- Replace prototype localStorage lead capture with server/API integrations (ESP + CRM + consent logging).
+- Replace placeholder download assets with final branded PDFs and signed delivery links.
+- Replace placeholder directory records with CMS-backed searchable profiles and moderation workflow.
+- Add analytics event instrumentation for funnel steps (landing -> calculator -> signup -> enroll).
+- Add production video hosting pipeline (storage, captions, bandwidth policy, fallback CDN logic).
