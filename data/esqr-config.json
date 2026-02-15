@@ -1,0 +1,114 @@
+{
+  "skills": [
+    { "id": "response-inhibition", "name": "Response Inhibition", "domain": "doing", "questions": ["q1", "q2", "q3"] },
+    { "id": "working-memory", "name": "Working Memory", "domain": "thinking", "questions": ["q4", "q5", "q6"] },
+    { "id": "emotional-control", "name": "Emotional Control", "domain": "doing", "questions": ["q7", "q8", "q9"] },
+    { "id": "sustained-attention", "name": "Sustained Attention", "domain": "doing", "questions": ["q10", "q11", "q12"] },
+    { "id": "task-initiation", "name": "Task Initiation", "domain": "doing", "questions": ["q13", "q14", "q15"] },
+    { "id": "planning", "name": "Planning", "domain": "thinking", "questions": ["q16", "q17", "q18"] },
+    { "id": "organization", "name": "Organization", "domain": "thinking", "questions": ["q19", "q20", "q21"] },
+    { "id": "time-management", "name": "Time Management", "domain": "thinking", "questions": ["q22", "q23", "q24"] },
+    { "id": "goal-directed-persistence", "name": "Goal-Directed Persistence", "domain": "doing", "questions": ["q25", "q26", "q27"] },
+    { "id": "flexibility", "name": "Flexibility", "domain": "doing", "questions": ["q28", "q29", "q30"] },
+    { "id": "metacognition", "name": "Metacognition", "domain": "thinking", "questions": ["q31", "q32", "q33"] },
+    { "id": "stress-tolerance", "name": "Stress Tolerance", "domain": "doing", "questions": ["q34", "q35", "q36"] }
+  ],
+  "strategies": {
+    "response-inhibition": {
+      "summary": "You may act or speak before fully thinking things through, leading to regret or impulsive decisions.",
+      "strategies": [
+        "Practice the 10-Second Rule: when you feel the urge to respond, count to 10 silently before acting.",
+        "Use physical pause cues such as a sticky note or bracelet to trigger a stop-and-think moment.",
+        "Before sending emotional messages, save as draft and revisit after 15 minutes."
+      ]
+    },
+    "working-memory": {
+      "summary": "You may struggle to hold information in mind, forget instructions, or lose track of multi-step tasks.",
+      "strategies": [
+        "Externalize memory with one capture notebook or app.",
+        "Use checklists for tasks with more than two steps.",
+        "Repeat instructions aloud to increase retention."
+      ]
+    },
+    "emotional-control": {
+      "summary": "Frustration, anxiety, or strong emotions may interfere with your ability to stay productive and on-task.",
+      "strategies": [
+        "Name the emotion before task start to reduce emotional overload.",
+        "Use a short regulation routine: breathe, move, reset, return.",
+        "Check intensity on a 1-10 scale and regulate first when above 7."
+      ]
+    },
+    "sustained-attention": {
+      "summary": "Maintaining focus on low-interest tasks may be difficult and variable across contexts.",
+      "strategies": [
+        "Use timed focus blocks with planned breaks.",
+        "Reduce distractions before starting: silence notifications and remove visual clutter.",
+        "Add stimulation to low-interest tasks through body doubling or music."
+      ]
+    },
+    "task-initiation": {
+      "summary": "Getting started may be the primary bottleneck even when you know exactly what to do.",
+      "strategies": [
+        "Create a consistent 2-minute launch ritual.",
+        "Commit to two minutes only; momentum often follows.",
+        "Use accountability check-ins to trigger starts."
+      ]
+    },
+    "planning": {
+      "summary": "You may begin tasks without a clear plan, resulting in missed steps and avoidable stress.",
+      "strategies": [
+        "Start with what Done looks like, then map steps backward.",
+        "Ask: what does done look like, what steps are needed, what materials are required?",
+        "Reuse planning templates for recurring task types."
+      ]
+    },
+    "organization": {
+      "summary": "Disorganization may increase friction, lost time, and avoidable stress.",
+      "strategies": [
+        "Set up one launch pad for daily essentials.",
+        "Apply one-touch processing for email and paper.",
+        "Schedule a weekly 15-minute reset for physical and digital spaces."
+      ]
+    },
+    "time-management": {
+      "summary": "Time blindness may cause underestimation, lateness, and missed deadlines.",
+      "strategies": [
+        "Use visual time tools such as analog clocks or time wedges.",
+        "Track predicted versus actual task time weekly.",
+        "Add transition buffers between commitments."
+      ]
+    },
+    "goal-directed-persistence": {
+      "summary": "You may start strong but struggle to sustain effort when rewards are delayed.",
+      "strategies": [
+        "Break long goals into short milestone deliverables.",
+        "Use visible progress tracking.",
+        "Add external accountability for longer horizons."
+      ]
+    },
+    "flexibility": {
+      "summary": "Unexpected changes may trigger rigidity, stress, or shutdown.",
+      "strategies": [
+        "Pre-plan a backup option for every major plan.",
+        "Use transition warnings before task/context switches.",
+        "Use a brief physical reset to interrupt stuck thinking."
+      ]
+    },
+    "metacognition": {
+      "summary": "Self-monitoring may be inconsistent, making it harder to adjust strategy in real time.",
+      "strategies": [
+        "Pause at checkpoints to ask: what is working, what is not, what changes now?",
+        "Use a short daily reflection prompt.",
+        "Self-score work with rubrics before submission."
+      ]
+    },
+    "stress-tolerance": {
+      "summary": "High pressure may reduce your ability to think clearly and prioritize effectively.",
+      "strategies": [
+        "Use a fixed stress protocol for overload moments.",
+        "Prioritize with triage labels: urgent, important, can wait.",
+        "Build tolerance with repeated low-stakes pressure practice."
+      ]
+    }
+  }
+}

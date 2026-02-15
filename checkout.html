@@ -248,33 +248,39 @@
       btn.disabled = true;
 
       setTimeout(function() {
-        var purchase = EFI.Auth.addPurchase(cart);
-        document.getElementById('checkout-section').style.display = 'none';
-        var successEl = document.getElementById('checkout-success');
-        successEl.style.display = 'block';
+        Promise.resolve(EFI.Auth.addPurchase(cart)).then(function (purchase) {
+          document.getElementById('checkout-section').style.display = 'none';
+          var successEl = document.getElementById('checkout-success');
+          successEl.style.display = 'block';
 
-        var detailHtml = '<p><strong>Order ID:</strong> ' + purchase.id.toUpperCase() + '</p>';
-        detailHtml += '<p><strong>Date:</strong> ' + new Date(purchase.date).toLocaleDateString() + '</p>';
-        detailHtml += '<p><strong>Items:</strong></p><ul>';
-        purchase.items.forEach(function(item) {
-          detailHtml += '<li>' + item.name + ' &mdash; $' + item.price + '</li>';
+          var detailHtml = '<p><strong>Order ID:</strong> ' + purchase.id.toUpperCase() + '</p>';
+          detailHtml += '<p><strong>Date:</strong> ' + new Date(purchase.date).toLocaleDateString() + '</p>';
+          detailHtml += '<p><strong>Items:</strong></p><ul>';
+          purchase.items.forEach(function(item) {
+            detailHtml += '<li>' + item.name + ' &mdash; $' + item.price + '</li>';
+          });
+          detailHtml += '</ul>';
+          detailHtml += '<p style=\"font-weight:700;font-size:1.1rem;margin-top:var(--space-md);\">Total: $' + purchase.total + '</p>';
+
+          if (purchase.items.some(function(i) { return i.id === 'certificate'; })) {
+            detailHtml += '<div style=\"margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--color-border);\">';
+            detailHtml += '<a href=\"certificate.html\" class=\"btn btn--primary\">View Your Certificate</a>';
+            detailHtml += '</div>';
+          }
+
+          if (purchase.items.some(function(i) { return i.id === 'certificate-frame'; })) {
+            detailHtml += '<p style=\"margin-top:var(--space-md);color:var(--color-text-muted);\">Framed fulfillment ordered. Shipping coordination details will appear in your dashboard purchase history.</p>';
+          }
+
+          document.getElementById('success-details').innerHTML = detailHtml;
+          successEl.scrollIntoView({ behavior: 'smooth' });
+        }).catch(function (err) {
+          btn.disabled = false;
+          btn.textContent = 'Complete Purchase';
+          errEl.textContent = err && err.message ? err.message : 'Payment verification failed.';
+          errEl.hidden = false;
         });
-        detailHtml += '</ul>';
-        detailHtml += '<p style="font-weight:700;font-size:1.1rem;margin-top:var(--space-md);">Total: $' + purchase.total + '</p>';
-
-        if (purchase.items.some(function(i) { return i.id === 'certificate'; })) {
-          detailHtml += '<div style="margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--color-border);">';
-          detailHtml += '<a href="certificate.html" class="btn btn--primary">View Your Certificate</a>';
-          detailHtml += '</div>';
-        }
-
-        if (purchase.items.some(function(i) { return i.id === 'certificate-frame'; })) {
-          detailHtml += '<p style="margin-top:var(--space-md);color:var(--color-text-muted);">Framed fulfillment ordered. Shipping coordination details will appear in your dashboard purchase history.</p>';
-        }
-
-        document.getElementById('success-details').innerHTML = detailHtml;
-        successEl.scrollIntoView({ behavior: 'smooth' });
-      }, 1500);
+      }, 900);
     });
   })();
   </script>

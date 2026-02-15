@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: EFI Certification and Funnel API (Draft)
-  version: 0.2.0
+  version: 0.4.0
 servers:
   - url: https://executivefunctioninginstitute.com/api
 paths:
@@ -79,3 +79,142 @@ paths:
       responses:
         '200':
           description: Event accepted
+  /sync-progress:
+    get:
+      summary: Retrieve server-side learning progress snapshot by email
+      parameters:
+        - in: query
+          name: email
+          required: true
+          schema: { type: string, format: email }
+      responses:
+        '200':
+          description: Progress fetched
+    post:
+      summary: Persist learning progress to server-side storage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, progress]
+              properties:
+                email: { type: string, format: email }
+                progress: { type: object }
+      responses:
+        '200':
+          description: Progress persisted
+  /verify:
+    post:
+      summary: Issue a server-signed purchase receipt token after checkout verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action, email, items]
+              properties:
+                action: { type: string, enum: [issue_purchase] }
+                email: { type: string, format: email }
+                payment_intent_id: { type: string }
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id: { type: string }
+                      name: { type: string }
+                      price: { type: number }
+      responses:
+        '200':
+          description: Receipt issued
+    get:
+      summary: Verify a signed receipt token for a product and optional credential ID
+      parameters:
+        - in: query
+          name: receipt
+          required: true
+          schema: { type: string }
+        - in: query
+          name: product
+          required: false
+          schema: { type: string }
+        - in: query
+          name: credential_id
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: Verification completed
+  /stripe-webhook:
+    post:
+      summary: Stripe webhook ingestion endpoint for server-side payment reconciliation
+      responses:
+        '200':
+          description: Event accepted
+  /auth:
+    get:
+      summary: Managed authentication config or current user profile lookup
+      parameters:
+        - in: query
+          name: action
+          required: true
+          schema:
+            type: string
+            enum: [config, me]
+      responses:
+        '200':
+          description: Auth config or profile resolved
+    post:
+      summary: Managed authentication register/login/logout actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [register, login, logout]
+                name: { type: string }
+                email: { type: string, format: email }
+                password: { type: string }
+                access_token: { type: string }
+      responses:
+        '200':
+          description: Auth action completed
+  /submissions:
+    get:
+      summary: Fetch submission review statuses for a user
+      parameters:
+        - in: query
+          name: email
+          required: true
+          schema: { type: string, format: email }
+      responses:
+        '200':
+          description: Submission statuses returned
+    post:
+      summary: Submit module/capstone for AI rubric grading or process due feedback release notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [action]
+              properties:
+                action:
+                  type: string
+                  enum: [submit_module, submit_capstone, process_due_feedback]
+                email: { type: string, format: email }
+                module_id: { type: string }
+                evidence_url: { type: string }
+                notes: { type: string }
+      responses:
+        '200':
+          description: Submission accepted or release processing completed

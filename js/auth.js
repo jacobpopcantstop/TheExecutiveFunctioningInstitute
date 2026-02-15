@@ -12,6 +12,34 @@ EFI.Auth = (function () {
   var SESSION_KEY = 'efi_session';
   var CART_KEY = 'efi_cart';
   var PURCHASES_KEY = 'efi_purchases';
+  var ACCESS_TOKEN_KEY = 'efi_access_token';
+  var REFRESH_TOKEN_KEY = 'efi_refresh_token';
+
+  function apiFetch(path, opts) {
+    if (!window.fetch) return Promise.reject(new Error('Browser does not support fetch.'));
+    return fetch(path, opts || {}).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok || data.ok === false) {
+          throw new Error(data.error || 'Request failed');
+        }
+        return data;
+      });
+    });
+  }
+
+  function getAccessToken() {
+    return localStorage.getItem(ACCESS_TOKEN_KEY) || '';
+  }
+
+  function setManagedTokens(accessToken, refreshToken) {
+    if (accessToken) localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+    if (refreshToken) localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+  }
+
+  function clearManagedTokens() {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+  }
 
   /* --- Helpers --- */
   function getUsers() {
@@ -98,6 +126,32 @@ EFI.Auth = (function () {
 
   /* --- Auth API --- */
   async function register(name, email, password) {
+    try {
+      var managed = await apiFetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'register',
+          name: name,
+          email: email,
+          password: password
+        })
+      });
+      if (managed && managed.ok && managed.user) {
+        setManagedTokens(managed.access_token || '', managed.refresh_token || '');
+        setSession({
+          email: managed.user.email,
+          name: managed.user.name || managed.user.email,
+          mode: 'managed',
+          role: managed.user.role || 'learner',
+          createdAt: managed.user.createdAt || new Date().toISOString(),
+          progress: managed.user.progress || getDefaultProgress(),
+          purchases: managed.user.purchases || []
+        });
+        return { ok: true, user: getCurrentUser() };
+      }
+    } catch (managedErr) {}
+
     var users = getUsers();
     var key = email.toLowerCase().trim();
     if (users[key]) {
@@ -120,10 +174,40 @@ EFI.Auth = (function () {
     };
     saveUsers(users);
     setSession(users[key]);
+    apiFetch('/api/sync-progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: key, progress: users[key].progress })
+    }).catch(function () {});
     return { ok: true, user: users[key] };
   }
 
   async function login(email, password) {
+    try {
+      var managed = await apiFetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'login',
+          email: email,
+          password: password
+        })
+      });
+      if (managed && managed.ok && managed.user) {
+        setManagedTokens(managed.access_token || '', managed.refresh_token || '');
+        setSession({
+          email: managed.user.email,
+          name: managed.user.name || managed.user.email,
+          mode: 'managed',
+          role: managed.user.role || 'learner',
+          createdAt: managed.user.createdAt || new Date().toISOString(),
+          progress: managed.user.progress || getDefaultProgress(),
+          purchases: managed.user.purchases || []
+        });
+        return { ok: true, user: getCurrentUser() };
+      }
+    } catch (managedErr) {}
+
     var users = getUsers();
     var key = email.toLowerCase().trim();
     var user = users[key];
@@ -149,11 +233,28 @@ EFI.Auth = (function () {
     if (!isValid) {
       return { ok: false, error: 'Incorrect password. Please try again.' };
     }
+    apiFetch('/api/sync-progress?email=' + encodeURIComponent(key))
+      .then(function (remote) {
+        if (remote && remote.ok && remote.progress) {
+          user.progress = normalizeProgress(remote.progress);
+          users[key] = user;
+          saveUsers(users);
+        }
+      }).catch(function () {});
     setSession(user);
     return { ok: true, user: user };
   }
 
   function logout() {
+    var token = getAccessToken();
+    if (token) {
+      apiFetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'logout', access_token: token })
+      }).catch(function () {});
+    }
+    clearManagedTokens();
     localStorage.removeItem(SESSION_KEY);
     window.location.href = 'login.html';
   }
@@ -162,6 +263,11 @@ EFI.Auth = (function () {
     localStorage.setItem(SESSION_KEY, JSON.stringify({
       email: user.email,
       name: user.name,
+      mode: user.mode || 'prototype',
+      role: user.role || 'learner',
+      createdAt: user.createdAt || new Date().toISOString(),
+      progress: user.progress || getDefaultProgress(),
+      purchases: user.purchases || [],
       loggedInAt: new Date().toISOString()
     }));
   }
@@ -173,6 +279,17 @@ EFI.Auth = (function () {
   function getCurrentUser() {
     var session = getSession();
     if (!session) return null;
+    if (session.mode === 'managed') {
+      var managedUser = {
+        name: session.name,
+        email: session.email,
+        role: session.role || 'learner',
+        createdAt: session.createdAt || session.loggedInAt,
+        progress: normalizeProgress(session.progress || getDefaultProgress()),
+        purchases: Array.isArray(session.purchases) ? session.purchases : []
+      };
+      return managedUser;
+    }
     var users = getUsers();
     var user = users[session.email] || null;
     if (user && !user.role) user.role = 'learner';
@@ -238,6 +355,26 @@ EFI.Auth = (function () {
   function updateUser(updates) {
     var session = getSession();
     if (!session) return false;
+    if (session.mode === 'managed') {
+      var next = {
+        email: session.email,
+        name: updates && updates.name ? updates.name : session.name,
+        mode: 'managed',
+        role: session.role || 'learner',
+        createdAt: session.createdAt || new Date().toISOString(),
+        progress: updates && updates.progress ? normalizeProgress(updates.progress) : normalizeProgress(session.progress || getDefaultProgress()),
+        purchases: updates && updates.purchases ? updates.purchases : (session.purchases || [])
+      };
+      setSession(next);
+      if (next.progress) {
+        apiFetch('/api/sync-progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: next.email, progress: next.progress })
+        }).catch(function () {});
+      }
+      return true;
+    }
     var users = getUsers();
     var user = users[session.email];
     if (!user) return false;
@@ -248,6 +385,13 @@ EFI.Auth = (function () {
     }
     users[session.email] = user;
     saveUsers(users);
+    if (updates && updates.progress) {
+      apiFetch('/api/sync-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: user.email, progress: updates.progress })
+      }).catch(function () {});
+    }
     return true;
   }
 
@@ -313,18 +457,31 @@ EFI.Auth = (function () {
 
   function addPurchase(items) {
     var user = getCurrentUser();
-    if (!user) return false;
-    var purchase = {
-      id: 'ord-' + Date.now().toString(36),
-      date: new Date().toISOString(),
-      items: items,
-      total: items.reduce(function (s, i) { return s + i.price; }, 0)
-    };
-    var purchases = user.purchases || [];
-    purchases.push(purchase);
-    updateUser({ purchases: purchases });
-    clearCart();
-    return purchase;
+    if (!user) return Promise.reject(new Error('Please log in first.'));
+
+    return apiFetch('/api/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'issue_purchase',
+        email: user.email,
+        items: items
+      })
+    }).then(function (res) {
+      var purchase = res.purchase || {
+        id: 'ord-' + Date.now().toString(36),
+        date: new Date().toISOString(),
+        items: items,
+        total: items.reduce(function (s, i) { return s + i.price; }, 0)
+      };
+      purchase.receipt = res.receipt || null;
+      purchase.credentialId = res.credential_id || null;
+      var purchases = user.purchases || [];
+      purchases.push(purchase);
+      updateUser({ purchases: purchases });
+      clearCart();
+      return purchase;
+    });
   }
 
   function hasPurchased(productId) {
@@ -332,6 +489,25 @@ EFI.Auth = (function () {
     return purchases.some(function (p) {
       return p.items.some(function (item) { return item.id === productId; });
     });
+  }
+
+  function getLatestReceiptFor(productId) {
+    var purchases = getPurchases();
+    var token = null;
+    purchases.forEach(function (p) {
+      var match = (p.items || []).some(function (item) { return item.id === productId; });
+      if (match && p.receipt) token = p.receipt;
+    });
+    return token;
+  }
+
+  function verifyPurchasedProduct(productId, credentialId) {
+    var receipt = getLatestReceiptFor(productId);
+    if (!receipt) return Promise.resolve({ ok: false, verified: false, error: 'No signed purchase receipt found.' });
+    var qs = '?receipt=' + encodeURIComponent(receipt) + '&product=' + encodeURIComponent(productId);
+    if (credentialId) qs += '&credential_id=' + encodeURIComponent(credentialId);
+    return apiFetch('/api/verify' + qs, { method: 'GET' })
+      .catch(function (err) { return { ok: false, verified: false, error: err.message }; });
   }
 
   function getCertificationStatus(userArg) {
@@ -374,64 +550,103 @@ EFI.Auth = (function () {
 
   function submitCapstone(evidenceUrl, notes) {
     var user = getCurrentUser();
-    if (!user) return { ok: false, error: 'Please log in first.' };
-    user.progress = normalizeProgress(user.progress);
-    user.progress.capstone = {
-      status: 'submitted',
-      submittedAt: new Date().toISOString(),
-      evidenceUrl: (evidenceUrl || '').trim(),
-      notes: (notes || '').trim()
-    };
-    updateUser({ progress: user.progress });
-    return { ok: true, capstone: user.progress.capstone };
+    if (!user) return Promise.resolve({ ok: false, error: 'Please log in first.' });
+    return apiFetch('/api/submissions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'submit_capstone',
+        email: user.email,
+        evidence_url: (evidenceUrl || '').trim(),
+        notes: (notes || '').trim()
+      })
+    }).then(function (res) {
+      user.progress = normalizeProgress(user.progress);
+      user.progress.capstone = {
+        status: 'feedback_pending_release',
+        submittedAt: new Date().toISOString(),
+        evidenceUrl: (evidenceUrl || '').trim(),
+        notes: (notes || '').trim(),
+        releaseAt: res.release_at
+      };
+      updateUser({ progress: user.progress });
+      return { ok: true, capstone: user.progress.capstone, release_at: res.release_at };
+    }).catch(function (err) {
+      return { ok: false, error: err.message };
+    });
   }
 
   function runAutoGrading() {
     var user = getCurrentUser();
-    if (!user) return { ok: false, error: 'Please log in first.' };
-    user.progress = normalizeProgress(user.progress);
-
-    Object.keys(user.progress.submissions).forEach(function (moduleId) {
-      var submission = user.progress.submissions[moduleId];
-      if (!submission || submission.status === 'passed') return;
-      var evidence = (submission.evidenceUrl || '') + ' ' + (submission.notes || '');
-      var score = Math.max(70, Math.min(98, 70 + evidence.length % 29));
-      submission.score = score;
-      submission.status = score >= 75 ? 'passed' : 'needs-revision';
-      submission.gradedAt = new Date().toISOString();
-      user.progress.modules[moduleId] = submission.status === 'passed';
-    });
-
-    if (user.progress.capstone && user.progress.capstone.status === 'submitted') {
-      var hasCapstoneReview = (user.purchases || []).some(function (p) {
-        return p.items.some(function (i) { return i.id === 'capstone-review'; });
+    if (!user) return Promise.resolve({ ok: false, error: 'Please log in first.' });
+    return apiFetch('/api/submissions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'process_due_feedback' })
+    }).then(function () {
+      return apiFetch('/api/submissions?email=' + encodeURIComponent(user.email), { method: 'GET' });
+    }).then(function (res) {
+      user.progress = normalizeProgress(user.progress);
+      (res.submissions || []).forEach(function (submission) {
+        if (submission.kind === 'module' && submission.module_id) {
+          user.progress.submissions[String(submission.module_id)] = {
+            status: submission.status,
+            submittedAt: submission.submitted_at,
+            evidenceUrl: submission.evidence_url,
+            notes: submission.notes,
+            releaseAt: submission.release_at,
+            score: submission.score,
+            feedback: submission.feedback
+          };
+          if (submission.feedback_available && typeof submission.score === 'number') {
+            user.progress.modules[String(submission.module_id)] = submission.score >= 75;
+          }
+        }
+        if (submission.kind === 'capstone') {
+          user.progress.capstone = {
+            status: submission.feedback_available ? (submission.score >= 75 ? 'passed' : 'needs-revision') : 'feedback_pending_release',
+            submittedAt: submission.submitted_at,
+            releaseAt: submission.release_at,
+            score: submission.score,
+            feedback: submission.feedback
+          };
+        }
       });
-      if (hasCapstoneReview) {
-        user.progress.capstone.status = 'passed';
-        user.progress.capstone.gradedAt = new Date().toISOString();
-        user.progress.capstone.score = 92;
-      } else {
-        user.progress.capstone.status = 'awaiting-payment';
-      }
-    }
-
-    updateUser({ progress: user.progress });
-    return { ok: true, progress: user.progress, status: getCertificationStatus(user) };
+      updateUser({ progress: user.progress });
+      return { ok: true, progress: user.progress, status: getCertificationStatus(user) };
+    }).catch(function (err) {
+      return { ok: false, error: err.message };
+    });
   }
 
   function saveModuleSubmission(moduleId, evidenceUrl, notes) {
     var user = getCurrentUser();
-    if (!user) return { ok: false, error: 'Please log in first.' };
-    user.progress = normalizeProgress(user.progress);
-    var key = String(moduleId);
-    user.progress.submissions[key] = {
-      status: 'submitted',
-      submittedAt: new Date().toISOString(),
-      evidenceUrl: (evidenceUrl || '').trim(),
-      notes: (notes || '').trim()
-    };
-    updateUser({ progress: user.progress });
-    return { ok: true, submission: user.progress.submissions[key] };
+    if (!user) return Promise.resolve({ ok: false, error: 'Please log in first.' });
+    return apiFetch('/api/submissions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'submit_module',
+        email: user.email,
+        module_id: String(moduleId),
+        evidence_url: (evidenceUrl || '').trim(),
+        notes: (notes || '').trim()
+      })
+    }).then(function (res) {
+      user.progress = normalizeProgress(user.progress);
+      var key = String(moduleId);
+      user.progress.submissions[key] = {
+        status: 'feedback_pending_release',
+        submittedAt: new Date().toISOString(),
+        evidenceUrl: (evidenceUrl || '').trim(),
+        notes: (notes || '').trim(),
+        releaseAt: res.release_at
+      };
+      updateUser({ progress: user.progress });
+      return { ok: true, submission: user.progress.submissions[key], release_at: res.release_at };
+    }).catch(function (err) {
+      return { ok: false, error: err.message };
+    });
   }
 
   /* --- Nav Auth UI --- */
@@ -459,10 +674,33 @@ EFI.Auth = (function () {
     }
   }
 
+  function refreshManagedSession() {
+    var session = getSession();
+    var token = getAccessToken();
+    if (!session || session.mode !== 'managed' || !token) return Promise.resolve();
+    return apiFetch('/api/auth?action=me', {
+      method: 'GET',
+      headers: { Authorization: 'Bearer ' + token }
+    }).then(function (res) {
+      if (!res || !res.ok || !res.user) return;
+      setSession({
+        email: res.user.email,
+        name: res.user.name || res.user.email,
+        mode: 'managed',
+        role: res.user.role || 'learner',
+        createdAt: res.user.createdAt || session.createdAt,
+        progress: res.user.progress || session.progress || getDefaultProgress(),
+        purchases: res.user.purchases || session.purchases || []
+      });
+    }).catch(function () {});
+  }
+
   /* Init on page load */
   document.addEventListener('DOMContentLoaded', function () {
-    initNavAuth();
-    updateCartBadge();
+    refreshManagedSession().finally(function () {
+      initNavAuth();
+      updateCartBadge();
+    });
   });
 
   return {
@@ -482,6 +720,8 @@ EFI.Auth = (function () {
     getPurchases: getPurchases,
     addPurchase: addPurchase,
     hasPurchased: hasPurchased,
+    getLatestReceiptFor: getLatestReceiptFor,
+    verifyPurchasedProduct: verifyPurchasedProduct,
     getCertificationStatus: getCertificationStatus,
     submitCapstone: submitCapstone,
     runAutoGrading: runAutoGrading,
@@ -492,6 +732,7 @@ EFI.Auth = (function () {
     ,exportPrototypeData: exportPrototypeData
     ,importPrototypeData: importPrototypeData
     ,resetPrototypeData: resetPrototypeData
+    ,refreshManagedSession: refreshManagedSession
   };
 })();
 

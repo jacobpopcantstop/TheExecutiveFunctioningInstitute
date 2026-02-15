@@ -30,6 +30,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   (function initTelemetry() {
     var KEY = 'efi_client_errors';
+    function post(payload) {
+      if (!window.fetch) return Promise.resolve();
+      return fetch('/api/track-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function () {});
+    }
     function read() {
       try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
     }
@@ -38,8 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function log(type, payload) {
       var list = read();
-      list.push({ type: type, payload: payload, at: new Date().toISOString(), page: window.location.pathname });
+      var item = { type: type, payload: payload, at: new Date().toISOString(), page: window.location.pathname };
+      list.push(item);
       write(list);
+      post({
+        event_name: 'client_error',
+        page: window.location.pathname.split('/').pop() || 'index.html',
+        source: 'telemetry',
+        properties: item
+      });
     }
     window.EFI.Telemetry = {
       getErrors: read,
@@ -160,18 +176,31 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function injectSaleBanner() {
+    var DISMISS_KEY = 'efi_sale_banner_dismissed_v1';
+    if (localStorage.getItem(DISMISS_KEY) === '1') return;
     if (document.querySelector('.sale-banner')) return;
     var banner = document.createElement('div');
     banner.className = 'sale-banner';
     banner.innerHTML =
       '<span class="sale-banner__tag">40% OFF</span>' +
       '<span class="sale-banner__text">Professional services sale is live.</span>' +
-      '<a href="store.html" class="btn btn--sm" data-analytics-event="sale_banner_store_click">Shop Offer</a>';
+      '<a href="store.html" class="btn btn--sm" data-analytics-event="sale_banner_store_click">Shop Offer</a>' +
+      '<button type="button" class="sale-banner__close" aria-label="Dismiss sale banner">&times;</button>';
     document.body.appendChild(banner);
+    document.body.classList.add('has-sale-banner');
+    var closeBtn = banner.querySelector('.sale-banner__close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        localStorage.setItem(DISMISS_KEY, '1');
+        document.body.classList.remove('has-sale-banner');
+        banner.remove();
+      });
+    }
   })();
 
   (function injectFloatingStoreCTA() {
     if (window.location.pathname.split('/').pop() === 'store.html') return;
+    if (window.location.pathname.split('/').pop() === 'checkout.html') return;
     if (document.querySelector('.floating-store-cta')) return;
     var cta = document.createElement('a');
     cta.href = 'store.html';
@@ -179,6 +208,22 @@ document.addEventListener('DOMContentLoaded', function () {
     cta.textContent = 'Open Store';
     cta.setAttribute('data-analytics-event', 'floating_store_click');
     document.body.appendChild(cta);
+  })();
+
+  (function injectGettingStartedNavLink() {
+    document.querySelectorAll('.nav__links').forEach(function (links) {
+      if (links.querySelector('a[href="getting-started.html"]')) return;
+      var a = document.createElement('a');
+      a.href = 'getting-started.html';
+      a.className = 'nav__link';
+      a.textContent = 'Start Here';
+      var first = links.querySelector('.nav__link');
+      if (first) {
+        links.insertBefore(a, first.nextSibling);
+      } else {
+        links.appendChild(a);
+      }
+    });
   })();
 
   (function injectRoadmapHubLinks() {

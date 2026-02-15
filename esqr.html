@@ -348,6 +348,31 @@
         <p>Based on your self-report, here is a visual profile of your 12 executive function skills across the Thinking and Doing domains.</p>
       </div>
 
+      <div class="card" id="esqr-lead-card" style="margin-bottom:var(--space-xl);">
+        <h3 style="margin-top:0;">Save My Results + Receive EF Tools and Discount Codes</h3>
+        <p style="color:var(--color-text-light);">Enter your email to save your ESQ-R summary and receive practical resources, updates, and occasional coaching offers.</p>
+        <form id="esqr-lead-form">
+          <div class="grid grid--2" style="gap:var(--space-md);">
+            <div class="form-group">
+              <label for="esqr-lead-name">Name</label>
+              <input id="esqr-lead-name" class="form-control" type="text" autocomplete="name" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="esqr-lead-email">Email</label>
+              <input id="esqr-lead-email" class="form-control" type="email" autocomplete="email" required placeholder="you@example.com">
+            </div>
+          </div>
+          <label style="display:flex;gap:0.5rem;align-items:flex-start;margin:var(--space-sm) 0;">
+            <input id="esqr-lead-consent" type="checkbox" required style="margin-top:0.3rem;">
+            <span>I agree to receive EFI resources, updates, and occasional offers. I can unsubscribe anytime.</span>
+          </label>
+          <div class="button-group" style="margin-top:var(--space-md);">
+            <button type="submit" class="btn btn--primary btn--sm">Save + Subscribe</button>
+            <span id="esqr-lead-status" style="color:var(--color-text-muted);"></span>
+          </div>
+        </form>
+      </div>
+
       <!-- Bar Chart -->
       <div class="esqr-chart-container" id="esqr-chart" role="img" aria-label="Executive Skills Profile bar chart"></div>
 
@@ -385,7 +410,7 @@
         </div>
       </div>
 
-      <div class="esqr-results-actions">
+      <div class="esqr-results-actions button-group button-group--center">
         <button type="button" class="btn btn--secondary" id="esqr-download-png-btn">Download Results (PNG)</button>
         <button type="button" class="btn btn--secondary" id="esqr-download-pdf-btn">Download Results (PDF)</button>
         <button type="button" class="btn btn--secondary" id="esqr-share-btn">Share Results Snapshot</button>
@@ -470,8 +495,6 @@
 
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script src="js/esqr.js"></script>
 </body>
 </html>
