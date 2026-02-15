@@ -10,3 +10,4 @@
 8. Confirm `netlify.toml` security headers are present.
 9. Update `CHANGELOG.md` with release notes.
 10. Smoke-test in dark mode and mobile navigation.
+11. Run consolidated gate: `python3 scripts/release_gate.py`.
