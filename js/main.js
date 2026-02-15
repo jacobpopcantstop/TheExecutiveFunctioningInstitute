@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!nav || !nav.parentNode) return;
 
     var clusters = [
-      { href: 'module-a-neuroscience.html', label: 'Theory', pages: ['module-a-neuroscience.html', 'barkley-model-guide.html', 'barkley-vs-brown.html', 'brown-clusters-tool.html', 'ward-360-thinking.html'] },
+      { href: 'module-a-neuroscience.html', label: 'Theory', pages: ['module-a-neuroscience.html', 'barkley-model-guide.html', 'barkley-vs-brown.html', 'brown-clusters-tool.html', 'ward-360-thinking.html', 'further-sources.html'] },
       { href: 'module-c-interventions.html', label: 'Practice', pages: ['module-b-pedagogy.html', 'module-c-interventions.html', 'community.html', 'scope-of-practice.html'] },
       { href: 'teacher-to-coach.html', label: 'Business', pages: ['teacher-to-coach.html', 'educator-launchpad.html', 'coach-directory.html', 'accreditation.html', 'gap-analyzer.html', 'launch-plan.html'] }
     ];
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
           '<p>Follow the internal learning path: theory pages feed practice pages, then transition into certification and business implementation.</p>' +
         '</div>' +
         '<div class=\"content-hub-grid\">' +
-          '<article class=\"hub-card\"><h3>Theory</h3><p>Neuroscience and model hubs for Barkley, Brown, and comparative framing.</p><a class=\"btn btn--secondary btn--sm\" href=\"module-a-neuroscience.html\">Open Theory Hub</a></article>' +
+          '<article class=\"hub-card\"><h3>Theory</h3><p>Neuroscience and model hubs for Barkley, Brown, and comparative framing.</p><a class=\"btn btn--secondary btn--sm\" href=\"module-a-neuroscience.html\">Open Theory Hub</a> <a class=\"btn btn--secondary btn--sm\" href=\"further-sources.html\">Further Sources</a></article>' +
           '<article class=\"hub-card\"><h3>Practice</h3><p>Intervention playbooks, pedagogy shift tools, and 360 Thinking implementation.</p><a class=\"btn btn--secondary btn--sm\" href=\"module-c-interventions.html\">Open Practice Hub</a></article>' +
           '<article class=\"hub-card\"><h3>Business</h3><p>Teacher-to-coach transition assets, launch funnels, and directory/community growth pages.</p><a class=\"btn btn--secondary btn--sm\" href=\"teacher-to-coach.html\">Open Business Hub</a></article>' +
         '</div>' +

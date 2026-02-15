@@ -1,233 +1,53 @@
-Strategic Blueprint for the Executive Functioning Institute: A Comprehensive Synthesis of Theoretical Models, Clinical Resources, and Digital Architecture
-1. Introduction: The Imperative for a Centralized Executive Function Hub
-The contemporary landscape of cognitive psychology and educational intervention is currently witnessing a paradigm shift regarding the conceptualization of Executive Function (EF). Once relegated to a sub-chapter of neuropsychology, EF has emerged as the central construct for understanding self-regulation, goal-directed behavior, and neurodivergent profiles such as Attention Deficit Hyperactivity Disorder (ADHD) and Autism Spectrum Disorder (ASD). As we navigate the educational and professional demands of the mid-2020s, the fragmentation of high-quality resources remains a critical barrier for practitioners, educators, and families. While seminal works exist, they are often siloed within specific academic lineages—Barkley’s evolutionary inhibition model, Brown’s cognitive cluster framework, Dawson and Guare’s skills-based approach, and Ward’s visual-spatial methodologies.
-This report serves as a foundational dossier for the development of the "Executive Functioning Institute" website. Its objective is twofold: first, to provide an exhaustive, annotated compendium of the specific videos, articles, books, and tools developed by the field's four preeminent authorities; and second, to architect a digital strategy that leverages these resources to drive traffic, establish authority, and facilitate professional certification. The analysis posits that a successful digital hub must transcend static definitions, offering instead a dynamic ecosystem of "performance tools" that address the disconnect between knowing what to do and doing what is known.
-By synthesizing the "30 Essential Ideas" of Russell Barkley, the "Six Clusters" of Thomas Brown, the "11 Executive Skills" of Peg Dawson and Richard Guare, and the "360 Thinking" model of Sarah Ward, this document provides the content skeleton for a world-class resource center. Furthermore, it integrates market intelligence on coaching certifications and technical Search Engine Optimization (SEO) strategies for 2025-2026, ensuring the platform not only houses superior content but also dominates the search landscape for queries related to executive function coaching and remediation.
-2. The Evolutionary and Inhibition Model: Russell Barkley
-Dr. Russell Barkley’s contributions to the field of ADHD and executive function are characterized by a rigorous adherence to evolutionary biology and neuropsychological inhibition. His model fundamentally reframes ADHD not as a disorder of attention, but as a disorder of self-regulation rooted in a deficit of inhibition—the "brake" that allows other executive functions to engage. For the Executive Functioning Institute website, Barkley’s resources serve as the theoretical bedrock, explaining the biological why behind executive dysfunction.
-2.1 The "30 Essential Ideas" Video Library
-The crown jewel of Barkley’s public education efforts is the lecture series commonly referred to as "30 Essential Ideas You Should Know About ADHD." Originally presented at a CADDAC (Centre for ADHD Awareness, Canada) conference, this series has been segmented into digestible clips that are essential for any professional curriculum. The website must curate these specific segments, embedding them with detailed annotations regarding their clinical implications.
-2.1.1 Core Segments for Website Integration
-The following specific videos from the series are critical for inclusion, as identified in the research:
-Segment 1B: Inhibition, Impulsivity, and Emotion This segment establishes the foundational premise of Barkley’s theory: the prefrontal cortex acts as a braking system. Barkley explains that without inhibition, the brain cannot pause to consult its past or plan for its future. He explicitly links this to emotional impulsivity, arguing that individuals with ADHD display raw, uninhibited emotion that is not socially modulated.1
-Website Application: Embed this on pages defining "Impulsivity" and "Emotional Dysregulation." It serves as a rebuttal to the myth that ADHD is merely about "hyperactivity."
-Segment 2ALL: Persistence and Sustaining Action Here, Barkley defines EF as "goal-directed persistence." He distinguishes between the capacity to start a task and the capacity to sustain action toward a goal over time, resisting distractions.1
-Website Application: This resource is pivotal for the "Goal Setting" and "Grit" sections of the coaching curriculum.
-Segment 5A: ADHD is Time Blindness Perhaps the most cited concept in Barkley’s repertoire, this video introduces the metaphor of "Time Blindness" or temporal discounting. Barkley narrates the "lawnmower story," illustrating how the ADHD brain prioritizes immediate rewards over future consequences.2 He argues that for those with EF deficits, "time is the enemy," and they live in a permanent "now."
-Website Application: This video should anchor the "Time Management" pillar page. It provides the rationale for why analog clocks and visual timers (tools discussed later under Sarah Ward) are non-negotiable interventions.
-Segment 7B: The 30% Rule and The Four Components of Treatment Barkley introduces a critical metric for parents and educators: the 30% Rule. This rule posits that a child with ADHD demonstrates executive maturity approximately 30% behind their chronological age. A 12-year-old, therefore, possesses the self-regulation capacity of an 8-year-old.3
-Website Application: Development of a "Executive Age Calculator" widget based on this video would be a high-value lead magnet. Users input chronological age and receive the estimated "executive age" along with age-appropriate expectation guides.
-Segment 9C: Avoid Treatments That Do Not Work In this segment, Barkley rigorously dismantles non-evidence-based treatments, such as sensory integration training, interactive metronome, and dietary eliminations (sugar/additives), citing a lack of scientific support.4
-Website Application: This video supports the site's authority and ethical stance. It should be featured in a "Myth Busting" or "Evidence-Based Practice" section to build trust with clinically minded users.
-Segment 10E: ADHD Meds - Real or Placebo? Barkley addresses the efficacy of pharmacotherapy, arguing that medication is the most effective single treatment for the genetic/biological component of the disorder, serving as "neurogenetic therapy" rather than just symptom management.5
-2.2 Seminal Books and Written Resources
-The website's bibliography and "Recommended Reading" section must include specific titles that define the field.
-"Executive Functions: What They Are, How They Work, and Why They Evolved" (2012) This is Barkley’s magnum opus for professionals. It details the evolutionary purpose of EF—problem-solving for social survival. It moves beyond the clinical setting to explain EF as a tool for social cooperation and long-term goal attainment.6
-Content Focus: Deep analysis of the four circuits: Working Memory, Emotional Control, Internalized Speech, and Reconstitution.
-"Taking Charge of ADHD: The Complete, Authoritative Guide for Parents" (4th Edition) This is the primary resource for families. It translates the complex inhibition theory into practical parenting steps (e.g., the "act, don't yak" principle).6
-"Treating ADHD in Children and Adolescents: What Every Clinician Needs to Know" (2022) A recent publication that updates clinical protocols with the latest findings on life expectancy and health outcomes related to EF deficits.6
-2.3 Scientific Articles and White Papers
-For the "Research" section of the Institute, linking to or summarizing these papers establishes high-level academic credibility:
-"Behavioral Inhibition, Sustained Attention, and Executive Functions: Constructing a Unifying Theory of ADHD" (Psychological Bulletin, 1997) This is the foundational text where Barkley first articulated the inhibition model. It links inhibition to four secondary executive abilities: working memory, self-regulation of affect, internalization of speech, and reconstitution.9
-Insight for Content: Summaries should highlight how this paper predicted the secondary impairments in motor control and time perception now commonly accepted in the field.
-"Executive Functioning, Temporal Discounting, and Sense of Time in Adolescents" (Journal of Abnormal Child Psychology, 2001) This paper provides the empirical data supporting the "Time Blindness" concept, demonstrating that adolescents with ADHD discount future rewards significantly more steeply than neurotypical peers.10
-"The Important Role of Executive Functioning and Self-Regulation in ADHD" (Fact Sheet) A digestible PDF resource available via RussellBarkley.org that summarizes the EF/SR connection. This is an ideal downloadable asset for teachers.11
-2.4 Clinical Assessment Tools
-Barkley’s contribution extends to measurement. The website must feature the Barkley Deficits in Executive Functioning Scale (BDEFS). Unlike other scales that measure cognitive processes (like digit span), the BDEFS measures EF deficits in daily life activities, providing higher ecological validity.12 It specifically assesses self-management of time, self-organization, and self-restraint, aligning perfectly with his theoretical model.
-3. The Cognitive Cluster Model: Thomas Brown
-While Barkley focuses on inhibition and time, Dr. Thomas Brown’s work is indispensable for understanding the "Inattentive" presentation of ADHD and the cognitive dynamics of the "high-IQ" executive dysfunction. His model addresses the central paradox of ADHD: "Why can they focus on video games but not on homework?" Brown explains this not as a choice, but as a chemical availability issue rooted in the brain's reward system.
-3.1 The "Six Clusters" Framework
-Brown’s theoretical model organizes executive functions into six interacting clusters. This framework is crucial for the website because it provides a nuanced vocabulary for clients who may not display "hyperactivity" but suffer from profound "cognitive slippage."
-The Cluster Model Breakdown
-The website should feature an interactive infographic detailing these six clusters 13:
-Cluster
-Definition
-Clinical Examples & Website Tags
-1. Activation
-Organizing, prioritizing, and activating to work.
-Chronic procrastination; difficulty estimating time; the "wall of awful" preventing task start; excessive sleeping or difficulty waking.
-2. Focus
-Focusing, sustaining, and shifting attention.
-"Zoning out" while reading; inability to re-engage after an interruption; hyperfocus on high-interest stimuli to the exclusion of basic needs.
-3. Effort
-Regulating alertness, sustaining effort, and processing speed.
-"Brain fog"; drowsiness; slow processing speed ("slow modem"); difficulty completing tasks on time; inconsistent performance.
-4. Emotion
-Managing frustration and modulating emotions.
-Low frustration tolerance; hypersensitivity to criticism (Rejection Sensitive Dysphoria); flooding of anxiety or anger that derails thinking.
-5. Memory
-Utilizing working memory and accessing recall.
-"Losing the thread" of a conversation; forgetting intended actions (walking into a room and forgetting why); difficulty holding multi-step instructions.
-6. Action
-Monitoring and self-regulating action.
-Impulsivity in speech; interrupting others; difficulty monitoring one's social impact; jumping to conclusions.
+Strategic Blueprint for the Executive Functioning Institute
+Canonical Further Sources Compilation
+Last integrated: February 15, 2026
 
-Integration Insight: This model is particularly effective for explaining situational variability. The website should clarify that these clusters act as a "symphony orchestra"—if one section is out of sync, the music (behavior) falls apart.
-3.2 Key Video Lectures and Multimedia
-"A New Understanding of ADHD in Children and Adults" (Understood.org Interview) This 28-minute video is a high-authority asset. In it, Brown explains that ADHD is not a behavior disorder but a developmental impairment of the brain's management system. He uses the metaphor of the "erectile dysfunction of the mind" to explain that one cannot simply "will" interest into existence.17
-SEO Strategy: Optimizing for "Thomas Brown Understood video" and "ADHD new understanding" will drive traffic to this resource.
-"Fear, Prejudices and Myths Associated with ADHD" A lecture addressing the stigma and misconceptions surrounding the diagnosis, particularly helpful for adult clients struggling with shame.19
-"The Mystery of ADHD Motivation" Brown explicitly addresses why individuals can focus intensely on hobbies (Lego, video games) but fail at work. He explains the unconscious chemical release of dopamine during interest-based tasks, validating the client's experience.20
-3.3 Seminal Books and Articles
-"A New Understanding of ADHD in Children and Adults: Executive Function Impairments" (Routledge, 2013) This text challenges the DSM-IV criteria, arguing that the age of onset (7 years) was invalid and that EF impairments are central to the diagnosis. It is a critical resource for clinicians needing to justify a diagnosis for adult clients.21
-"Smart but Stuck: Emotions in Teens and Adults with ADHD" (2014) This book is unique in its focus on Cluster 4 (Emotion). It provides case studies of high-functioning individuals who are "stuck" due to emotional flooding. It is an essential recommendation for clients dealing with anxiety and shame.18
-"Executive Functions and Attention Deficit Hyperactivity Disorder: Implications of Two Conflicting Views" (2006) An academic paper contrasting his model with Barkley’s. This is vital for the "Research" section of the website to show the evolution of theoretical thought.23
-"Attention" Magazine Articles (Feb 2008) Brown contributed detailed articles to CHADD’s Attention magazine outlining the six clusters. These serve as excellent, accessible PDF downloads for the website.13
-3.4 The Brown Executive Function/Attention Scales (Brown EF/A)
-The website must list the Brown EF/A Scales as a primary assessment tool. Unlike the BRIEF, which focuses on behavioral regulation, the Brown scales are sensitive to the internal cognitive experience of the patient (e.g., the effort required to stay awake or focused). It assesses the severity of specific behaviors rather than just frequency.24 It is available for all ages (3 years through adult), making it a versatile tool for lifespan clinics.16
-4. The Skills-Based Framework: Peg Dawson & Richard Guare
-Drs. Peg Dawson and Richard Guare offer the most practically applied framework for school-based and home-based intervention. Their Smart but Scattered series provides the vocabulary most commonly used in IEPs and 504 plans. Their model is distinct in breaking down EF into 11 discrete skills, allowing for targeted "micro-interventions."
-4.1 The 11 Executive Skills
-The website should feature a "Skills Glossary" based on Dawson and Guare’s definitions 25:
-Response Inhibition: The capacity to think before you act.
-Working Memory: The ability to hold information in mind while performing complex tasks.
-Emotional Control: The ability to manage emotions to achieve goals or complete tasks.
-Flexibility: The ability to revise plans in the face of obstacles, setbacks, or new information.
-Sustained Attention: The capacity to maintain attention to a situation or task in spite of distractibility, fatigue, or...source to reach a goal or to complete a task.
-Organization: The ability to create and maintain systems to keep track...source and how to stay within time limits and deadlines.
-Goal-Directed Persistence: The capacity to have a goal, follow through to the completion of the goal, and not be put off by or distracted by competing interests.
-Metacognition: The ability to stand back and take a bird's-eye view of oneself in a situation (self-monitoring).
-4.2 The "Smart but Scattered" Resource Ecosystem
-Dawson and Guare have created a vast library of resources that are highly specific to different demographics. The website should categorize these clearly:
-For Children: Smart but Scattered (2009). Focuses on parental support and environmental modification.27
-For Teens: Smart but Scattered Teens (2012). Focuses on negotiating independence and the "scaffolding" required as parental supervision fades.28
-For Adults: The Smart but Scattered Guide to Success (2016). Focuses on workplace strategies and self-coaching.25
-For Young Adults (Failure to Launch): Smart but Scattered—and Stalled. Addresses the specific crisis of young adults struggling to transition to independence.31
-For Professionals: Executive Skills in Children and Adolescents (3rd Edition). This is the clinical manual for school psychologists, providing assessment protocols and RTI (Response to Intervention) tiers.33
-4.3 Professional Tools and Worksheets
-A key value proposition for the Institute website is the provision of downloadable tools derived from Dawson and Guare’s work.
-Executive Skills Questionnaire (ESQ) and ESQ-R: The ESQ-R is a 25-item self-report assessment that helps individuals identify their profile of strengths and weaknesses across the 11 skills. The website should offer a downloadable PDF version of this tool or an interactive quiz.35
-Implementation: Create a "Take the Quiz" feature that funnels users into a specific email sequence based on their weakest skill (e.g., if "Task Initiation" is low, send them resources on procrastination).
-Daily Homework Planner & Incentive Planning Sheet: Specific templates referenced in their "Homework: Problems and Solutions" guide. These should be available in a "Teacher Toolkit" section.38
-Coaching Templates: Resources from Coaching Students with Executive Skills Deficits, including goal-setting worksheets and "correspondence training" logs (public commitment forms).32
-4.4 Intervention Strategy: Environment vs. Skill
-The website must articulate Dawson and Guare’s intervention hierarchy 39:
-Change the Environment: Reduce friction (e.g., remove distractions, use alarms).
-Teach the Skill: Explicit instruction (e.g., "This is how you organize a binder").
-Incentivize the Skill: Use external motivation (rewards) until the skill is internalized.
-5. The Visual-Spatial and Prospective Model: Sarah Ward & Kristen Jacobsen
-Sarah Ward and Kristen Jacobsen (Cognitive Connections) represent the cutting edge of practical application. Their 360 Thinking™ model moves away from verbal lists and abstract concepts toward concrete, visual-spatial tools. They argue that traditional checklists fail because they are "past-oriented" (what did I do?), whereas true planning requires "future-oriented" thinking (what will it look like?).40
-5.1 The 360 Thinking™ Model and "MIME"
-Ward’s model focuses on Episodic Future Memory—the ability to mentally travel forward in time. The website should feature resources explaining the MIME acronym 42:
-Make a future picture (Visualizing the outcome).
-Imagine the steps (Sequencing).
-Move into action (Motor planning).
-Experience the passage of time (Temporal awareness).
-5.2 The "Get Ready * Do * Done" (GDD) Methodology
-This is the most actionable tool in the Ward/Jacobsen arsenal and a critical "keyword" for the website. It flips traditional planning on its head.
-Done: The student starts by visualizing/drawing the final product.
-Do: They list the action steps required to match that visualization.
-Get Ready: They gather materials last, based on the "Do" steps.
-Website Resource: The site must host downloadable "Get Ready Do Done" planning mats and worksheets.43
-5.3 Time Management Tools: "Sweeping Time"
-Ward distinguishes between "digital time" (numbers) and "analog time" (volume/space). She advocates for the use of analog clocks where students draw a "wedge" of time to visualize it passing.
-360 Thinking Time Tracker App: The website should link to this specific app which digitizes the "sweeping time" concept.46
-Visual Clock Templates: Downloadable PDFs of clock faces for students to color in time blocks.48
-5.4 Key Video Lectures and Webinars
-"Executive Function Strategies for Remote Learning": A webinar addressing how to apply GDD in digital classrooms, highly relevant for the post-pandemic education landscape.49
-"Introduction to 360 Thinking": Videos available on the Cognitive Connections YouTube channel or partner sites (like SET-BC) demonstrating the difference between "intention" and "action".41
-"Get Ready Do Done" Demonstrations: Practical clips showing students using the planning mats.51
-5.5 Professional Articles and White Papers
-"360 Thinking: An Executive Function Model and Program": A core white paper detailing the theoretical underpinnings of the model.52
-Task Card/Activity Guides: Detailed instructions on how to facilitate GDD sessions.53
-6. Digital Ecosystem Strategy: SEO, Traffic, and Community
-To transform these resources into a high-traffic hub, the Executive Functioning Institute must employ a sophisticated digital strategy that leverages the specific search behaviors of 2025/2026.
-6.1 SEO Strategy: Pillars and Keywords
-The analysis of search trends suggests a bifurcation in user intent: parents/teachers seeking definitions ("Informational") and professionals seeking tools/certification ("Transactional").
-6.1.1 High-Volume Keywords (2026 Projections)
-Primary: "Executive function coach certification," "ADHD coaching certification online," "How to become an EF coach".54
-Long-Tail/Niche: "Get Ready Do Done template," "Executive Skills Questionnaire Revised," "ADHD time blindness tools," "AuDHD executive dysfunction".55
-Emerging: "Neuro-affirming coaching," "Twice exceptional (2e) coaching," "Workplace executive function strategies."
-6.1.2 The Pillar Page Model
-The website should be structured around three massive Pillar Pages that link out to the specific expert resources:
-"The Science of Executive Function": Anchored by Barkley’s Inhibition model and Brown’s 6 Clusters.
-"Tools for Intervention": Anchored by Dawson & Guare’s 11 Skills and Ward’s GDD templates.
-"Professional Coaching & Careers": Focusing on certification pathways (EFCA, JST) and business building.
-6.2 Technical SEO: Schema Markup
-To dominate search results (SERPs), the website must use Schema.org structured data.
-Course Schema: Use this for any training programs or mini-courses. It allows Google to display course duration, provider, and mode (online) directly in the search snippet, increasing click-through rates.56
-LearningResource Schema: Apply this to all downloadable tools (PDFs, worksheets). It tells search engines "this is a resource for learning," making it eligible for rich results in Google for Education searches.59
-FAQPage Schema: Use on pillar pages to capture "People Also Ask" queries (e.g., "What are the 6 clusters of ADHD?").60
-6.3 Open Educational Resources (OER) Strategy
-To generate high-quality backlinks from universities (.edu) and government sites (.gov), the Institute should release a "Open Source EF Toolkit" under a Creative Commons license.61
-Content: This toolkit would include a standardized version of the ESQ-R, a Brown Model checklist, and a GDD planning mat.
-Distribution: Submit this toolkit to OER directories like OER Commons, MERLOT, and Curriki.63 This establishes the Institute as a benevolent authority and drives massive referral traffic.
-6.4 Market Landscape and Certification
-The executive coaching market is projected to reach $20.67 billion by 2030.65 However, the Executive Function niche is distinct. The website should feature a "Certification Comparison" chart analyzing competitors:
-JST Coaching: Focus on ADHD/Students, ICF accredited.66
-EFCA (Executive Function Coaching Academy): Focus on former teachers, offering "business-in-a-box" templates.67
-NBEFC: The National Board offering standardized credentialing.69
-Recommendation: The Institute should align with or offer a "Bridge Program" that helps educators transition into coaching, as 20% of EF coaches are former special educators.68
-7. Conclusion
-The Executive Functioning Institute has the potential to become the definitive digital hub for the field by rigorously synthesizing the "Big Four" models. By integrating Barkley’s biological inhibition model, Brown’s cognitive clusters, Dawson & Guare’s skills framework, and Ward’s visual-spatial tools, the platform offers a holistic "360-degree" view of intervention.
-The path to digital dominance lies in the granular application of these theories—offering specific, downloadable tools like the ESQ-R and Get Ready Do Done mats—wrapped in a technically optimized web architecture using Schema.org and OER strategies. This approach moves beyond static information to provide the dynamic performance support that is the very essence of executive function.
-Works cited
-30 Essential Ideas you should know about ADHD, 1B Inhibition, Impulsivity, and Emotion, accessed February 15, 2026, https://www.youtube.com/watch?v=wg6cfsnmqyg
-30 Essential Ideas you should know about ADHD, 5A ADHD is Time Blindness - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=wmV8HQUuPEk
-30 Essential Ideas you should know about ADHD, 7B The 30% Rule, 4 Components for Effective Treatment - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=4OVS16Abo80
-30 Essential Ideas you should know about ADHD, 9C Avoid Treatments that we Know Do Not Work! - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=CiKg9luac8Y
-30 Essential Ideas you should know about ADHD, 10E Q&A, Question 5, ADHD Meds Real or Placebo? - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=JHe6UHXIqEo
-Dedicated to Education and Research on ADHD - Dr. Russell A. Barkley, accessed February 15, 2026, https://russellbarkley.org/books.html
-Executive Functions: What They Are, How They Work, and Why They Evolved, accessed February 15, 2026, https://www.guilford.com/books/Executive-Functions/Russell-Barkley/9781462545933
-How Can I Learn More? - Perkins Education Solutions, accessed February 15, 2026, https://www.perkinseducation.com/resources
-Behavioral inhibition, sustained attention, and executive functions: constructing a unifying theory of ADHD - PubMed, accessed February 15, 2026, https://pubmed.ncbi.nlm.nih.gov/9000892/
-‪Russell A. Barkley, Ph.D.‬ - ‪Google Scholar‬, accessed February 15, 2026, https://scholar.google.com/citations?user=lG2w3PAAAAAJ&hl=en
-The Important Role of Executive Functioning and Self-Regulation in ADHD© - Russell Barkley, accessed February 15, 2026, https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf
-Barkley Deficits in Executive Functioning Scale (BDEFS): Validation in a large multisite college sample - PMC, accessed February 15, 2026, https://pmc.ncbi.nlm.nih.gov/articles/PMC8010583/
-Describing six Aspects of a complex syndrome - CHADD, accessed February 15, 2026, https://chadd.org/wp-content/uploads/2018/06/ATTN_02_08_Executive_Functions_by_Thomas_Brown.pdf
-The Brown Model of Executive Function Impairments in ADHD., accessed February 15, 2026, https://www.brownadhdclinic.com/brown-ef-model-adhd
-Longitudinal Clustering of Psychopathology Across Childhood and Adolescence: An Approach Toward Developmentally Based Classification - PMC, accessed February 15, 2026, https://pmc.ncbi.nlm.nih.gov/articles/PMC12369591/
-An Overview of The New Brown Executive Function/Attention Scales Presenter and Author Change in Understanding ADHD - Pearson Clinical Assessment, accessed February 15, 2026, https://www.pearsonclinical.ca/content/dam/school/global/clinical/ca/assets/brown-efa/brown-efa-webinar-handouts-18-04-23.pdf
-Watch Dr. Brown Explain ADHD | Brown Clinic for Attention & Related Disorders, accessed February 15, 2026, https://www.brownadhdclinic.com/media-video-podcasts
-Mental Health Resources | Womens Law Association, accessed February 15, 2026, https://orgs.law.columbia.edu/clwa/content/mental-health-resources
-ADD / ADHD Dr. Thomas E Brown: 6. What are the labels and stigmas associated with AD?HD? - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=uZIsCTx0Vjc
-Why your AuDHD Child Isn't Lazy: Executive Dysfunction Explained - YouTube, accessed February 15, 2026, https://www.youtube.com/watch?v=Z38y4q-DBE8
-A NEW UNDERSTANDING OF ADHD IN CHILDREN AND ADULTS: Executive Function Impairments - DickyRicky, accessed February 15, 2026, http://dickyricky.com/books/psych/A%20New%20Understanding%20of%20ADHD%20in%20Children%20and%20Adults%20-%20Thomas%20Brown.pdf
-Remembering Thomas E. Brown, PhD - CHADD, accessed February 15, 2026, https://chadd.org/remembering-thomas-e-brown-phd/
-(PDF) DSM-IV: ADHD and executive function impairments - ResearchGate, accessed February 15, 2026, https://www.researchgate.net/publication/242730401_DSM-IV_ADHD_and_executive_function_impairments
-An Overview Of Standardized Executive Function Assessment Tools | Life Skills Advocate, accessed February 15, 2026, https://lifeskillsadvocate.com/blog/executive-function-assessment-tools/
-The Smart but Scattered Guide to Success: How to Use Your Brain's Executive Skills to Keep Up, Stay Calm, and Get Organized at Work and at Home - Guilford Press, accessed February 15, 2026, https://www.guilford.com/books/The-Smart-but-Scattered-Guide-to-Success/Dawson-Guare/9781462516964
-Executive Functioning Skills - The Pathway 2 Success, accessed February 15, 2026, https://www.thepathway2success.com/executive-functioning-skills/
-Books - Smart But Scattered Kids, accessed February 15, 2026, https://www.smartbutscatteredkids.com/books/
-Smart but Scattered Teens The Executive Skills Program for Helping Teens Reach Their Potential - Therapro, accessed February 15, 2026, https://www.therapro.com/Smart-but-Scattered-Teens-The-Executive-Skills-Program-for-Helping-Teens-Reach-Their-Po.html
-Smart but Scattered Teens | Resource - ifsel, accessed February 15, 2026, https://www.instituteforsel.net/posts/smart-but-scattered-teens
-The Smart but Scattered Guide to Success: How to Use Your Brain's Executive Skills to Keep Up, Stay Calm, and Get Organized at Work and at Home by Peg Dawson | Goodreads, accessed February 15, 2026, https://www.goodreads.com/book/show/25404196-the-smart-but-scattered-guide-to-success
-Comparing Executive Functioning Curriculum, Interventions & Guidebooks, accessed February 15, 2026, https://lifeskillsadvocate.com/blog/executive-functioning-curriculum/
-Smart But Scattered Kids: Home, accessed February 15, 2026, https://www.smartbutscatteredkids.com/
-Executive Skills in Children and Adolescents: A Practical Guide to Assessment and Intervention - Goodreads, accessed February 15, 2026, https://www.goodreads.com/book/show/164444.Executive_Skills_in_Children_and_Adolescents
-Peg Dawson - Guilford Press, accessed February 15, 2026, https://www.guilford.com/author/Peg-Dawson
-ESQ-R Self-Report Assessment Tool - Smart But Scattered Kids, accessed February 15, 2026, https://www.smartbutscatteredkids.com/resources/esq-r-self-report-assessment-tool/
-Reproducible forms for Executive Skills in Children and Adolescents, 2nd edition, accessed February 15, 2026, https://cms2.revize.com/revize/augustaschools/Executive%20Functioning%20Reproducable%20Forms.pdf
-Refinement and Psychometric Evaluation of the Executive Skills Questionnaire-Revised | Request PDF - ResearchGate, accessed February 15, 2026, https://www.researchgate.net/publication/330263631_Refinement_and_Psychometric_Evaluation_of_the_Executive_Skills_Questionnaire-Revised
-Print Articles - Smart But Scattered Kids, accessed February 15, 2026, https://www.smartbutscatteredkids.com/resources/print-articles/
-Smart But Scattered Professional Development | PDF | Cognitive Behavioral Therapy, accessed February 15, 2026, https://www.scribd.com/presentation/711497050/smart-but-scattered-professional-development
-The 360 Thinking Executive Function Model and Program - Sarah Ward i Danmark, accessed February 15, 2026, https://sarahwardidanmark.dk/wp-content/uploads/2021/05/WARD-360-grader.pdf
-Professional Learning Events/Resources - Inclusive Education, accessed February 15, 2026, https://inclusiveeducation.sd8.bc.ca/resources/learning-events-resources/inclusive
-A student with effective Executive Function Skills Can, accessed February 15, 2026, https://resources.finalsite.net/images/v1725017533/jeffcopublicschoolsorg/gyv3f1jku2nfy8xmkgtr/prioritizing-presentation.pdf
-Get Ready Do Done | CognitiveConnections, accessed February 15, 2026, https://www.efpractice.com/getreadydodone
-Occupational Therapy - Get Ready Do Done, accessed February 15, 2026, https://sites.google.com/educbe.ca/cbe-occupational-therapy/executive-functioning/get-ready-do-done
-Get Ready Do Done Template - TPT, accessed February 15, 2026, https://www.teacherspayteachers.com/browse?search=get%20ready%20do%20done%20template
-Cognitive Connections: Executive Function, accessed February 15, 2026, https://www.efpractice.com/
-App Information - Learn71, accessed February 15, 2026, https://learn71.ca/integrating-technology/appinformation/
-Sarah Ward 360 THINK - resources and links - Inclusive Education, accessed February 15, 2026, https://inclusiveeducation.sd8.bc.ca/sites/default/files/documents/2022-11/Sarah%20Ward%20360%20Thinking%20links%20and%20resources%202020.logo%20docx.docx
-10 Resources To Help Overcome Challenges With Executive Function - Hill Learning Center, accessed February 15, 2026, https://www.hillcenter.org/10-resources-to-help-overcome-challenges-with-executive-function/
-The SENIA Happy Hour Podcast - Spotify for Creators, accessed February 15, 2026, https://anchor.fm/s/1c9087d0/podcast/rss
-Get Ready Do Done – PEACE I GIVE, accessed February 15, 2026, https://peaceigive.com/tag/get-ready-do-done/
-Back-to-School Strategies for Executive Function Success: Practical Strategies to Develop Self-Regulated Time Management Skills - uniform.global, accessed February 15, 2026, https://files.uniform.global/p/1du00kZgS-mRvzBThcmQrQ/a9bfZvqnTpioW0g-niU5iQ-handouts-executive-function-back-to-school-strategies.pdf
-Task Card Using The Get Ready Do Done Template-1 | PDF | Learning - Scribd, accessed February 15, 2026, https://www.scribd.com/document/501510386/task-card-using-the-get-ready-do-done-template-1
-Best 100 SEO Keywords for Coaches & Search Volumes for 2026 - Studio for Digital Growth, accessed February 15, 2026, https://studiofordigitalgrowth.com/blog/seo-keywords-for-coaches/
-40 ADHD IEP Goals To Boost Attention And Achievement - Life Skills Advocate, accessed February 15, 2026, https://lifeskillsadvocate.com/blog/adhd-iep-goals/
-Use Schema for Course List | Google Search Central | Documentation, accessed February 15, 2026, https://developers.google.com/search/docs/appearance/structured-data/course
-courseMode - Schema.org Property, accessed February 15, 2026, https://schema.org/courseMode
-A Developer's Guide to Implementing JSON-LD Structured Data for Better Technical SEO, accessed February 15, 2026, https://dev.to/dheeraj_jain/a-developers-guide-to-implementing-json-ld-structured-data-for-better-technical-seo-nmg
-LearningResource - Schema.org Type, accessed February 15, 2026, https://schema.org/LearningResource
-SEO for Educational Institutions: 7 Proven Tactics 2025 - Elasticity, accessed February 15, 2026, https://goelastic.com/seo-for-educational-institutions/
-How Open Source is Expanding Access to Quality Education Worldwide - Blog QuickRef, accessed February 15, 2026, https://quickref.me/blog/how-open-source-is-expanding-access-to-quality-education-worldwide/
-Find OER | Open Professionals Education Network, accessed February 15, 2026, https://open4us.org/find-oer/
-OER - Creative Commons, accessed February 15, 2026, https://creativecommons.org/about/education/education-oer-resources/
-OER Commons, accessed February 15, 2026, https://www.oercommons.org/
-Executive Coaching Certification Market Size, Share Report 2026, accessed February 15, 2026, https://www.thebusinessresearchcompany.com/report/executive-coaching-certification-global-market-report
-The 6 Best Executive Function Coaching Certification Programs for Former Teachers, accessed February 15, 2026, https://www.executivefunctioncoachingacademy.com/post/certification-programs
-Free Executive Functioning Coach Certification & Career Guide, accessed February 15, 2026, https://simply.coach/blog/how-to-become-a-certified-executive-functioning-coach/
-2025 State Of The Executive Function Coaching Industry: Data And Statistics from EFCA Graduates, accessed February 15, 2026, https://www.executivefunctioncoachingacademy.com/post/industry
-Become a board-certified professional helping students, adults, and families master the cognitive skills that transform lives - Executive Function Coach Certification, accessed February 15, 2026, https://www.nbefc.org/executive-functioning-coach-certification/
+Purpose
+- Centralize authoritative EF resources across Barkley, Brown, Dawson/Guare, and Ward/Jacobsen.
+- Map each source to curriculum, intervention, and business implementation pages.
+
+Core Integration Tracks
+1) Barkley: Inhibition model, time blindness, evidence-based treatment standards.
+2) Brown: Six-cluster cognitive model and internal experience of executive dysfunction.
+3) Dawson/Guare: 11 executive skills and skill-specific intervention planning.
+4) Ward/Jacobsen: 360 Thinking and Get Ready * Do * Done visual-spatial planning.
+
+Priority Works Cited for Site Integration
+- 30 Essential Ideas, 1B Inhibition/Impulsivity/Emotion: https://www.youtube.com/watch?v=wg6cfsnmqyg
+- 30 Essential Ideas, 5A ADHD is Time Blindness: https://www.youtube.com/watch?v=wmV8HQUuPEk
+- 30 Essential Ideas, 7B The 30% Rule: https://www.youtube.com/watch?v=4OVS16Abo80
+- 30 Essential Ideas, 9C Avoid Treatments That Do Not Work: https://www.youtube.com/watch?v=CiKg9luac8Y
+- 30 Essential Ideas, 10E Meds Real or Placebo: https://www.youtube.com/watch?v=JHe6UHXIqEo
+- Barkley books: https://russellbarkley.org/books.html
+- Executive Functions (Guilford): https://www.guilford.com/books/Executive-Functions/Russell-Barkley/9781462545933
+- Barkley unifying theory (Psychological Bulletin, 1997): https://pubmed.ncbi.nlm.nih.gov/9000892/
+- Barkley fact sheet (EF and self-regulation): https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf
+- BDEFS validation: https://pmc.ncbi.nlm.nih.gov/articles/PMC8010583/
+
+- Brown six aspects (CHADD PDF): https://chadd.org/wp-content/uploads/2018/06/ATTN_02_08_Executive_Functions_by_Thomas_Brown.pdf
+- Brown EF model: https://www.brownadhdclinic.com/brown-ef-model-adhd
+- Brown media/videos: https://www.brownadhdclinic.com/media-video-podcasts
+- Brown EF/A webinar handout: https://www.pearsonclinical.ca/content/dam/school/global/clinical/ca/assets/brown-efa/brown-efa-webinar-handouts-18-04-23.pdf
+
+- Smart but Scattered books: https://www.smartbutscatteredkids.com/books/
+- Smart but Scattered Guide to Success (Guilford): https://www.guilford.com/books/The-Smart-but-Scattered-Guide-to-Success/Dawson-Guare/9781462516964
+- ESQ-R self-report tool: https://www.smartbutscatteredkids.com/resources/esq-r-self-report-assessment-tool/
+- EF reproducible forms (public PDF): https://cms2.revize.com/revize/augustaschools/Executive%20Functioning%20Reproducable%20Forms.pdf
+
+- 360 Thinking model white paper: https://sarahwardidanmark.dk/wp-content/uploads/2021/05/WARD-360-grader.pdf
+- Get Ready Do Done: https://www.efpractice.com/getreadydodone
+- Cognitive Connections home: https://www.efpractice.com/
+
+- Course schema guidance: https://developers.google.com/search/docs/appearance/structured-data/course
+- LearningResource schema: https://schema.org/LearningResource
+- FAQPage schema strategy: https://goelastic.com/seo-for-educational-institutions/
+
+- OER Commons: https://www.oercommons.org/
+- Creative Commons OER: https://creativecommons.org/about/education/education-oer-resources/
+
+- NBEFC certification track: https://www.nbefc.org/executive-functioning-coach-certification/
+- EFCA market/certification references: https://www.executivefunctioncoachingacademy.com/post/certification-programs
+
+Implementation Note
+- This source file is authoritative for EFI web citations until superseded.
+- Pages should link here through `further-sources.html` and maintain module-to-source mapping.

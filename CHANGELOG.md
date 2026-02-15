@@ -13,6 +13,8 @@
 - Directory/community/trust pages: `coach-directory.html`, `community.html`, `scope-of-practice.html`, `accreditation.html`.
 - Sitewide Theory/Practice/Business cluster navigation injection in `js/main.js`.
 - Placeholder lead magnet assets in `docs/assets/`.
+- Canonical `Further Sources` file + `further-sources.html` citation hub with module-mapped bibliography and embedded Barkley segment videos.
+- Source integration validation script `scripts/check_source_hub.py`.
 
 ### Changed
 - Authentication password handling upgraded to PBKDF2 (`crypto.subtle`) with migration from legacy hashes.
@@ -20,3 +22,4 @@
 - Expanded canonical URL coverage and sitemap route coverage.
 - Canonical tags and sitemap URLs normalized to `https://executivefunctioninginstitute.com`.
 - Added `EducationalOrganization` + `Course` JSON-LD markup on curriculum and certification pages.
+- Added source-hub checks into the consolidated release gate.
