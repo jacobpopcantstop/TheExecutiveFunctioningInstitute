@@ -267,7 +267,7 @@
         </div>
       </div>
 
-      <div class="card" style="margin-top:var(--space-lg);border-left:4px solid var(--module-3);">
+      <div class="card" style="margin-top:var(--space-lg);border-left:4px solid var(--module-3);" id="ops-tools-card">
         <h3 style="margin-bottom:var(--space-sm);">Data &amp; Ops Tools (Prototype)</h3>
         <p style="color:var(--color-text-muted);">Export/import your local prototype records, clear demo data, or review client-side error telemetry.</p>
         <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;">
@@ -324,10 +324,14 @@
     document.getElementById('logout-btn').addEventListener('click', function() { EFI.Auth.logout(); });
     document.getElementById('logout-link').addEventListener('click', function(e) { e.preventDefault(); EFI.Auth.logout(); });
 
+    var isOpsRole = EFI.Auth.hasRole(['admin', 'reviewer']);
+    document.getElementById('ops-tools-card').style.display = isOpsRole ? 'block' : 'none';
+
     function setOpsStatus(msg) {
       document.getElementById('ops-status').textContent = msg;
     }
 
+    if (isOpsRole) {
     document.getElementById('export-data-btn').addEventListener('click', function () {
       var payload = EFI.Auth.exportPrototypeData();
       var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -369,6 +373,7 @@
       setOpsStatus('Prototype data reset. Redirecting to login...');
       setTimeout(function () { window.location.href = 'login.html'; }, 600);
     });
+    }
 
     function renderCertificationReadiness() {
       var latestUser = EFI.Auth.getCurrentUser();

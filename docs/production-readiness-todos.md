@@ -45,8 +45,8 @@ This tracker converts the roadmap into deployable increments.
 3. ✅ **Sitemap expansion**
    - Added legal + verification + telemetry pages to `sitemap.xml`.
 
-4. 🔄 **Route hardening for role-specific surfaces**
-   - RBAC helpers exist; still need page-level role guards for reviewer/admin-only pages.
+4. ✅ **Route hardening for role-specific surfaces**
+   - Restricted telemetry and ops controls to reviewer/admin roles.
 
 5. 🔄 **Server-backed certificate verification API**
    - Current verify page reads local prototype records only.
@@ -54,20 +54,34 @@ This tracker converts the roadmap into deployable increments.
 6. 🔄 **Server-backed snapshot storage for ESQ-R exports**
    - Current snapshot history is browser-local only.
 
-7. 🔄 **Automated external link checks**
-   - Current CI validates local links only; external URLs still unchecked.
+7. ✅ **Automated external link checks (scheduled)**
+   - Added external link mode to checker and weekly scheduled CI run.
 
-8. 🔄 **Semantic data and SEO metadata pass**
-   - Add JSON-LD Course/Organization schema and canonical URLs.
+8. ✅ **Semantic data and SEO metadata pass (phase 1)**
+   - Added canonical and JSON-LD to key pages.
 
 9. 🔄 **Accessibility QA pass**
    - Add automated axe checks and keyboard-only test matrix in CI.
 
-10. 🔄 **Deployment baseline**
-   - Add environment templates, startup scripts, and backend service skeleton.
+10. ✅ **Deployment baseline scaffolding (phase 1)**
+   - Added env template, serve script, deployment baseline doc, and health page.
+
+---
+
+## Next 10 Logical To-Dos (Wave 3)
+
+1. Add backend API skeleton for auth/session/purchase endpoints.
+2. Add signed certificate verification endpoint and schema.
+3. Add reviewer/admin dashboard route and role guard.
+4. Replace remaining emoji icons site-wide.
+5. Add accessibility test workflow (axe/pa11y).
+6. Add CSP/security headers deployment guidance.
+7. Add canonical URL and JSON-LD to all major pages.
+8. Add release checklist and versioned changelog.
+9. Add API contract docs (OpenAPI draft).
+10. Add backup/restore and data retention policy docs.
 
 ## Next Execution Sprint
-- Replace localStorage auth/purchases with server APIs.
-- Add signed certificate records + verification endpoint.
-- Complete icon replacement pass across all pages.
-- Add external link health checks with retries and reporting.
+- Implement reviewer/admin page with role gate.
+- Add accessible audit automation in CI.
+- Move verification + grading persistence to server prototype.

@@ -19,9 +19,14 @@
       <div id="error-list"></div>
     </div>
   </main>
+  <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
   <script>
   (function () {
+    if (window.EFI && EFI.Auth && !EFI.Auth.requireRole(['admin', 'reviewer'], 'dashboard.html')) {
+      return;
+    }
+
     function render() {
       var out = document.getElementById('error-list');
       var rows = (window.EFI && EFI.Telemetry && EFI.Telemetry.getErrors()) || [];
