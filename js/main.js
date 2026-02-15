@@ -226,6 +226,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function injectGettingStartedFooterLink() {
+    document.querySelectorAll('.footer__links').forEach(function (list) {
+      if (list.querySelector('a[href="getting-started.html"]')) return;
+      if (!list.querySelector('a[href="curriculum.html"]')) return;
+      var item = document.createElement('li');
+      item.innerHTML = '<a href="getting-started.html">Getting Started</a>';
+      var curriculum = list.querySelector('a[href="curriculum.html"]');
+      if (curriculum && curriculum.parentNode && curriculum.parentNode.nextSibling) {
+        list.insertBefore(item, curriculum.parentNode.nextSibling);
+      } else {
+        list.appendChild(item);
+      }
+    });
+  })();
+
+  (function injectGettingStartedPrompts() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPage === 'index.html') {
+      var heroActions = document.querySelector('.hero__actions');
+      if (heroActions && !heroActions.querySelector('a[href="getting-started.html"]')) {
+        var start = document.createElement('a');
+        start.href = 'getting-started.html';
+        start.className = 'btn btn--outline-white btn--lg';
+        start.textContent = 'New? Start Here';
+        heroActions.appendChild(start);
+      }
+      return;
+    }
+    if (['resources.html', 'curriculum.html'].indexOf(currentPage) === -1) return;
+    if (document.getElementById('getting-started-guide-card')) return;
+    var headerContainer = document.querySelector('.page-header .container');
+    if (!headerContainer) return;
+    var card = document.createElement('div');
+    card.id = 'getting-started-guide-card';
+    card.className = 'card';
+    card.style.marginTop = 'var(--space-xl)';
+    card.innerHTML =
+      '<h3 style="margin-top:0;">New to EFI?</h3>' +
+      '<p style="color:var(--color-text-light);">Use the guided path for parents, educators, and professionals to find the right starting sequence in under 30 minutes.</p>' +
+      '<div class="button-group" style="margin-top:var(--space-md);">' +
+      '<a href="getting-started.html" class="btn btn--primary btn--sm">Open Getting Started Guide</a>' +
+      '<a href="esqr.html" class="btn btn--secondary btn--sm">Take Free ESQ-R</a>' +
+      '</div>';
+    headerContainer.appendChild(card);
+  })();
+
   (function injectRoadmapHubLinks() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (['index.html', 'curriculum.html', 'resources.html'].indexOf(currentPage) === -1) return;

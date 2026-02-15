@@ -2442,6 +2442,15 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   align-items: center;
 }
 
+.button-group .btn {
+  min-height: 44px;
+}
+
+.card .button-group,
+.hub-card .button-group {
+  margin-top: var(--space-lg);
+}
+
 .button-group--center {
   justify-content: center;
 }
@@ -2635,6 +2644,13 @@ body.has-sale-banner .floating-store-cta {
 
   .button-group {
     gap: var(--space-sm);
+  }
+
+  .button-group .btn,
+  .button-group a.btn,
+  .button-group button.btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 
