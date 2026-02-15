@@ -985,10 +985,12 @@ blockquote cite {
 .tabs__list {
   display: flex;
   border-bottom: 2px solid var(--color-border);
-  overflow-x: auto;
+  overflow: hidden;
+  gap: 0;
 }
 
 .tabs__btn {
+  flex: 1 1 0;
   padding: var(--space-md) var(--space-xl);
   background: none;
   border: none;
@@ -998,7 +1000,8 @@ blockquote cite {
   font-weight: 600;
   color: var(--color-text-muted);
   cursor: pointer;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
   transition: color var(--transition), border-color var(--transition);
   margin-bottom: -2px;
 }
@@ -2811,11 +2814,29 @@ body.has-sale-banner .floating-store-cta {
 [data-theme="dark"] .btn--secondary {
   color: var(--color-primary);
   border-color: var(--color-primary);
+  background-color: transparent;
 }
 
 [data-theme="dark"] .btn--secondary:hover {
   background-color: var(--color-primary);
   color: #fff;
+}
+
+[data-theme="dark"] #resources .btn--secondary,
+[data-theme="dark"] .resource-card .btn--secondary,
+[data-theme="dark"] #video .btn--secondary,
+[data-theme="dark"] #reading .btn--secondary {
+  background-color: transparent !important;
+  color: var(--color-primary-light);
+  border-color: var(--color-primary-light);
+}
+
+[data-theme="dark"] #resources .btn--secondary:hover,
+[data-theme="dark"] .resource-card .btn--secondary:hover,
+[data-theme="dark"] #video .btn--secondary:hover,
+[data-theme="dark"] #reading .btn--secondary:hover {
+  background-color: var(--color-primary-light) !important;
+  color: #0a0f1a;
 }
 
 [data-theme="dark"] .module-reading-highlight {
