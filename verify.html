@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Certificate | The Executive Function Institute</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="section">
+    <div class="container container--narrow">
+      <h1>Verify Certificate</h1>
+      <p>Enter a credential ID (for example: <code>EFI-CEFC-XXXXXXX</code>) to validate in this prototype environment.</p>
+      <form id="verify-form">
+        <input id="verify-id" class="form-control" type="text" required placeholder="EFI-CEFC-..." style="margin-bottom:var(--space-md);">
+        <button class="btn btn--primary" type="submit">Verify</button>
+      </form>
+      <div id="verify-result" class="card" style="margin-top:var(--space-lg);display:none;"></div>
+      <a class="btn btn--secondary" href="index.html" style="margin-top:var(--space-lg);">Back to Home</a>
+    </div>
+  </main>
+  <script>
+  (function(){
+    function makeId(email){
+      var h=0; for(var i=0;i<email.length;i++){ h=((h<<5)-h)+email.charCodeAt(i); h|=0; }
+      return 'EFI-CEFC-'+Math.abs(h).toString(36).toUpperCase().substring(0,8);
+    }
+    document.getElementById('verify-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      var id = document.getElementById('verify-id').value.trim().toUpperCase();
+      var users = {}; try { users = JSON.parse(localStorage.getItem('efi_users')) || {}; } catch (err) {}
+      var match = null;
+      Object.keys(users).forEach(function(k){
+        var u = users[k];
+        var hasCert = (u.purchases||[]).some(function(p){ return (p.items||[]).some(function(i){ return i.id === 'certificate'; }); });
+        if (hasCert && makeId(u.email) === id) match = u;
+      });
+      var out = document.getElementById('verify-result');
+      out.style.display = 'block';
+      if (!match) {
+        out.innerHTML = '<h3>Not Found</h3><p>No certificate match found in this environment.</p>';
+        return;
+      }
+      out.innerHTML = '<h3>Verified</h3><p><strong>Name:</strong> ' + match.name + '</p><p><strong>Email:</strong> ' + match.email + '</p><p><strong>Status:</strong> Certificate located in prototype records.</p>';
+    });
+    var preset = new URLSearchParams(window.location.search).get('id');
+    if (preset) document.getElementById('verify-id').value = preset;
+  })();
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

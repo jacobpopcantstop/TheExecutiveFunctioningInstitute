@@ -65,6 +65,7 @@ EFI.Auth = (function () {
     users[key] = {
       name: name.trim(),
       email: key,
+      role: 'learner',
       passwordHash: hashPassword(password),
       createdAt: new Date().toISOString(),
       progress: getDefaultProgress(),
@@ -111,8 +112,27 @@ EFI.Auth = (function () {
     if (!session) return null;
     var users = getUsers();
     var user = users[session.email] || null;
+    if (user && !user.role) user.role = 'learner';
     if (user && user.progress) user.progress = normalizeProgress(user.progress);
     return user;
+  }
+
+  function getRole() {
+    var user = getCurrentUser();
+    return user ? (user.role || 'learner') : 'guest';
+  }
+
+  function hasRole(roles) {
+    var role = getRole();
+    if (!Array.isArray(roles)) roles = [roles];
+    return roles.indexOf(role) !== -1;
+  }
+
+  function requireRole(roles, redirectPath) {
+    if (!requireAuth()) return false;
+    if (hasRole(roles)) return true;
+    window.location.href = redirectPath || 'dashboard.html';
+    return false;
   }
 
   function updateUser(updates) {
@@ -361,6 +381,9 @@ EFI.Auth = (function () {
     submitCapstone: submitCapstone,
     runAutoGrading: runAutoGrading,
     saveModuleSubmission: saveModuleSubmission
+    ,getRole: getRole
+    ,hasRole: hasRole
+    ,requireRole: requireRole
   };
 })();
 

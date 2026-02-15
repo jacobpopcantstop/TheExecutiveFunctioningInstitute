@@ -132,7 +132,26 @@
   var downloadPdfBtn = document.getElementById('esqr-download-pdf-btn');
   var shareBtn = document.getElementById('esqr-share-btn');
   var shareStatus = document.getElementById('esqr-share-status');
+  var historyEl = document.getElementById('esqr-history');
   var lastResultsPayload = null;
+  var HISTORY_KEY = 'efi_esqr_history';
+
+  function renderHistory() {
+    if (!historyEl) return;
+    var history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+    if (!history.length) {
+      historyEl.style.display = 'none';
+      return;
+    }
+    var html = '<h4 style="margin-bottom:var(--space-sm);">Recent ESQ-R Snapshots</h4><ul class="checklist">';
+    history.slice(-5).reverse().forEach(function (entry) {
+      html += '<li>' + new Date(entry.generatedAt).toLocaleString() + ' &mdash; Top strengths: ' + entry.strengths.map(function (s) { return s.name; }).join(', ') + '</li>';
+    });
+    html += '</ul>';
+    historyEl.innerHTML = html;
+    historyEl.style.display = 'block';
+  }
 
   if (!form) return;
 
@@ -298,6 +317,11 @@
     };
 
     localStorage.setItem('efi_esqr_results', JSON.stringify(lastResultsPayload));
+    var history = [];
+    try { history = JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch (e) { history = []; }
+    history.push(lastResultsPayload);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-20)));
+    renderHistory();
   }
 
   function buildShareText() {
@@ -426,6 +450,7 @@
   }
 
   /* --- Form Submit --- */
+  renderHistory();
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 

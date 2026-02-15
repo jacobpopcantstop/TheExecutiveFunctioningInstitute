@@ -150,6 +150,17 @@
           <div class="cert__detail">
             <div class="cert__detail-label">Credential ID</div>
             <div class="cert__detail-value" id="cert-id"></div>
+            <a href="verify.html" id="cert-verify-link" style="font-size:0.78rem;display:inline-block;margin-top:6px;">Verify Online</a>
+          </div>
+        </div>
+        <div class="cert__signatures">
+          <div class="cert__signature-line">
+            <p class="cert__signature-name">Program Director, EFI</p>
+            <div class="cert__signature-role">Certification Board</div>
+          </div>
+          <div class="cert__signature-line">
+            <p class="cert__signature-name">Academic Review Lead</p>
+            <div class="cert__signature-role">Assessment &amp; Capstone Review</div>
           </div>
         </div>
         <div class="cert__signatures">
@@ -261,6 +272,7 @@
       hash |= 0;
     }
     document.getElementById('cert-id').textContent = 'EFI-CEFC-' + Math.abs(hash).toString(36).toUpperCase().substring(0, 8);
+    document.getElementById('cert-verify-link').href = 'verify.html?id=' + encodeURIComponent(document.getElementById('cert-id').textContent);
 
     // Print button
     document.getElementById('print-cert').addEventListener('click', function() {
