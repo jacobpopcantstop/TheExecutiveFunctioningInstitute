@@ -135,6 +135,43 @@ EFI.Auth = (function () {
     return false;
   }
 
+  function exportPrototypeData() {
+    return {
+      users: getUsers(),
+      session: getSession(),
+      cart: getCart(),
+      exportedAt: new Date().toISOString(),
+      version: 1
+    };
+  }
+
+  function importPrototypeData(payload) {
+    if (!payload || typeof payload !== 'object') {
+      return { ok: false, error: 'Invalid import payload.' };
+    }
+    if (payload.users && typeof payload.users === 'object') {
+      localStorage.setItem(USERS_KEY, JSON.stringify(payload.users));
+    }
+    if (payload.session && typeof payload.session === 'object') {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(payload.session));
+    }
+    if (Array.isArray(payload.cart)) {
+      localStorage.setItem(CART_KEY, JSON.stringify(payload.cart));
+    }
+    updateCartBadge();
+    return { ok: true };
+  }
+
+  function resetPrototypeData() {
+    localStorage.removeItem(USERS_KEY);
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(CART_KEY);
+    localStorage.removeItem('efi_esqr_results');
+    localStorage.removeItem('efi_esqr_history');
+    localStorage.removeItem('efi_client_errors');
+    return { ok: true };
+  }
+
   function updateUser(updates) {
     var session = getSession();
     if (!session) return false;
@@ -384,6 +421,9 @@ EFI.Auth = (function () {
     ,getRole: getRole
     ,hasRole: hasRole
     ,requireRole: requireRole
+    ,exportPrototypeData: exportPrototypeData
+    ,importPrototypeData: importPrototypeData
+    ,resetPrototypeData: resetPrototypeData
   };
 })();
 
