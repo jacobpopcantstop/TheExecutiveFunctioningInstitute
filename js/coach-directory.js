@@ -127,12 +127,25 @@
     render();
   }
 
-  fetch('data/coach-directory.json', { cache: 'no-cache' })
+  fetch('/api/coach-directory', { cache: 'no-cache' })
     .then(function (response) {
-      if (!response.ok) throw new Error('directory fetch failed');
+      if (!response.ok) throw new Error('directory api failed');
       return response.json();
     })
-    .then(init)
+    .then(function (payload) {
+      if (!payload || payload.ok === false || !Array.isArray(payload.records)) {
+        throw new Error('directory api invalid payload');
+      }
+      init({ records: payload.records });
+    })
+    .catch(function () {
+      return fetch('data/coach-directory.json', { cache: 'no-cache' })
+        .then(function (response) {
+          if (!response.ok) throw new Error('directory seed fetch failed');
+          return response.json();
+        })
+        .then(init);
+    })
     .catch(function () {
       init(fallbackData());
     });

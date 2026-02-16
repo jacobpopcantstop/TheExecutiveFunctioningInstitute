@@ -176,3 +176,12 @@
 8. ✅ Added launch kit preview artifact (`images/launch-kit-preview.svg`) and file inventory section in `curriculum.html`.
 9. ✅ Added explicit accreditation status block with current date in `certification.html`.
 10. ✅ Added "Last updated" stamp to `accreditation.html` header/footer.
+
+## Wave 17: Directory Moderation Backend (This Pass)
+1. ✅ Added server authz helper (`netlify/functions/_authz.js`) for reviewer/admin checks via Supabase bearer token or admin key.
+2. ✅ Added API endpoint `netlify/functions/coach-directory.js` with public listing fetch and privileged moderation actions.
+3. ✅ Extended durable storage layer (`netlify/functions/_db.js`) with directory listing, upsert, and moderation methods.
+4. ✅ Updated public directory UI (`js/coach-directory.js`) to consume `/api/coach-directory` with JSON fallback.
+5. ✅ Added admin moderation queue UI and approve/reject actions (`admin.html`, `js/admin-directory.js`).
+6. ✅ Updated Supabase schema docs with `efi_coach_directory` table and indexes (`docs/supabase-schema.sql`).
+7. ✅ Updated OpenAPI contract with `/coach-directory` endpoint (`docs/api/openapi.yaml`).

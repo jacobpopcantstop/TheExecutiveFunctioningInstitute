@@ -1,4 +1,6 @@
 const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const { requiredEnv } = require('./_common');
 
 const MEM = {
@@ -7,7 +9,8 @@ const MEM = {
   payments: new Map(),
   submissions: new Map(),
   leads: new Map(),
-  events: new Map()
+  events: new Map(),
+  directory: new Map()
 };
 
 function nowIso() {
@@ -16,6 +19,18 @@ function nowIso() {
 
 function hasSupabase() {
   return !!(requiredEnv('SUPABASE_URL') && requiredEnv('SUPABASE_SERVICE_ROLE_KEY'));
+}
+
+function readDirectorySeed() {
+  try {
+    const seedPath = path.resolve(__dirname, '../../data/coach-directory.json');
+    const raw = fs.readFileSync(seedPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.records)) return [];
+    return parsed.records;
+  } catch (err) {
+    return [];
+  }
 }
 
 async function supabaseRequest(path, { method = 'GET', body } = {}) {
@@ -339,6 +354,125 @@ async function saveEvent(evt) {
   return { ok: true, storage: 'memory' };
 }
 
+function normalizeDirectoryRecord(row) {
+  const now = nowIso();
+  const id = String(row.id || row.credential_id || '').trim() || ('dir_' + crypto.randomBytes(6).toString('hex'));
+  return {
+    id,
+    name: String(row.name || '').trim(),
+    city: String(row.city || '').trim(),
+    state: String(row.state || '').trim(),
+    zip: String(row.zip || '').trim(),
+    specialty: String(row.specialty || '').trim(),
+    delivery_modes: Array.isArray(row.delivery_modes)
+      ? row.delivery_modes.map((m) => String(m || '').trim().toLowerCase()).filter(Boolean)
+      : [],
+    website: String(row.website || '').trim(),
+    credential_id: String(row.credential_id || '').trim() || null,
+    verification_status: String(row.verification_status || 'pending').trim().toLowerCase(),
+    moderation_status: String(row.moderation_status || 'pending').trim().toLowerCase(),
+    moderation_notes: String(row.moderation_notes || '').trim() || null,
+    reviewer_email: String(row.reviewer_email || '').trim().toLowerCase() || null,
+    bio: String(row.bio || '').trim() || null,
+    created_at: row.created_at || now,
+    updated_at: now,
+    last_reviewed: row.last_reviewed || null
+  };
+}
+
+function ensureDirectorySeeded() {
+  if (MEM.directory.size) return;
+  readDirectorySeed().forEach((row) => {
+    const normalized = normalizeDirectoryRecord(row);
+    MEM.directory.set(normalized.id, normalized);
+  });
+}
+
+async function listDirectory(options = {}) {
+  const includePending = !!options.includePending;
+
+  if (hasSupabase()) {
+    try {
+      const clauses = ['select=*', 'order=updated_at.desc'];
+      if (!includePending) {
+        clauses.push('verification_status=eq.verified');
+        clauses.push('moderation_status=eq.approved');
+      }
+      const rows = await supabaseRequest(`efi_coach_directory?${clauses.join('&')}`);
+      return { storage: 'supabase', records: rows || [] };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  ensureDirectorySeeded();
+  let rows = Array.from(MEM.directory.values());
+  if (!includePending) {
+    rows = rows.filter((row) => row.verification_status === 'verified' && row.moderation_status === 'approved');
+  }
+  rows.sort((a, b) => String(b.updated_at || '').localeCompare(String(a.updated_at || '')));
+  return { storage: 'memory', records: rows };
+}
+
+async function upsertDirectoryRecord(row) {
+  const normalized = normalizeDirectoryRecord(row || {});
+  MEM.directory.set(normalized.id, normalized);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest('efi_coach_directory', {
+        method: 'POST',
+        body: [normalized]
+      });
+      return { storage: 'supabase', record: normalized };
+    } catch (err) {
+      return { storage: 'memory', record: normalized };
+    }
+  }
+
+  return { storage: 'memory', record: normalized };
+}
+
+async function moderateDirectoryRecord(id, patch) {
+  const key = String(id || '').trim();
+  if (!key) return null;
+
+  ensureDirectorySeeded();
+  const existing = MEM.directory.get(key);
+  if (!existing) return null;
+  const next = {
+    ...existing,
+    moderation_status: patch.moderation_status ? String(patch.moderation_status).trim().toLowerCase() : existing.moderation_status,
+    verification_status: patch.verification_status ? String(patch.verification_status).trim().toLowerCase() : existing.verification_status,
+    moderation_notes: patch.moderation_notes != null ? String(patch.moderation_notes).trim() || null : existing.moderation_notes,
+    reviewer_email: patch.reviewer_email != null ? String(patch.reviewer_email).trim().toLowerCase() || null : existing.reviewer_email,
+    last_reviewed: patch.last_reviewed || nowIso(),
+    updated_at: nowIso()
+  };
+  MEM.directory.set(key, next);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest(`efi_coach_directory?id=eq.${encodeURIComponent(key)}`, {
+        method: 'PATCH',
+        body: {
+          moderation_status: next.moderation_status,
+          verification_status: next.verification_status,
+          moderation_notes: next.moderation_notes,
+          reviewer_email: next.reviewer_email,
+          last_reviewed: next.last_reviewed,
+          updated_at: next.updated_at
+        }
+      });
+      return { storage: 'supabase', record: next };
+    } catch (err) {
+      return { storage: 'memory', record: next };
+    }
+  }
+
+  return { storage: 'memory', record: next };
+}
+
 module.exports = {
   hasSupabase,
   upsertProgress,
@@ -352,5 +486,8 @@ module.exports = {
   listSubmissions,
   getDueFeedback,
   saveLead,
-  saveEvent
+  saveEvent,
+  listDirectory,
+  upsertDirectoryRecord,
+  moderateDirectoryRecord
 };

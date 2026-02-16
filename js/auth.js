@@ -729,6 +729,7 @@ EFI.Auth = (function () {
     ,importPrototypeData: importPrototypeData
     ,resetPrototypeData: resetPrototypeData
     ,refreshManagedSession: refreshManagedSession
+    ,getAccessToken: getAccessToken
   };
 })();
 

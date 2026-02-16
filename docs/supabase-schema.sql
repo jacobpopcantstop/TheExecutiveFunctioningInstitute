@@ -70,3 +70,25 @@ create table if not exists public.efi_events (
 );
 create index if not exists idx_efi_events_name on public.efi_events(event_name);
 create index if not exists idx_efi_events_at on public.efi_events(at);
+
+create table if not exists public.efi_coach_directory (
+  id text primary key,
+  name text not null,
+  city text not null,
+  state text not null,
+  zip text not null,
+  specialty text not null,
+  delivery_modes jsonb not null default '[]'::jsonb,
+  website text,
+  credential_id text,
+  verification_status text not null default 'pending',
+  moderation_status text not null default 'pending',
+  moderation_notes text,
+  reviewer_email text,
+  bio text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  last_reviewed timestamptz
+);
+create index if not exists idx_efi_coach_directory_visibility on public.efi_coach_directory(verification_status, moderation_status);
+create index if not exists idx_efi_coach_directory_geo on public.efi_coach_directory(state, zip);
