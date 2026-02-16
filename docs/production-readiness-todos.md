@@ -185,3 +185,10 @@
 5. ✅ Added admin moderation queue UI and approve/reject actions (`admin.html`, `js/admin-directory.js`).
 6. ✅ Updated Supabase schema docs with `efi_coach_directory` table and indexes (`docs/supabase-schema.sql`).
 7. ✅ Updated OpenAPI contract with `/coach-directory` endpoint (`docs/api/openapi.yaml`).
+
+## Wave 18: Directory Submission + Review History UX (This Pass)
+1. ✅ Added public "Apply For Directory Listing" form on `coach-directory.html`.
+2. ✅ Wired listing submission form to `/api/coach-directory` (`action=submit_listing`) in `js/coach-directory.js`.
+3. ✅ Added moderation note input per pending record in admin queue (`admin.html`, `js/admin-directory.js`).
+4. ✅ Added "Recent Directory Decisions" history table in admin with reviewer, timestamp, and notes.
+5. ✅ Updated moderation actions to persist custom notes entered by reviewer before approve/reject.

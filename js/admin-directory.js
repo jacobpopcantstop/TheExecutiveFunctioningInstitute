@@ -39,7 +39,7 @@
     if (!body) return;
 
     if (!records.length) {
-      body.innerHTML = '<tr><td colspan="6">No pending listings.</td></tr>';
+      body.innerHTML = '<tr><td colspan="7">No pending listings.</td></tr>';
       setStatus('No pending listings in moderation queue.');
       return;
     }
@@ -54,12 +54,35 @@
           '<td>' + (row.specialty || 'Unspecified') + '</td>' +
           '<td>' + (row.verification_status || 'pending') + '</td>' +
           '<td>' + (row.moderation_status || 'pending') + '</td>' +
+          '<td><input class="form-control js-dir-note" type="text" placeholder="Add moderation note" value="' + (row.moderation_notes || '') + '" /></td>' +
           '<td>' +
             '<div class="button-group">' +
               '<button type="button" class="btn btn--sm btn--secondary js-dir-approve">Approve</button>' +
               '<button type="button" class="btn btn--sm btn--ghost js-dir-reject">Reject</button>' +
             '</div>' +
           '</td>' +
+        '</tr>'
+      );
+    }).join('');
+  }
+
+  function renderHistory(records) {
+    var body = byId('directory-history-body');
+    if (!body) return;
+    if (!records.length) {
+      body.innerHTML = '<tr><td colspan="5">No reviewed records yet.</td></tr>';
+      return;
+    }
+    body.innerHTML = records.map(function (row) {
+      var status = (row.moderation_status || 'pending') + ' / ' + (row.verification_status || 'pending');
+      var reviewedAt = row.last_reviewed || row.updated_at || '';
+      return (
+        '<tr>' +
+          '<td>' + (row.name || 'Unknown') + '</td>' +
+          '<td>' + status + '</td>' +
+          '<td>' + (row.reviewer_email || 'Unassigned') + '</td>' +
+          '<td>' + (reviewedAt ? new Date(reviewedAt).toLocaleString() : 'N/A') + '</td>' +
+          '<td>' + (row.moderation_notes || 'None') + '</td>' +
         '</tr>'
       );
     }).join('');
@@ -74,10 +97,12 @@
       var row = target.closest('tr');
       var id = row.getAttribute('data-directory-id');
       if (!id) return;
+      var noteInput = row.querySelector('.js-dir-note');
+      var notes = noteInput ? noteInput.value : '';
 
       if (target.classList.contains('js-dir-approve')) {
         target.disabled = true;
-        moderateListing(id, 'approved', 'verified', 'Approved in admin queue')
+        moderateListing(id, 'approved', 'verified', notes || 'Approved in admin queue')
           .then(loadQueue)
           .catch(function (err) { setStatus(err.message || 'Unable to approve listing.'); })
           .finally(function () { target.disabled = false; });
@@ -85,7 +110,7 @@
 
       if (target.classList.contains('js-dir-reject')) {
         target.disabled = true;
-        moderateListing(id, 'rejected', 'pending', 'Rejected in admin queue')
+        moderateListing(id, 'rejected', 'pending', notes || 'Rejected in admin queue')
           .then(loadQueue)
           .catch(function (err) { setStatus(err.message || 'Unable to reject listing.'); })
           .finally(function () { target.disabled = false; });
@@ -105,14 +130,26 @@
         });
       })
       .then(function (payload) {
+        var all = payload.records || [];
         var pending = (payload.records || []).filter(function (row) {
           return String(row.moderation_status || '').toLowerCase() === 'pending';
         });
+        var reviewed = all
+          .filter(function (row) {
+            return String(row.moderation_status || '').toLowerCase() !== 'pending';
+          })
+          .sort(function (a, b) {
+            return String(b.last_reviewed || b.updated_at || '').localeCompare(String(a.last_reviewed || a.updated_at || ''));
+          })
+          .slice(0, 12);
         renderRows(pending);
+        renderHistory(reviewed);
       })
       .catch(function (err) {
         var body = byId('directory-moderation-body');
-        if (body) body.innerHTML = '<tr><td colspan="6">Queue unavailable.</td></tr>';
+        if (body) body.innerHTML = '<tr><td colspan="7">Queue unavailable.</td></tr>';
+        var history = byId('directory-history-body');
+        if (history) history.innerHTML = '<tr><td colspan="5">History unavailable.</td></tr>';
         setStatus(err.message || 'Unable to load queue.');
       });
   }

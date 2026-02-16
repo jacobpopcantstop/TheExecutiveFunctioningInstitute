@@ -7,6 +7,9 @@
   var modeSelect = document.getElementById('dir-mode');
   var resetBtn = document.getElementById('dir-reset');
   var countEl = document.getElementById('dir-count');
+  var submitForm = document.getElementById('dir-submit-form');
+  var submitStatus = document.getElementById('dir-submit-status');
+  var submitBtn = document.getElementById('dir-submit-btn');
 
   var records = [];
 
@@ -98,6 +101,60 @@
       modeSelect.value = '';
       render();
     });
+
+    if (submitForm) {
+      submitForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitStatus) submitStatus.textContent = 'Submitting listing request...';
+
+        var modes = Array.prototype.slice.call(document.querySelectorAll('input[name="dir-submit-mode"]:checked')).map(function (el) {
+          return el.value;
+        });
+        var payload = {
+          action: 'submit_listing',
+          name: document.getElementById('dir-submit-name').value.trim(),
+          email: document.getElementById('dir-submit-email').value.trim(),
+          city: document.getElementById('dir-submit-city').value.trim(),
+          state: document.getElementById('dir-submit-state').value.trim(),
+          zip: document.getElementById('dir-submit-zip').value.trim(),
+          specialty: document.getElementById('dir-submit-specialty').value,
+          website: document.getElementById('dir-submit-website').value.trim(),
+          credential_id: document.getElementById('dir-submit-credential').value.trim(),
+          bio: document.getElementById('dir-submit-bio').value.trim(),
+          delivery_modes: modes
+        };
+
+        var attest = document.getElementById('dir-submit-attest');
+        if (!attest || !attest.checked) {
+          if (submitStatus) submitStatus.textContent = 'Attestation is required.';
+          if (submitBtn) submitBtn.disabled = false;
+          return;
+        }
+
+        fetch('/api/coach-directory', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (data) {
+              if (!res.ok || data.ok === false) throw new Error(data.error || 'Unable to submit listing.');
+              return data;
+            });
+          })
+          .then(function () {
+            submitForm.reset();
+            if (submitStatus) submitStatus.textContent = 'Listing request submitted. It will appear after verification and moderation approval.';
+          })
+          .catch(function (err) {
+            if (submitStatus) submitStatus.textContent = err.message || 'Unable to submit listing.';
+          })
+          .finally(function () {
+            if (submitBtn) submitBtn.disabled = false;
+          });
+      });
+    }
   }
 
   function fallbackData() {

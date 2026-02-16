@@ -122,6 +122,74 @@
             </div>
           </article>
         </div>
+
+        <article class="card" style="margin-top:var(--space-xl);border-left:4px solid var(--module-2);">
+          <h3>Apply For Directory Listing</h3>
+          <p>Graduates can submit a listing request for moderation review. Publishing requires verification and approval.</p>
+          <form id="dir-submit-form">
+            <div class="grid grid--2">
+              <div>
+                <label for="dir-submit-name">Full Name</label>
+                <input id="dir-submit-name" class="form-control" type="text" required>
+              </div>
+              <div>
+                <label for="dir-submit-email">Email</label>
+                <input id="dir-submit-email" class="form-control" type="email" required>
+              </div>
+              <div>
+                <label for="dir-submit-city">City</label>
+                <input id="dir-submit-city" class="form-control" type="text" required>
+              </div>
+              <div>
+                <label for="dir-submit-state">State</label>
+                <input id="dir-submit-state" class="form-control" type="text" maxlength="2" required>
+              </div>
+              <div>
+                <label for="dir-submit-zip">ZIP</label>
+                <input id="dir-submit-zip" class="form-control" type="text" required>
+              </div>
+              <div>
+                <label for="dir-submit-specialty">Specialty</label>
+                <select id="dir-submit-specialty" class="form-control" required>
+                  <option value="">Select a specialty</option>
+                  <option>Student EF</option>
+                  <option>College Transition</option>
+                  <option>Adult ADHD</option>
+                  <option>Family Coaching</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid--2" style="margin-top:var(--space-md);">
+              <div>
+                <label for="dir-submit-website">Website (optional)</label>
+                <input id="dir-submit-website" class="form-control" type="url" placeholder="https://">
+              </div>
+              <div>
+                <label for="dir-submit-credential">Credential ID (optional)</label>
+                <input id="dir-submit-credential" class="form-control" type="text" placeholder="EFI-CEFC-2026-XXX">
+              </div>
+            </div>
+            <div style="margin-top:var(--space-md);">
+              <label>Delivery Modes</label>
+              <div class="button-group">
+                <label><input type="checkbox" name="dir-submit-mode" value="virtual"> Virtual</label>
+                <label><input type="checkbox" name="dir-submit-mode" value="in-person"> In-person</label>
+              </div>
+            </div>
+            <div style="margin-top:var(--space-md);">
+              <label for="dir-submit-bio">Brief Bio (optional)</label>
+              <textarea id="dir-submit-bio" class="form-control" rows="4" maxlength="500" placeholder="Share your coaching focus and populations served."></textarea>
+            </div>
+            <label style="display:flex;gap:0.5rem;align-items:flex-start;margin-top:var(--space-md);">
+              <input id="dir-submit-attest" type="checkbox" required style="margin-top:0.3rem;">
+              <span>I attest this listing is accurate and within coaching scope of practice. I understand publication requires moderation approval.</span>
+            </label>
+            <p id="dir-submit-status" style="font-size:0.9rem;color:var(--color-text-light);margin-top:var(--space-sm);"></p>
+            <div class="button-group" style="margin-top:var(--space-md);">
+              <button type="submit" id="dir-submit-btn" class="btn btn--primary btn--sm">Submit Listing Request</button>
+            </div>
+          </form>
+        </article>
       </div>
     </section>
   </main>
