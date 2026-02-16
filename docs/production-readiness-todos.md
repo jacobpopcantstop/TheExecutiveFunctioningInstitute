@@ -192,3 +192,15 @@
 3. ✅ Added moderation note input per pending record in admin queue (`admin.html`, `js/admin-directory.js`).
 4. ✅ Added "Recent Directory Decisions" history table in admin with reviewer, timestamp, and notes.
 5. ✅ Updated moderation actions to persist custom notes entered by reviewer before approve/reject.
+
+## Wave 19: Directory Hardening + Ops Controls (This Pass)
+1. ✅ Fixed directory record persistence bug by storing applicant `email` in backend records.
+2. ✅ Added backend listing update path (`action=update_listing`) for privileged reviewer/admin edits.
+3. ✅ Added backend email status lookup (`GET /api/coach-directory?email=...`) for applicant self-check.
+4. ✅ Added anti-bot honeypot validation on listing submissions (`company` must be empty).
+5. ✅ Added submission rate limiting by IP and email in directory API.
+6. ✅ Added strict state/ZIP format validation in directory API.
+7. ✅ Added duplicate pending-request prevention per applicant/specialty/location.
+8. ✅ Added admin "Edit" action for pending listings (name/location/specialty quick correction).
+9. ✅ Added public listing status checker UI on `coach-directory.html`.
+10. ✅ Added directory summary stats surface from API and UI display (`#dir-stats`).

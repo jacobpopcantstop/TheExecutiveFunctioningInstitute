@@ -360,6 +360,7 @@ function normalizeDirectoryRecord(row) {
   return {
     id,
     name: String(row.name || '').trim(),
+    email: String(row.email || '').trim().toLowerCase() || null,
     city: String(row.city || '').trim(),
     state: String(row.state || '').trim(),
     zip: String(row.zip || '').trim(),
@@ -433,6 +434,77 @@ async function upsertDirectoryRecord(row) {
   return { storage: 'memory', record: normalized };
 }
 
+async function updateDirectoryRecord(id, patch) {
+  const key = String(id || '').trim();
+  if (!key) return null;
+  ensureDirectorySeeded();
+  const existing = MEM.directory.get(key);
+  if (!existing) return null;
+
+  const next = {
+    ...existing,
+    name: patch.name != null ? String(patch.name).trim() : existing.name,
+    email: patch.email != null ? (String(patch.email).trim().toLowerCase() || null) : existing.email,
+    city: patch.city != null ? String(patch.city).trim() : existing.city,
+    state: patch.state != null ? String(patch.state).trim() : existing.state,
+    zip: patch.zip != null ? String(patch.zip).trim() : existing.zip,
+    specialty: patch.specialty != null ? String(patch.specialty).trim() : existing.specialty,
+    delivery_modes: Array.isArray(patch.delivery_modes)
+      ? patch.delivery_modes.map((m) => String(m || '').trim().toLowerCase()).filter(Boolean)
+      : existing.delivery_modes,
+    website: patch.website != null ? String(patch.website).trim() : existing.website,
+    credential_id: patch.credential_id != null ? (String(patch.credential_id).trim() || null) : existing.credential_id,
+    bio: patch.bio != null ? (String(patch.bio).trim() || null) : existing.bio,
+    updated_at: nowIso()
+  };
+  MEM.directory.set(key, next);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest(`efi_coach_directory?id=eq.${encodeURIComponent(key)}`, {
+        method: 'PATCH',
+        body: {
+          name: next.name,
+          email: next.email,
+          city: next.city,
+          state: next.state,
+          zip: next.zip,
+          specialty: next.specialty,
+          delivery_modes: next.delivery_modes,
+          website: next.website,
+          credential_id: next.credential_id,
+          bio: next.bio,
+          updated_at: next.updated_at
+        }
+      });
+      return { storage: 'supabase', record: next };
+    } catch (err) {
+      return { storage: 'memory', record: next };
+    }
+  }
+
+  return { storage: 'memory', record: next };
+}
+
+async function findDirectoryByEmail(email) {
+  const normalized = String(email || '').trim().toLowerCase();
+  if (!normalized) return { storage: 'memory', records: [] };
+
+  if (hasSupabase()) {
+    try {
+      const rows = await supabaseRequest(`efi_coach_directory?email=eq.${encodeURIComponent(normalized)}&select=*&order=updated_at.desc`);
+      return { storage: 'supabase', records: rows || [] };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  ensureDirectorySeeded();
+  const rows = Array.from(MEM.directory.values()).filter((row) => String(row.email || '').toLowerCase() === normalized);
+  rows.sort((a, b) => String(b.updated_at || '').localeCompare(String(a.updated_at || '')));
+  return { storage: 'memory', records: rows };
+}
+
 async function moderateDirectoryRecord(id, patch) {
   const key = String(id || '').trim();
   if (!key) return null;
@@ -489,5 +561,7 @@ module.exports = {
   saveEvent,
   listDirectory,
   upsertDirectoryRecord,
-  moderateDirectoryRecord
+  updateDirectoryRecord,
+  moderateDirectoryRecord,
+  findDirectoryByEmail
 };

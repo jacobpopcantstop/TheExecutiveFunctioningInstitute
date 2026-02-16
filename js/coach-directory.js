@@ -10,6 +10,10 @@
   var submitForm = document.getElementById('dir-submit-form');
   var submitStatus = document.getElementById('dir-submit-status');
   var submitBtn = document.getElementById('dir-submit-btn');
+  var statusForm = document.getElementById('dir-status-form');
+  var statusBtn = document.getElementById('dir-status-btn');
+  var statusBody = document.getElementById('dir-status-body');
+  var statsEl = document.getElementById('dir-stats');
 
   var records = [];
 
@@ -116,13 +120,14 @@
           name: document.getElementById('dir-submit-name').value.trim(),
           email: document.getElementById('dir-submit-email').value.trim(),
           city: document.getElementById('dir-submit-city').value.trim(),
-          state: document.getElementById('dir-submit-state').value.trim(),
+          state: document.getElementById('dir-submit-state').value.trim().toUpperCase(),
           zip: document.getElementById('dir-submit-zip').value.trim(),
           specialty: document.getElementById('dir-submit-specialty').value,
           website: document.getElementById('dir-submit-website').value.trim(),
           credential_id: document.getElementById('dir-submit-credential').value.trim(),
           bio: document.getElementById('dir-submit-bio').value.trim(),
-          delivery_modes: modes
+          delivery_modes: modes,
+          company: document.getElementById('dir-submit-company').value.trim()
         };
 
         var attest = document.getElementById('dir-submit-attest');
@@ -155,6 +160,43 @@
           });
       });
     }
+
+    if (statusForm) {
+      statusForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (statusBtn) statusBtn.disabled = true;
+        var email = document.getElementById('dir-status-email').value.trim().toLowerCase();
+        fetch('/api/coach-directory?email=' + encodeURIComponent(email), { cache: 'no-cache' })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (payload) {
+              if (!res.ok || payload.ok === false) throw new Error(payload.error || 'Unable to load status.');
+              return payload;
+            });
+          })
+          .then(function (payload) {
+            var rows = payload.records || [];
+            if (!rows.length) {
+              statusBody.innerHTML = '<tr><td colspan="4">No listing requests found for this email.</td></tr>';
+              return;
+            }
+            statusBody.innerHTML = rows.map(function (row) {
+              var reviewed = row.last_reviewed || row.updated_at;
+              return '<tr>' +
+                '<td>' + (row.credential_id || 'Pending') + '</td>' +
+                '<td>' + (row.moderation_status || 'pending') + '</td>' +
+                '<td>' + (row.verification_status || 'pending') + '</td>' +
+                '<td>' + (reviewed ? new Date(reviewed).toLocaleString() : 'N/A') + '</td>' +
+                '</tr>';
+            }).join('');
+          })
+          .catch(function (err) {
+            statusBody.innerHTML = '<tr><td colspan="4">' + (err.message || 'Unable to load status.') + '</td></tr>';
+          })
+          .finally(function () {
+            if (statusBtn) statusBtn.disabled = false;
+          });
+      });
+    }
   }
 
   function fallbackData() {
@@ -176,10 +218,17 @@
     };
   }
 
-  function init(data) {
+  function init(data, stats) {
     records = (data && data.records) || [];
     var publicRecords = records.filter(isPublicRecord);
     updateSpecialtyOptions(publicRecords);
+    if (statsEl) {
+      if (stats && typeof stats.total === 'number') {
+        statsEl.textContent = 'Directory totals: ' + stats.total + ' records, ' + (stats.approved || 0) + ' approved, ' + (stats.pending || 0) + ' pending.';
+      } else {
+        statsEl.textContent = 'Directory loaded.';
+      }
+    }
     bindEvents();
     render();
   }
@@ -193,7 +242,7 @@
       if (!payload || payload.ok === false || !Array.isArray(payload.records)) {
         throw new Error('directory api invalid payload');
       }
-      init({ records: payload.records });
+      init({ records: payload.records }, payload.stats || null);
     })
     .catch(function () {
       return fetch('data/coach-directory.json', { cache: 'no-cache' })
@@ -201,9 +250,9 @@
           if (!response.ok) throw new Error('directory seed fetch failed');
           return response.json();
         })
-        .then(init);
+        .then(function (seed) { init(seed, null); });
     })
     .catch(function () {
-      init(fallbackData());
+      init(fallbackData(), null);
     });
 })();
