@@ -259,17 +259,17 @@ document.addEventListener('DOMContentLoaded', function () {
         '<article class="site-guide__card">' +
           '<h4>Parent Path</h4>' +
           '<p>Learn key EF concepts, run ESQ-R, then apply home interventions.</p>' +
-          '<a class="btn btn--secondary btn--sm" href="getting-started.html">Follow Parent Steps</a>' +
+          '<a class="btn btn--secondary btn--sm" href="#path-parent">Follow Parent Steps</a>' +
         '</article>' +
         '<article class="site-guide__card">' +
           '<h4>Educator Path</h4>' +
           '<p>Use pedagogy + intervention modules, then move into practical toolkits.</p>' +
-          '<a class="btn btn--secondary btn--sm" href="module-b-pedagogy.html">Follow Educator Steps</a>' +
+          '<a class="btn btn--secondary btn--sm" href="#path-educator">Follow Educator Steps</a>' +
         '</article>' +
         '<article class="site-guide__card">' +
           '<h4>Coach Path</h4>' +
           '<p>Complete curriculum, enroll, and unlock tests, assignments, and review.</p>' +
-          '<a class="btn btn--primary btn--sm" href="certification.html">Follow Coach Steps</a>' +
+          '<a class="btn btn--primary btn--sm" href="#path-coach">Follow Coach Steps</a>' +
         '</article>' +
       '</div>' +
       '<div class="site-guide__quicklinks">' +
@@ -283,6 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function injectRoadmapHubLinks() {
+    return;
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (['index.html', 'curriculum.html', 'resources.html'].indexOf(currentPage) === -1) return;
     if (document.getElementById('roadmap-hub-links')) return;
@@ -307,6 +308,18 @@ document.addEventListener('DOMContentLoaded', function () {
       '</div>';
 
     anchor.parentNode.insertBefore(section, anchor);
+  })();
+
+  (function reduceEnrollButtons() {
+    var all = Array.prototype.slice.call(document.querySelectorAll('main a[href="enroll.html"]'));
+    if (all.length <= 1) return;
+    all.forEach(function (link, index) {
+      if (index === 0) return;
+      link.href = 'certification.html';
+      if (/\bbtn\b/.test(link.className)) {
+        link.textContent = 'View Certification';
+      }
+    });
   })();
 
   (function injectModuleReadingPanel() {
@@ -424,58 +437,58 @@ document.addEventListener('DOMContentLoaded', function () {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     var checks = {
       'module-1.html': {
-        question: 'In Barkley\'s model, which function must engage first before the others can run reliably?',
-        options: ['Response inhibition', 'Processing speed', 'Task initiation', 'Reading comprehension'],
-        answer: 0,
-        rationale: 'Barkley frames inhibition as the gatekeeper that enables downstream executive functions.'
+        question: 'A learner can explain a plan but fails under time pressure and emotional friction. Which mechanism is MOST likely failing first in Barkley\'s sequence?',
+        options: ['Lexical retrieval', 'Response inhibition under load', 'Long-term semantic memory', 'Phonological decoding'],
+        answer: 1,
+        rationale: 'In Barkley\'s model, inhibition failure under load prevents downstream use of self-talk, future simulation, and emotional modulation.'
       },
       'module-2.html': {
-        question: 'Which assessment behavior is most consistent with situational variability?',
-        options: ['Consistent performance in every context', 'Strong output only in high-interest contexts', 'No skill development over time', 'Perfect behavior under sleep deprivation'],
+        question: 'Which intake interpretation best distinguishes skill deficit from performance variability?',
+        options: ['One low homework grade proves a global skill deficit', 'High-interest success with low-interest collapse suggests context-dependent performance failure', 'High IQ eliminates EF concerns', 'Parent report alone should override all other data'],
         answer: 1,
-        rationale: 'Situational variability means performance can swing dramatically by context and stimulation.'
+        rationale: 'Performance swings by context indicate regulation/load mismatch, not necessarily absent underlying skill knowledge.'
       },
       'module-3.html': {
-        question: 'What is the core shift from tutoring to EF coaching?',
-        options: ['Teach more content faster', 'Replace assignments with motivation talks', 'Teach process and execution systems', 'Avoid goal setting'],
+        question: 'Which session design best reflects EF coaching rather than tutoring?',
+        options: ['Content reteach -> worksheet correction -> score review', 'Goal definition -> execution plan -> friction review -> transfer rep in a second context', 'Lecture on motivation -> homework reminder', 'Open discussion with no measurable next action'],
         answer: 2,
-        rationale: 'EF coaching targets planning, follow-through, and self-regulation process, not just content delivery.'
+        rationale: 'Coaching architecture emphasizes execution systems, monitoring, and transfer, not only content accuracy.'
       },
       'module-4.html': {
-        question: 'In Get Ready, Do, Done, which stage comes first?',
-        options: ['Do', 'Done', 'Get Ready', 'Review'],
+        question: 'In Ward\'s framework, which sequence produces stronger prospective planning accuracy?',
+        options: ['Get Ready -> Do -> Done', 'Do -> Done -> Reflect', 'Done -> Do -> Get Ready', 'Do -> Get Ready -> Done'],
         answer: 1,
-        rationale: 'The model starts with Done (future picture), then Do (steps), then Get Ready (materials).'
+        rationale: 'Done-first planning forces future-state representation before task sequencing and material prep.'
       },
       'module-5.html': {
-        question: 'Which intervention best reflects environmental scaffolding?',
-        options: ['Rely only on willpower', 'Add visible timers and friction-reducing cues', 'Increase punishment frequency', 'Delay all supports until failure'],
+        question: 'A client underestimates task duration by ~2.5x across four weeks. What is the strongest intervention next step?',
+        options: ['Ask for more effort and confidence', 'Apply a personalized correction factor to planning and validate with timed reps', 'Remove all timers to reduce anxiety', 'Switch goals weekly to maintain novelty'],
         answer: 1,
-        rationale: 'Environmental scaffolds externalize executive supports so action is easier to start and sustain.'
+        rationale: 'Prediction-vs-actual data should directly calibrate future planning via correction multipliers and repeated measurement.'
       },
       'module-6.html': {
-        question: 'Which statement reflects ethical scope in EF coaching?',
-        options: ['Diagnose mental disorders during intake', 'Provide psychotherapy if the client asks', 'Refer out when clinical risk exceeds coaching scope', 'Guarantee symptom remission in writing'],
+        question: 'Which practice is most defensible in an ethics audit?',
+        options: ['Promise diagnostic conclusions after ESQ-R review', 'Guarantee specific symptom outcomes in writing', 'Document scope boundaries, refer when risk exceeds coaching remit, and preserve consent records', 'Share full session content with parents without client agreement'],
         answer: 2,
-        rationale: 'Coaches maintain scope boundaries and refer when needs move into clinical treatment.'
+        rationale: 'Ethical reliability depends on scope clarity, referral discipline, and documented consent/confidentiality controls.'
       },
       'module-a-neuroscience.html': {
-        question: 'Why is the prefrontal cortex central to executive functioning?',
-        options: ['It controls hair growth', 'It supports inhibition, planning, and regulation under load', 'It eliminates all emotional reactions', 'It matures fully by age 10'],
+        question: 'Which statement best matches developmental neuroscience of executive function?',
+        options: ['PFC systems mature early in childhood, so adolescent EF variance is mostly motivational', 'PFC-regulated inhibition and planning networks continue maturing into young adulthood, increasing dependence on external scaffolds in adolescence', 'EF depends mostly on occipital cortex maturation', 'Emotion and EF are independent systems with minimal interaction'],
         answer: 1,
-        rationale: 'PFC systems support top-down regulation, and maturation extends into young adulthood.'
+        rationale: 'EF regulation is developmentally prolonged, and external supports remain critical through adolescence.'
       },
       'module-b-pedagogy.html': {
-        question: 'Which move is most aligned with coaching pedagogy?',
-        options: ['Give the student the answer immediately', 'Focus only on grading outcomes', 'Teach the student how to build repeatable process habits', 'Ignore environmental setup'],
+        question: 'Which intervention pairing most directly supports process transfer?',
+        options: ['Content reteaching + grading rubric review', 'Minimal prompt hierarchy + second-context transfer repetition', 'Longer lecture + increased homework volume', 'Open encouragement without implementation cues'],
         answer: 2,
-        rationale: 'Coaching emphasizes process design, metacognition, and transferable execution habits.'
+        rationale: 'Transfer requires scaffolded execution plus repetition in new contexts with fading prompts.'
       },
       'module-c-interventions.html': {
-        question: 'What is a core goal of backward planning?',
-        options: ['Start with random tasks', 'Define the finished outcome first, then reverse-map steps', 'Avoid calendars', 'Work only when urgent'],
+        question: 'In backward planning, what most improves completion reliability?',
+        options: ['Start with task list brainstorm and estimate later', 'Define done-state quality criteria, reverse-sequence milestones, then pre-commit start triggers', 'Focus only on due date reminders', 'Delay planning until motivation rises'],
         answer: 1,
-        rationale: 'Backward planning starts at the done-state and maps milestones in reverse order.'
+        rationale: 'Reliability improves when end-state definition, milestone sequencing, and start-trigger commitment are linked.'
       },
       'curriculum.html': {
         question: 'What unlocks graded tests, assignment review, and credential workflows?',
@@ -519,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="module-quiz__options">' + optionsHtml + '</div>' +
       '<div class="button-group" style="margin-top:var(--space-md);">' +
         '<button type="button" class="btn btn--secondary btn--sm" id="knowledge-check-submit">Check Answer</button>' +
-        '<a href="enroll.html" class="btn btn--primary btn--sm">Unlock Graded Assessments</a>' +
+        '<a href="store.html" class="btn btn--primary btn--sm">View Graded Path</a>' +
       '</div>' +
       '<div id="knowledge-check-result" aria-live="polite"></div>';
 
@@ -553,60 +566,144 @@ document.addEventListener('DOMContentLoaded', function () {
   (function injectLearnMorePanels() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (!/^module-|^curriculum\.html$/.test(currentPage)) return;
-
     var deepDives = {
+      'module-b-pedagogy.html': [
+        { match: ['planning'], text: 'Planning-first protocols reduce cognitive switching cost and make error sources visible before execution starts.', links: [{ href: 'module-c-interventions.html', label: 'Intervention Frameworks' }, { href: 'https://www.smartbutscatteredkids.com/resources/esq-r-self-report-assessment-tool/', label: 'ESQ-R Framework' }] },
+        { match: ['reflection'], text: 'Prompted reflection is a metacognitive training loop: identify breakdown point, isolate friction variable, and define the next behavior test.', links: [{ href: 'module-3.html', label: 'Coaching Framework' }, { href: 'https://coachingfederation.org/credentials-and-standards/core-competencies', label: 'ICF Core Competencies' }] },
+        { match: ['transfer'], text: 'Transfer fails when success is context-bound. Second-context reps with reduced prompting are required to build independent execution.', links: [{ href: 'module-4.html', label: 'Applied Methodologies' }, { href: 'further-sources.html', label: 'Further Sources' }] },
+        { match: ['template'], text: 'Session templates are decision scaffolds: fixed block timing reduces drift and preserves coaching focus on execution rather than topic drift.', links: [{ href: 'resources.html#forms', label: 'Template Library' }, { href: 'module-6.html', label: 'Professional Practice' }] },
+        { match: ['implementation'], text: 'Wrapping content tutoring inside pre-plan and post-adaptation loops converts one-time compliance into repeatable self-management.', links: [{ href: 'scope-of-practice.html', label: 'Scope Guidance' }, { href: 'certification.html', label: 'Certification Standards' }] }
+      ],
+      'module-c-interventions.html': [
+        { match: ['backward'], text: 'Backward planning improves reliability by externalizing dependency chains and exposing hidden prep work before deadline pressure spikes.', links: [{ href: 'module-4.html', label: 'Time Systems' }, { href: 'resources.html#forms', label: 'Planning Templates' }] },
+        { match: ['time blindness'], text: 'Time blindness interventions work best when elapsed time is made visible and correction factors are rehearsed against real task data.', links: [{ href: 'module-5.html', label: 'Prediction Calibration' }, { href: 'further-sources.html', label: 'Cited Sources' }] },
+        { match: ['metacognitive'], text: 'Metacognitive prompts should target plan quality, derail detection, and recovery procedure rather than general encouragement.', links: [{ href: 'module-3.html', label: 'Coaching Prompts' }, { href: 'resources.html#reading', label: 'Prompt References' }] }
+      ],
+      'module-1.html': [
+        { match: ['inhibition'], text: 'Inhibition enables temporal self-control by delaying immediate response so working memory and self-directed speech can engage.', links: [{ href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Barkley 1997' }, { href: 'barkley-model-guide.html', label: 'Model Guide' }] },
+        { match: ['time blindness'], text: 'Temporal discounting compresses future consequence salience, which is why near-term cues dominate behavior under EF strain.', links: [{ href: 'https://www.youtube.com/watch?v=wmV8HQUuPEk', label: 'Barkley Time Blindness Segment' }, { href: 'module-5.html', label: 'Applied Interventions' }] },
+        { match: ['prefrontal'], text: 'PFC development is prolonged, so environmental supports are compensatory design features, not shortcuts.', links: [{ href: 'module-a-neuroscience.html', label: 'Neuroscience Hub' }, { href: 'further-sources.html', label: 'Further Sources' }] }
+      ],
+      'module-2.html': [
+        { match: ['intake'], text: 'A strong intake triangulates self-report, collateral patterns, and context variance to avoid over- or under-identification.', links: [{ href: 'resources.html#assessment', label: 'Assessment Tools' }, { href: 'brown-clusters-tool.html', label: 'Brown Clusters Tool' }] },
+        { match: ['esq-r'], text: 'ESQ-R profiles are most actionable when translated into two-week behavior targets with observable completion criteria.', links: [{ href: 'Conv17-305-dawson-executive-skills-questionnaire.pdf', label: 'ESQ-R PDF' }, { href: 'dashboard.html', label: 'Dashboard Tracking' }] },
+        { match: ['brief'], text: 'Rating-scale interpretation should prioritize cross-setting discrepancies and function-level bottlenecks, not single-score labels.', links: [{ href: 'resources.html#reading', label: 'Reading Packets' }, { href: 'module-3.html', label: 'Coaching Architecture' }] }
+      ],
+      'module-3.html': [
+        { match: ['alliance'], text: 'Alliance quality predicts adherence: collaboratively framed goals outperform directive compliance-based planning.', links: [{ href: 'scope-of-practice.html', label: 'Scope + Alliance Boundaries' }, { href: 'https://coachingfederation.org/credentials-and-standards/core-competencies', label: 'ICF Core Competencies' }] },
+        { match: ['goals'], text: 'Goal quality improves when targets are behavior-specific, time-bounded, and tied to environmental trigger design.', links: [{ href: 'module-b-pedagogy.html', label: 'Pedagogy Translation' }, { href: 'resources.html#forms', label: 'Template Forms' }] },
+        { match: ['ethics'], text: 'Scope-safe coaching requires explicit referral thresholds and documentation discipline in every high-risk context.', links: [{ href: 'module-6.html', label: 'Professional Practice' }, { href: 'terms.html', label: 'Terms + Delivery Model' }] }
+      ],
+      'module-4.html': [
+        { match: ['get ready'], text: 'GDD is a prospective sequencing scaffold: define final-state fidelity first, then derive execution operations and setup constraints.', links: [{ href: 'https://www.efpractice.com/getreadydodone', label: 'Get Ready Do Done' }, { href: 'ward-360-thinking.html', label: 'Ward 360 Thinking' }] },
+        { match: ['clock'], text: 'Analog visual time cues convert abstract duration into spatial volume, reducing temporal estimation error.', links: [{ href: 'module-5.html', label: 'Time Correction Practice' }, { href: 'resources.html#forms', label: 'Visual Clock Tools' }] },
+        { match: ['offload'], text: 'Cognitive offloading should be placed at point-of-performance to reduce working-memory leakage during transitions.', links: [{ href: 'module-c-interventions.html', label: 'Intervention Frameworks' }, { href: 'resources.html#forms', label: 'Offloading Templates' }] }
+      ],
+      'module-5.html': [
+        { match: ['task initiation'], text: 'Initiation breakdown is often affective friction, so treatment should lower activation energy before demanding persistence.', links: [{ href: 'module-3.html', label: 'Coaching Framework' }, { href: 'resources.html#reading', label: 'Applied Readings' }] },
+        { match: ['prediction'], text: 'Prediction-error tracking yields individualized correction factors that materially improve planning realism.', links: [{ href: 'images/time-correction-chart.svg', label: 'Time Correction Chart' }, { href: 'module-4.html', label: 'Method Foundations' }] },
+        { match: ['special populations'], text: 'Population adaptations should preserve EF principles while adjusting pacing, language, and sensory/context load.', links: [{ href: 'resources.html', label: 'Resource Hub' }, { href: 'scope-of-practice.html', label: 'Scope Boundaries' }] }
+      ],
+      'module-6.html': [
+        { match: ['ethics'], text: 'Ethics implementation depends on process reliability: consent capture, documentation quality, and repeatable referral standards.', links: [{ href: 'certification.html', label: 'Certification QA' }, { href: 'terms.html', label: 'Terms' }] },
+        { match: ['practice'], text: 'Practice systems should separate delivery quality metrics from commercial metrics to avoid scope drift and over-promising.', links: [{ href: 'teacher-to-coach.html', label: 'Business Path' }, { href: 'accreditation.html', label: 'Alignment Status' }] },
+        { match: ['launch'], text: 'Launch readiness is demonstrated by operational consistency: intake-to-feedback workflow, retention plan, and policy hygiene.', links: [{ href: 'launch-plan.html', label: '90-Day Launch Plan' }, { href: 'dashboard.html', label: 'Dashboard Workflow' }] }
+      ],
+      'curriculum.html': [
+        { match: ['module 1'], text: 'Module sequence is dependency-aware: theory precedes assessment, then coaching architecture, then interventions and professional operations.', links: [{ href: 'module-1.html', label: 'Module 1' }, { href: 'module-2.html', label: 'Module 2' }] },
+        { match: ['assignment'], text: 'Assignments are designed as skill transfer tests, not content recitation: plan quality and execution consistency are weighted heavily.', links: [{ href: 'certification.html', label: 'Rubrics + Capstone' }, { href: 'store.html', label: 'Graded Services' }] },
+        { match: ['free'], text: 'Open information reduces access barriers, while paid layers fund grading, credential verification, and reviewed performance feedback.', links: [{ href: 'resources.html', label: 'Free Resources' }, { href: 'getting-started.html', label: 'Role-Based Start Guide' }] }
+      ],
+      'module-a-neuroscience.html': [
+        { match: ['prefrontal'], text: 'PFC-dependent regulation is highly load-sensitive, which is why performance drops under stress despite intact conceptual understanding.', links: [{ href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Barkley 1997' }, { href: 'further-sources.html', label: 'Source Hub' }] },
+        { match: ['inhibition'], text: 'Inhibition operates as a gating process that protects future-oriented goal models from interference by immediate cues.', links: [{ href: 'https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf', label: 'Barkley EF/SR Fact Sheet' }, { href: 'barkley-model-guide.html', label: 'Barkley Guide' }] },
+        { match: ['coaching'], text: 'Coaching translates neuroscience by externalizing planning and memory demands so execution does not depend on internal load alone.', links: [{ href: 'module-b-pedagogy.html', label: 'Pedagogy Shift' }, { href: 'module-c-interventions.html', label: 'Intervention Stack' }] }
+      ]
+    };
+
+    var fallback = {
+      text: 'Deeper technical note: map each tactic to mechanism (inhibition, working memory, emotional regulation, or prospective sequencing) before applying it in practice.',
+      links: [{ href: 'further-sources.html', label: 'Further Sources' }, { href: 'certification.html', label: 'Rubric Standards' }]
+    };
+
+    var sectionDeepDives = {
+      'module-b-pedagogy.html': {
+        'from "what is the answer?" to "how will you run the process?"': {
+          text: 'This shift changes the unit of analysis from content correctness to execution reliability. You are training future independent performance, not just immediate task completion.',
+          links: [{ href: 'module-3.html', label: 'Coaching Architecture' }, { href: 'scope-of-practice.html', label: 'Scope Boundaries' }]
+        },
+        'pedagogical core moves': {
+          text: 'Core moves are operational levers: plan definition, friction monitoring, and transfer checks. Without these, coaching devolves into ad-hoc tutoring.',
+          links: [{ href: 'module-c-interventions.html', label: 'Interventions' }, { href: 'resources.html#forms', label: 'Implementation Templates' }]
+        },
+        'applied session templates': {
+          text: 'Template fidelity matters because fixed timing protects reflection and transfer windows that are often skipped when sessions drift.',
+          links: [{ href: 'module-6.html', label: 'Practice Ops' }, { href: 'certification.html', label: 'Rubric Expectations' }]
+        },
+        'module b source links': {
+          text: 'Use source links as implementation anchors: each resource should map to a concrete coaching behavior you can observe, score, and iterate.',
+          links: [{ href: 'further-sources.html', label: 'Further Sources Hub' }, { href: 'resources.html#source-access', label: 'Source Access Notes' }]
+        }
+      },
+      'module-c-interventions.html': {
+        'open intervention brief infrastructure': {
+          text: 'Intervention briefs should specify trigger conditions, start behaviors, and failure recovery rules so clients can execute without live supervision.',
+          links: [{ href: 'module-4.html', label: 'Applied Methods' }, { href: 'resources.html#forms', label: 'Downloadable Tools' }]
+        },
+        'intervention frameworks': {
+          text: 'Framework quality is determined by repeatability under stress. Build systems that survive distraction, fatigue, and low-motivation states.',
+          links: [{ href: 'module-5.html', label: 'Special Populations' }, { href: 'brown-clusters-tool.html', label: 'Cluster Mapping' }]
+        }
+      },
       'module-1.html': {
-        text: 'Technical dive: EF impairment is modeled as a performance regulation problem across time. Key mechanisms include response inhibition gating, delayed reward discounting, and context-dependent executive load.',
-        links: [
-          { href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Barkley 1997 (Psychological Bulletin)' },
-          { href: 'https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf', label: 'Barkley EF/SR Fact Sheet' }
-        ]
-      },
-      'module-2.html': {
-        text: 'Technical dive: intake quality depends on triangulating self-report, environmental constraints, and execution variance under realistic load.',
-        links: [
-          { href: 'Conv17-305-dawson-executive-skills-questionnaire.pdf', label: 'ESQ-R Source PDF' },
-          { href: 'https://www.brownadhdclinic.com/brown-ef-model-adhd', label: 'Brown EF Model' }
-        ]
-      },
-      'module-3.html': {
-        text: 'Technical dive: coaching architecture depends on alliance quality, metacognitive prompt design, and point-of-performance behavior shaping.',
-        links: [
-          { href: 'https://coachingfederation.org/credentials-and-standards/core-competencies', label: 'ICF Core Competencies' },
-          { href: 'scope-of-practice.html', label: 'Scope of Practice' }
-        ]
-      },
-      'module-4.html': {
-        text: 'Technical dive: temporal supports are strongest when combining future-state visualization, reverse sequencing, and externalized elapsed-time cues.',
-        links: [
-          { href: 'https://www.efpractice.com/getreadydodone', label: 'Get Ready Do Done' },
-          { href: 'https://sarahwardidanmark.dk/wp-content/uploads/2021/05/WARD-360-grader.pdf', label: '360 Thinking Paper' }
-        ]
+        'the neuropsychology of self-regulation': {
+          text: 'Self-regulation should be modeled as delayed action control across time, with inhibition serving as gating for future-oriented behavior.',
+          links: [{ href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Primary Paper' }, { href: 'barkley-model-guide.html', label: 'Model Translation' }]
+        },
+        'the prefrontal cortex: the brain\'s ceo': {
+          text: 'Use this section to teach load sensitivity: strong conceptual knowledge can still collapse when working-memory and inhibition demands spike together.',
+          links: [{ href: 'module-a-neuroscience.html', label: 'Neuroscience Module' }, { href: 'module-5.html', label: 'Applied Time/Load Supports' }]
+        }
       },
       'module-5.html': {
-        text: 'Technical dive: intervention quality improves when you layer environmental engineering, initiation scaffolds, and emotion-regulation fallback protocols.',
-        links: [
-          { href: 'Enhancing-and-Practicing-Executive-Function-Skills-with-Children-from-Infancy-to-Adolescence-1.pdf', label: 'Harvard EF Activities PDF' },
-          { href: 'resources.html#assessment', label: 'Assessment Tools' }
-        ]
-      },
-      'module-6.html': {
-        text: 'Technical dive: ethical reliability depends on scope boundaries, transparent standards, and consistent quality-control release workflows.',
-        links: [
-          { href: 'terms.html', label: 'Terms and Delivery Model' },
-          { href: 'accreditation.html', label: 'Alignment Status' }
-        ]
-      },
-      'curriculum.html': {
-        text: 'Technical dive: curriculum integration follows Theory -> Practice -> Credential workflow, with open informational content and paid graded services.',
-        links: [
-          { href: 'getting-started.html', label: 'Guided Paths' },
-          { href: 'certification.html', label: 'Capstone and Rubrics' }
-        ]
+        'time management: curing "time blindness"': {
+          text: 'Time systems should be treated as measurement systems. Prediction error data drives correction factors that improve planning validity.',
+          links: [{ href: 'images/time-correction-chart.svg', label: 'Time Correction Chart' }, { href: 'resources.html#forms', label: 'Time Tools' }]
+        },
+        'task initiation: overcoming the "wall of awful"': {
+          text: 'Initiation interventions should reduce threat and lower friction in the first 90 seconds of task contact. Start behavior beats motivation talk.',
+          links: [{ href: 'module-3.html', label: 'Coaching Scripts' }, { href: 'module-c-interventions.html', label: 'Intervention Stack' }]
+        },
+        'special populations & transitions': {
+          text: 'Adapt delivery surface, not core mechanism. Preserve EF principles while tuning language, structure, and sensory/context load.',
+          links: [{ href: 'scope-of-practice.html', label: 'Scope & Referral' }, { href: 'resources.html', label: 'Resource Hub' }]
+        }
       }
     };
 
-    var model = deepDives[currentPage] || deepDives['curriculum.html'];
+    function normalizeHeading(value) {
+      return (value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    }
+
+    function pickSectionModel(el, currentPage) {
+      var byPage = sectionDeepDives[currentPage];
+      if (!byPage) return null;
+      var section = el.closest ? el.closest('section') : null;
+      if (!section) return null;
+      var headingEl = section.querySelector('h2, h3');
+      var key = normalizeHeading(headingEl ? headingEl.textContent : '');
+      return byPage[key] || null;
+    }
+
+    function pickModel(el, pageModels, index) {
+      if (!pageModels || !pageModels.length) return fallback;
+      var text = (el.textContent || '').toLowerCase();
+      var matched = pageModels.find(function (entry) {
+        return (entry.match || []).some(function (token) { return text.indexOf(token) >= 0; });
+      });
+      return matched || pageModels[index % pageModels.length] || fallback;
+    }
+
     var targets = document.querySelectorAll('.card, .callout, .hub-card');
     var limit = 16;
     var count = 0;
@@ -615,10 +712,12 @@ document.addEventListener('DOMContentLoaded', function () {
       if (el.querySelector('.learn-more-toggle')) return;
       if ((el.textContent || '').trim().length < 140) return;
       count += 1;
+      var model = pickSectionModel(el, currentPage) || pickModel(el, deepDives[currentPage], count);
 
       var panelId = 'learn-more-' + Math.random().toString(36).slice(2, 8);
       var links = model.links.map(function (item) {
-        return '<a href="' + item.href + '" target="_blank" rel="noopener">' + item.label + '</a>';
+        var external = /^https?:\/\//.test(item.href);
+        return '<a href="' + item.href + '"' + (external ? ' target="_blank" rel="noopener"' : '') + '>' + item.label + '</a>';
       }).join(' &bull; ');
 
       var wrap = document.createElement('div');
