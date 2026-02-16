@@ -2635,6 +2635,24 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   border-bottom: none;
 }
 
+[data-theme="dark"] .matrix {
+  border-color: var(--color-border);
+  background: #1a2332;
+}
+
+[data-theme="dark"] .matrix__row > div {
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .matrix__row--head {
+  background: #0f1728;
+}
+
+[data-theme="dark"] .matrix__row--head > div {
+  color: #d8e6ff;
+}
+
 .directory-controls {
   display: flex;
   gap: var(--space-md);
@@ -2966,6 +2984,10 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   border-color: var(--color-border);
 }
 
+[data-theme="dark"] .dawson-matrix-img {
+  content: url('images/dawson-thinking-doing-matrix-dark.svg');
+}
+
 [data-theme="dark"] .guided-next {
   background: linear-gradient(140deg, rgba(74, 158, 218, 0.16), rgba(46, 204, 113, 0.14));
   border-color: var(--color-border);
@@ -2985,7 +3007,7 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 
 [data-theme="dark"] th {
   background: #0f1728;
-  color: var(--color-heading);
+  color: #d8e6ff;
 }
 
 [data-theme="dark"] td {
@@ -3162,6 +3184,46 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 
 [data-theme="dark"] blockquote {
   border-left-color: var(--color-primary);
+}
+
+[data-theme="dark"] .esqr-progress,
+[data-theme="dark"] .esqr-skill-group,
+[data-theme="dark"] .esqr-chart-container,
+[data-theme="dark"] .esqr-result-card,
+[data-theme="dark"] #esqr-history {
+  background: #1a2332;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .esqr-skill-group__legend,
+[data-theme="dark"] .esqr-item__text,
+[data-theme="dark"] .esqr-progress__text,
+[data-theme="dark"] .esqr-domain-label,
+[data-theme="dark"] .esqr-bar__label,
+[data-theme="dark"] .esqr-bar__domain,
+[data-theme="dark"] .esqr-result-card__summary,
+[data-theme="dark"] .esqr-result-card__strategies li {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .esqr-item {
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] .esqr-rating__option span {
+  border-color: #41557a;
+  color: #d2e2ff;
+  background: #132039;
+}
+
+[data-theme="dark"] .esqr-rating__option:hover span {
+  border-color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .esqr-rating__option input:checked + span {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
 }
 
 /* Print: always light mode */
