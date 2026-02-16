@@ -414,6 +414,11 @@ EFI.Auth = (function () {
   }
 
   function addToCart(item) {
+    if (!item || !item.id) return getCart();
+    if (item.id === 'certificate' || item.id === 'certificate-frame') {
+      var status = getCertificationStatus();
+      if (!status.eligibleForCertificate) return getCart();
+    }
     var cart = getCart();
     // Prevent duplicates
     var exists = cart.some(function (c) { return c.id === item.id; });
@@ -653,12 +658,9 @@ EFI.Auth = (function () {
         var opsLink = (user && (user.role === 'admin' || user.role === 'reviewer'))
           ? '<a href="admin.html" class="nav__link">Admin</a>'
           : '';
-        el.innerHTML = '<a href="dashboard.html" class="nav__link">Dashboard</a>' +
-          opsLink +
-          '<a href="store.html" class="nav__link" style="position:relative;">Store <span class="cart-badge">0</span></a>';
+        el.innerHTML = '<a href="dashboard.html" class="nav__link">Dashboard</a>' + opsLink;
       } else {
-        el.innerHTML = '<a href="login.html" class="nav__link">Login</a>' +
-          '<a href="store.html" class="nav__link">Store</a>';
+        el.innerHTML = '<a href="login.html" class="nav__link">Login</a>';
       }
       updateCartBadge();
     });

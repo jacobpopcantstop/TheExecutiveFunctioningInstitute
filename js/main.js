@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function injectTopicClusters() {
+    return;
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (document.querySelector('.topic-clusters')) return;
     var nav = document.querySelector('.nav');
@@ -161,10 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var primaryLinks = [
       { href: 'index.html', label: 'Home' },
       { href: 'getting-started.html', label: 'Start Here' },
-      { href: 'module-1.html', label: 'Module 1' },
-      { href: 'module-a-neuroscience.html', label: 'Theory' },
-      { href: 'module-c-interventions.html', label: 'Practice' },
-      { href: 'teacher-to-coach.html', label: 'Business' },
+      { href: 'curriculum.html', label: 'Curriculum' },
       { href: 'resources.html', label: 'Resources' },
       { href: 'store.html', label: 'Store' },
       { href: 'certification.html', label: 'Certification' }
@@ -186,24 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function ensureStoreVisibility() {
-    document.querySelectorAll('.nav__links').forEach(function (links) {
-      if (links.querySelector('a[href="store.html"]')) return;
-      var store = document.createElement('a');
-      store.href = 'store.html';
-      store.className = 'nav__link';
-      store.textContent = 'Store';
-      store.setAttribute('data-analytics-event', 'nav_store_click');
-
-      var authNode = links.querySelector('.nav__auth');
-      var ctaNode = links.querySelector('.nav__link--cta');
-      if (authNode) {
-        links.insertBefore(store, authNode);
-      } else if (ctaNode) {
-        links.insertBefore(store, ctaNode);
-      } else {
-        links.appendChild(store);
-      }
-    });
+    return;
   })();
 
   (function injectFloatingStoreCTA() {
@@ -220,19 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function injectGettingStartedNavLink() {
-    document.querySelectorAll('.nav__links').forEach(function (links) {
-      if (links.querySelector('a[href="getting-started.html"]')) return;
-      var a = document.createElement('a');
-      a.href = 'getting-started.html';
-      a.className = 'nav__link';
-      a.textContent = 'Start Here';
-      var first = links.querySelector('.nav__link');
-      if (first) {
-        links.insertBefore(a, first.nextSibling);
-      } else {
-        links.appendChild(a);
-      }
-    });
+    return;
   })();
 
   (function injectGettingStartedFooterLink() {
@@ -673,6 +642,45 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function injectModuleToc() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (!/^module-(1|2|3|4|5|6|a-neuroscience|b-pedagogy|c-interventions)\.html$/.test(currentPage)) return;
+    if (document.querySelector('.module-toc')) return;
+    var main = document.querySelector('main');
+    if (!main) return;
+
+    var sections = Array.prototype.slice.call(main.querySelectorAll('section'));
+    var targets = [];
+    sections.forEach(function (section, idx) {
+      var heading = section.querySelector('h2');
+      if (!heading) return;
+      var text = (heading.textContent || '').trim();
+      if (!text) return;
+      if (!section.id) section.id = 'section-' + (idx + 1);
+      targets.push({ id: section.id, label: text });
+    });
+    if (targets.length < 3) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'module-layout';
+    var toc = document.createElement('aside');
+    toc.className = 'module-toc';
+    toc.setAttribute('aria-label', 'Table of contents');
+    var list = '<h3>On This Page</h3><ul>';
+    targets.forEach(function (item) {
+      list += '<li><a href="#' + item.id + '">' + item.label + '</a></li>';
+    });
+    list += '</ul>';
+    toc.innerHTML = list;
+
+    var content = document.createElement('div');
+    content.className = 'module-main';
+    while (main.firstChild) content.appendChild(main.firstChild);
+    wrap.appendChild(content);
+    wrap.appendChild(toc);
+    main.appendChild(wrap);
+  })();
+
   /* --- Dark Mode Toggle --- */
   (function () {
     var THEME_KEY = 'efi_theme';
@@ -773,8 +781,31 @@ document.addEventListener('DOMContentLoaded', function () {
       var rect = logo.getBoundingClientRect();
       var wave = document.createElement('span');
       wave.className = 'nav-pixel-wave';
-      wave.style.setProperty('--wave-x', Math.round(rect.left + rect.width / 2) + 'px');
-      wave.style.setProperty('--wave-y', Math.round(rect.top + rect.height / 2) + 'px');
+      var centerX = Math.round(rect.left + rect.width / 2);
+      var centerY = Math.round(rect.top + rect.height / 2);
+      wave.style.setProperty('--wave-x', centerX + 'px');
+      wave.style.setProperty('--wave-y', centerY + 'px');
+      var savedDir = localStorage.getItem('efi_wave_direction');
+      var direction = savedDir === '-1' ? -1 : 1;
+      localStorage.setItem('efi_wave_direction', String(direction));
+      var count = 20;
+      var baseRadius = 10;
+      var travel = 56;
+      for (var i = 0; i < count; i += 1) {
+        var px = document.createElement('span');
+        px.className = 'nav-pixel';
+        var theta = (Math.PI * 2 * i / count) * direction;
+        var dx = Math.cos(theta) * travel;
+        var dy = Math.sin(theta) * travel;
+        var startX = Math.cos(theta) * baseRadius;
+        var startY = Math.sin(theta) * baseRadius;
+        px.style.left = (centerX + startX) + 'px';
+        px.style.top = (centerY + startY) + 'px';
+        px.style.setProperty('--dx', dx + 'px');
+        px.style.setProperty('--dy', dy + 'px');
+        px.style.setProperty('--burst-delay', (i % 5) * 14 + 'ms');
+        wave.appendChild(px);
+      }
       document.body.appendChild(wave);
 
       var currentPage = window.location.pathname.split('/').pop() || 'index.html';
