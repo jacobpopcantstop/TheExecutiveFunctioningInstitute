@@ -251,6 +251,7 @@ p {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
   transition: box-shadow var(--transition);
+  overflow: hidden;
 }
 
 .nav.scrolled {
@@ -293,6 +294,37 @@ p {
   color: white;
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.nav-pixel-wave {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 136px;
+  z-index: 1200;
+  pointer-events: none;
+  opacity: 0;
+  clip-path: circle(0 at var(--wave-x) var(--wave-y));
+  background-image:
+    repeating-linear-gradient(0deg, rgba(107, 181, 232, 0.2) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(90deg, rgba(46, 204, 113, 0.18) 0 2px, transparent 2px 8px);
+  animation: navPixelWave 720ms ease-out forwards;
+}
+
+@keyframes navPixelWave {
+  0% {
+    opacity: 0.85;
+    clip-path: circle(6px at var(--wave-x) var(--wave-y));
+  }
+  70% {
+    opacity: 0.45;
+    clip-path: circle(140% at var(--wave-x) var(--wave-y));
+  }
+  100% {
+    opacity: 0;
+    clip-path: circle(160% at var(--wave-x) var(--wave-y));
+  }
 }
 
 .nav__links {
@@ -499,8 +531,8 @@ p {
   z-index: 2;
   display: flex;
   gap: var(--space-3xl);
-  margin-top: var(--space-3xl);
-  padding-top: var(--space-2xl);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
   border-top: 1px solid rgba(255,255,255,0.2);
 }
 

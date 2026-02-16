@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var primaryLinks = [
       { href: 'index.html', label: 'Home' },
       { href: 'getting-started.html', label: 'Start Here' },
+      { href: 'module-1.html', label: 'Module 1' },
       { href: 'module-a-neuroscience.html', label: 'Theory' },
       { href: 'module-c-interventions.html', label: 'Practice' },
       { href: 'teacher-to-coach.html', label: 'Business' },
@@ -518,9 +519,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var check = checks[currentPage];
     if (!check || document.getElementById('module-knowledge-check')) return;
 
-    var anchor = document.getElementById('module-assessment-preview') ||
-      document.querySelector('main .cta-section') ||
-      document.querySelector('main section:last-of-type');
+    var anchor = document.getElementById('module-assessment-preview');
+    if (!anchor) {
+      var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+      anchor = sections.find(function (section) {
+        return /module navigation/i.test(section.textContent || '') || !!section.querySelector('a[href^="module-"]');
+      }) || document.querySelector('main .cta-section') || document.querySelector('main section:last-of-type');
+    }
     if (!anchor || !anchor.parentNode) return;
 
     var wrap = document.createElement('div');
@@ -752,6 +757,37 @@ document.addEventListener('DOMContentLoaded', function () {
       closeNav();
     });
   }
+
+  (function initLogoWave() {
+    var logo = document.querySelector('.nav .nav__logo');
+    if (!logo) return;
+
+    logo.addEventListener('click', function (e) {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+      var href = logo.getAttribute('href');
+      if (!href) return;
+
+      var rect = logo.getBoundingClientRect();
+      var wave = document.createElement('span');
+      wave.className = 'nav-pixel-wave';
+      wave.style.setProperty('--wave-x', Math.round(rect.left + rect.width / 2) + 'px');
+      wave.style.setProperty('--wave-y', Math.round(rect.top + rect.height / 2) + 'px');
+      document.body.appendChild(wave);
+
+      var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      if (currentPage !== href) {
+        e.preventDefault();
+        setTimeout(function () {
+          window.location.href = href;
+        }, 210);
+      }
+
+      setTimeout(function () { wave.remove(); }, 760);
+    });
+  })();
 
   /* --- Sticky Nav Shadow + Back-to-Top (single throttled scroll handler) --- */
   var nav = document.querySelector('.nav');
