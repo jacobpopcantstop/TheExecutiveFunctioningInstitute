@@ -1,4 +1,4 @@
-# The Executive Function Institute
+# The Executive Functioning Institute
 
 An open-source, science-based Executive Function Coaching Certification program grounded in the work of Barkley, Brown, Dawson & Guare, and Ward.
 
