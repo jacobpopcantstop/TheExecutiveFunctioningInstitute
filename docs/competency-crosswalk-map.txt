@@ -1,0 +1,38 @@
+EFI Curriculum Standard Alignment Map
+Version: 2026-02-16
+
+Purpose
+This map shows how EFI curriculum components align to ICF competency language and EF-specific professional standard themes.
+
+Crosswalk
+
+EFI Module 1.1: Inhibition and the Pause
+- ICF Competency: Evokes Awareness
+- Standard Theme: Neuroscience foundation (PFC development, inhibition control)
+
+EFI Module 2.2: Intake and Goal Setting
+- ICF Competency: Establishes Agreements
+- Standard Theme: Assessment practice using structured EF profiling workflows
+
+EFI Module 3: Coaching Architecture
+- ICF Competency: Cultivates Trust and Safety
+- Standard Theme: Scope-of-practice boundaries and referral ethics
+
+EFI Module 4: Applied Methodologies
+- ICF Competency: Facilitates Client Growth
+- Standard Theme: Intervention design and environmental engineering
+
+EFI Module 6: Ethics and Practice
+- ICF Competency: Demonstrates Ethical Practice
+- Standard Theme: Professional conduct, privacy, and documentation quality
+
+Evidence References
+- ICF Core Competencies
+- NBEFC competency and credentialing guidance
+- Barkley (1997) inhibition and executive-function framework
+
+Status Note
+This crosswalk is an internal alignment artifact and not a formal external accreditation claim.
+
+Contact
+info@theexecutivefunctioninginstitute.com
