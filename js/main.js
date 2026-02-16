@@ -626,6 +626,75 @@ document.addEventListener('DOMContentLoaded', function () {
       links: [{ href: 'further-sources.html', label: 'Further Sources' }, { href: 'certification.html', label: 'Rubric Standards' }]
     };
 
+    var sectionDeepDives = {
+      'module-b-pedagogy.html': {
+        'from "what is the answer?" to "how will you run the process?"': {
+          text: 'This shift changes the unit of analysis from content correctness to execution reliability. You are training future independent performance, not just immediate task completion.',
+          links: [{ href: 'module-3.html', label: 'Coaching Architecture' }, { href: 'scope-of-practice.html', label: 'Scope Boundaries' }]
+        },
+        'pedagogical core moves': {
+          text: 'Core moves are operational levers: plan definition, friction monitoring, and transfer checks. Without these, coaching devolves into ad-hoc tutoring.',
+          links: [{ href: 'module-c-interventions.html', label: 'Interventions' }, { href: 'resources.html#forms', label: 'Implementation Templates' }]
+        },
+        'applied session templates': {
+          text: 'Template fidelity matters because fixed timing protects reflection and transfer windows that are often skipped when sessions drift.',
+          links: [{ href: 'module-6.html', label: 'Practice Ops' }, { href: 'certification.html', label: 'Rubric Expectations' }]
+        },
+        'module b source links': {
+          text: 'Use source links as implementation anchors: each resource should map to a concrete coaching behavior you can observe, score, and iterate.',
+          links: [{ href: 'further-sources.html', label: 'Further Sources Hub' }, { href: 'resources.html#source-access', label: 'Source Access Notes' }]
+        }
+      },
+      'module-c-interventions.html': {
+        'open intervention brief infrastructure': {
+          text: 'Intervention briefs should specify trigger conditions, start behaviors, and failure recovery rules so clients can execute without live supervision.',
+          links: [{ href: 'module-4.html', label: 'Applied Methods' }, { href: 'resources.html#forms', label: 'Downloadable Tools' }]
+        },
+        'intervention frameworks': {
+          text: 'Framework quality is determined by repeatability under stress. Build systems that survive distraction, fatigue, and low-motivation states.',
+          links: [{ href: 'module-5.html', label: 'Special Populations' }, { href: 'brown-clusters-tool.html', label: 'Cluster Mapping' }]
+        }
+      },
+      'module-1.html': {
+        'the neuropsychology of self-regulation': {
+          text: 'Self-regulation should be modeled as delayed action control across time, with inhibition serving as gating for future-oriented behavior.',
+          links: [{ href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Primary Paper' }, { href: 'barkley-model-guide.html', label: 'Model Translation' }]
+        },
+        'the prefrontal cortex: the brain\'s ceo': {
+          text: 'Use this section to teach load sensitivity: strong conceptual knowledge can still collapse when working-memory and inhibition demands spike together.',
+          links: [{ href: 'module-a-neuroscience.html', label: 'Neuroscience Module' }, { href: 'module-5.html', label: 'Applied Time/Load Supports' }]
+        }
+      },
+      'module-5.html': {
+        'time management: curing "time blindness"': {
+          text: 'Time systems should be treated as measurement systems. Prediction error data drives correction factors that improve planning validity.',
+          links: [{ href: 'images/time-correction-chart.svg', label: 'Time Correction Chart' }, { href: 'resources.html#forms', label: 'Time Tools' }]
+        },
+        'task initiation: overcoming the "wall of awful"': {
+          text: 'Initiation interventions should reduce threat and lower friction in the first 90 seconds of task contact. Start behavior beats motivation talk.',
+          links: [{ href: 'module-3.html', label: 'Coaching Scripts' }, { href: 'module-c-interventions.html', label: 'Intervention Stack' }]
+        },
+        'special populations & transitions': {
+          text: 'Adapt delivery surface, not core mechanism. Preserve EF principles while tuning language, structure, and sensory/context load.',
+          links: [{ href: 'scope-of-practice.html', label: 'Scope & Referral' }, { href: 'resources.html', label: 'Resource Hub' }]
+        }
+      }
+    };
+
+    function normalizeHeading(value) {
+      return (value || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    }
+
+    function pickSectionModel(el, currentPage) {
+      var byPage = sectionDeepDives[currentPage];
+      if (!byPage) return null;
+      var section = el.closest ? el.closest('section') : null;
+      if (!section) return null;
+      var headingEl = section.querySelector('h2, h3');
+      var key = normalizeHeading(headingEl ? headingEl.textContent : '');
+      return byPage[key] || null;
+    }
+
     function pickModel(el, pageModels, index) {
       if (!pageModels || !pageModels.length) return fallback;
       var text = (el.textContent || '').toLowerCase();
@@ -643,7 +712,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (el.querySelector('.learn-more-toggle')) return;
       if ((el.textContent || '').trim().length < 140) return;
       count += 1;
-      var model = pickModel(el, deepDives[currentPage], count);
+      var model = pickSectionModel(el, currentPage) || pickModel(el, deepDives[currentPage], count);
 
       var panelId = 'learn-more-' + Math.random().toString(36).slice(2, 8);
       var links = model.links.map(function (item) {
