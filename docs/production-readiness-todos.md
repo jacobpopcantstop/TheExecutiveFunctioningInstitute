@@ -96,7 +96,7 @@
 - Wire CRM/ESP webhook endpoints as environment variables in Netlify production (`EFI_CRM_WEBHOOK_URL`, `EFI_ESP_WEBHOOK_URL`).
 - Rotate and set production signing secret (`EFI_DOWNLOAD_SIGNING_SECRET`) before launch.
 - Add server-side persistence/storage for lead and analytics records (current delivery is webhook-first).
-- Implement CMS-backed directory management and moderation.
+- 🔄 Implement CMS-backed directory management and moderation.
 - 🔄 Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
 
 ## Wave 9: UX and Asset Reliability Audit (This Pass)
@@ -150,3 +150,17 @@
 6. ✅ Removed client-side auto-trigger of grading processor to enforce server-side release control.
 7. ✅ Updated legal terms language to production-ready contract framing (removed prototype disclaimer).
 8. ✅ Added explicit video accessibility note/caption guidance on Further Sources embed hub.
+
+## Wave 14: Guided Onboarding + Standards Visibility (This Pass)
+1. ✅ Added standards-pack links directly into `getting-started.html` onboarding checklist.
+2. ✅ Added dedicated transparency callout on getting-started with rubric/crosswalk downloads.
+3. ✅ Added linear four-step guided route section to `index.html` to reduce circular navigation.
+4. ✅ Updated getting-started conversion copy to reflect current paid model (graded review, credentialing, alumni network).
+5. ✅ Expanded `further-sources.html` with explicit caption/transcript review guidance for external video references.
+
+## Wave 15: Directory Operations Scaffold (This Pass)
+1. ✅ Rebuilt `coach-directory.html` as a data-driven directory experience with role-relevant filters.
+2. ✅ Added structured coach dataset (`data/coach-directory.json`) with verification/moderation fields.
+3. ✅ Added public-listing gating logic in `js/coach-directory.js` (only verified + approved records render).
+4. ✅ Added listing-governance copy clarifying moderation and credential checks for trust/compliance posture.
+5. ✅ Added profile-update and credential-verification links to support correction workflows.

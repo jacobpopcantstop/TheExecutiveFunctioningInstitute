@@ -322,6 +322,123 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function enforceCtaGovernance() {
+    var ctaLinks = Array.prototype.slice.call(
+      document.querySelectorAll('main a.btn[href="enroll.html"], main a.btn[href="store.html"], main a.btn[href="certification.html"], main a.btn[href="checkout.html"]')
+    );
+    if (ctaLinks.length <= 2) return;
+
+    ctaLinks.forEach(function (el, index) {
+      el.classList.remove('btn--primary', 'btn--secondary', 'btn--outline', 'btn--outline-white');
+      if (index === 0) {
+        el.classList.add('btn--primary');
+      } else if (index === 1) {
+        el.classList.add('btn--secondary');
+      } else {
+        el.classList.add('btn--outline');
+        if (/enroll/i.test(el.textContent || '')) el.textContent = 'Learn About Certification';
+      }
+    });
+  })();
+
+  (function injectSectionCitationFootnotes() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (!/^module-(1|2|3|4|5|6)\.html$/.test(currentPage)) return;
+
+    var citationsByPage = {
+      'module-1.html': {
+        'the neuropsychology of self-regulation': 'Citations: Barkley (1997), Barkley EF/SR Fact Sheet, Brown EF model summaries.',
+        'the prefrontal cortex: the brain\'s ceo': 'Citations: Barkley (2012), Center on the Developing Child EF resources.'
+      },
+      'module-2.html': {
+        'assessment protocols': 'Citations: ESQ-R psychometrics, Brown EF/A overview materials.',
+        'the intake simulation': 'Citations: ICF competency language, scope-of-practice guardrails.'
+      },
+      'module-3.html': {
+        'the coaching architecture': 'Citations: Dawson & Guare intervention logic, ICF core competency framework.',
+        'ethics and boundaries': 'Citations: ICF Code of Ethics, EFI Scope of Practice policy.'
+      },
+      'module-4.html': {
+        'applied methodologies': 'Citations: Ward/Jacobsen 360 Thinking resources, GDD implementation materials.',
+        'time systems': 'Citations: Barkley time blindness education segments and temporal discounting literature.'
+      },
+      'module-5.html': {
+        'time management: curing "time blindness"': 'Citations: Barkley temporal model, Ward visual time strategies.',
+        'task initiation: overcoming the "wall of awful"': 'Citations: initiation-friction coaching literature and applied ADHD practice frameworks.'
+      },
+      'module-6.html': {
+        'professional ethics': 'Citations: ICF ethics code, EFI terms and scope policies.',
+        'practice management': 'Citations: coaching operations templates and credential quality-control standards.'
+      }
+    };
+
+    var map = citationsByPage[currentPage] || {};
+    if (!Object.keys(map).length) return;
+
+    function normalize(text) {
+      return String(text || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    }
+
+    document.querySelectorAll('main section').forEach(function (section) {
+      if (section.querySelector('.section-cite')) return;
+      var heading = section.querySelector('h2');
+      if (!heading) return;
+      var key = normalize(heading.textContent);
+      var note = map[key];
+      if (!note) return;
+      var cite = document.createElement('p');
+      cite.className = 'section-cite';
+      cite.textContent = note;
+      heading.insertAdjacentElement('afterend', cite);
+    });
+  })();
+
+  (function injectBrokenLinkReportButtons() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (['404.html', 'resources.html'].indexOf(currentPage) === -1) return;
+    if (document.getElementById('report-broken-link-btn')) return;
+
+    var anchor = document.querySelector('.page-header .container') || document.querySelector('main .container');
+    if (!anchor) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'report-broken-link-btn';
+    btn.className = 'btn btn--secondary btn--sm';
+    btn.style.marginTop = 'var(--space-md)';
+    btn.textContent = 'Report Broken Link';
+    anchor.appendChild(btn);
+
+    var status = document.createElement('p');
+    status.id = 'report-broken-link-status';
+    status.style.marginTop = 'var(--space-sm)';
+    status.style.color = 'var(--color-text-muted)';
+    anchor.appendChild(status);
+
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      var payload = {
+        event_name: 'broken_link_report',
+        page: currentPage,
+        source: 'manual_report',
+        properties: {
+          referrer: document.referrer || '',
+          location: window.location.href
+        }
+      };
+      fetch('/api/track-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function () {
+        status.textContent = 'Thanks. The broken link report was submitted.';
+      }).catch(function () {
+        status.textContent = 'Could not send report right now. Please try again.';
+      }).finally(function () {
+        btn.disabled = false;
+      });
+    });
+  })();
+
   (function injectModuleReadingPanel() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     var readingByModule = {

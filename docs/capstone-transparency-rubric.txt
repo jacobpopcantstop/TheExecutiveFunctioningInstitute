@@ -1,0 +1,53 @@
+EFI Capstone Transparency Rubric (Sample)
+Version: 2026-02-16
+
+Purpose
+This sample rubric demonstrates how EFI distinguishes Passing versus Needs Revision outcomes in capstone review. It is a transparency artifact and does not replace full reviewer scoring sheets.
+
+Component 1: Intake Simulation
+
+Domain: Rapport Building
+Passing Standard:
+- Uses primarily open-ended prompts and reflective listening.
+- Validates client frustration without judgment.
+- Maintains collaborative tone and role clarity.
+Needs Revision:
+- Uses primarily directive advice or closed questions.
+- Dismisses client affect and jumps to fixing.
+- Communicates in deficit-focused language.
+
+Domain: EF Explanation (Psychoeducation)
+Passing Standard:
+- Explains EF with accessible, non-clinical language.
+- Uses process framing (for example, air-traffic-control metaphor).
+- Preserves strengths-based tone.
+Needs Revision:
+- Uses dense jargon without translation.
+- Frames EF problems as character deficits.
+- Omits practical behavior translation.
+
+Component 2: Intervention Plan
+
+Domain: Theoretical Grounding
+Passing Standard:
+- Intervention choices map explicitly to Barkley, Brown, Ward, or Dawson/Guare concepts.
+- Rationale links each tactic to a documented EF mechanism.
+Needs Revision:
+- Suggestions are generic or motivational only.
+- No model-to-intervention rationale is provided.
+
+Domain: Environmental Modification
+Passing Standard:
+- Includes concrete external supports before relying on willpower.
+- Includes implementation details at point-of-performance.
+Needs Revision:
+- Relies on internal effort alone.
+- Lacks operational environmental changes.
+
+Interpretation Notes
+- A passing result requires acceptable performance across all required domains.
+- High-variance or borderline submissions may be escalated to manual audit.
+- Final release follows EFI feedback release workflow.
+
+Contact
+info@theexecutivefunctioninginstitute.com
