@@ -1,34 +1,137 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Coach Directory | EFI</title><meta name="description" content="Directory interface for EFI coach discovery by city, state, and zip." /><link rel="canonical" href="https://executivefunctioninginstitute.com/coach-directory.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certified Coach Directory | The Executive Functioning Institute</title>
+  <meta name="description" content="Search the EFI certified coach directory by location, specialty, and delivery format." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/coach-directory.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "EFI Certified Coach Directory",
+      "description": "Directory of verified EFI coaches with location and specialty metadata.",
+      "url": "https://executivefunctioninginstitute.com/coach-directory.html"
+    }
+  </script>
+</head>
 <body>
-<a href="#main-content" class="skip-link">Skip to content</a>
-<nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Functioning Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Business</a><a href="community.html" class="nav__link">Community</a><a href="certification.html" class="nav__link">Certification</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
-<header class="page-header"><div class="container"><h1>Coach Directory</h1><p>Search EFI coaches by city, state, zip, and specialty.</p></div></header>
-<main id="main-content"><section class="section"><div class="container"><div class="notice" style="margin-bottom:var(--space-lg);">Directory records below are sample placeholders while verification + moderation workflows are finalized. Do not treat these sample entries as active public listings.</div><div class="directory-controls"><label for="dir-search">Search</label><input id="dir-search" class="form-control" placeholder="Search name, city, state, zip" /><label for="dir-specialty">Specialty</label><select id="dir-specialty" class="form-control"><option value="">All specialties</option><option>Student EF</option><option>College Transition</option><option>Adult ADHD</option><option>Family Coaching</option></select></div><div class="table-wrapper"><table><thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Specialty</th><th>Website</th></tr></thead><tbody id="dir-body"></tbody></table></div></div></section></main>
-<footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Functioning Institute</span></div></div></footer>
-<script src="js/main.js"></script>
-<script>
-  var coaches = [
-    {name:'Sample Coach A', city:'Austin', state:'TX', zip:'78704', specialty:'Student EF', website:''},
-    {name:'Sample Coach B', city:'Chicago', state:'IL', zip:'60614', specialty:'College Transition', website:''},
-    {name:'Sample Coach C', city:'San Diego', state:'CA', zip:'92103', specialty:'Adult ADHD', website:''},
-    {name:'Sample Coach D', city:'Atlanta', state:'GA', zip:'30309', specialty:'Family Coaching', website:''}
-  ];
-  function render(){
-    var q = (document.getElementById('dir-search').value || '').toLowerCase();
-    var s = document.getElementById('dir-specialty').value;
-    var rows = coaches.filter(function(c){
-      var hay = [c.name, c.city, c.state, c.zip, c.specialty].join(' ').toLowerCase();
-      var passQ = !q || hay.indexOf(q) !== -1;
-      var passS = !s || c.specialty === s;
-      return passQ && passS;
-    }).map(function(c){
-      return '<tr><td>'+c.name+'</td><td>'+c.city+'</td><td>'+c.state+'</td><td>'+c.zip+'</td><td>'+c.specialty+'</td><td>'+(c.website ? '<a href="'+c.website+'">Profile</a>' : 'Pending')+'</td></tr>';
-    }).join('');
-    document.getElementById('dir-body').innerHTML = rows || '<tr><td colspan="6">No coaches found for that filter.</td></tr>';
-  }
-  document.getElementById('dir-search').addEventListener('input', render);
-  document.getElementById('dir-specialty').addEventListener('change', render);
-  render();
-</script>
-</body></html>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-icon">EFI</div>
+        <span>Executive Functioning Institute</span>
+      </a>
+      <div class="nav__links" id="nav-links">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="teacher-to-coach.html" class="nav__link">Business</a>
+        <a href="community.html" class="nav__link">Community</a>
+        <a href="certification.html" class="nav__link">Certification</a>
+        <a href="enroll.html" class="nav__link nav__link--cta">Enroll</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="teacher-to-coach.html">Business</a></li>
+          <li aria-current="page">Coach Directory</li>
+        </ol>
+      </nav>
+      <h1>Certified Coach Directory</h1>
+      <p>Find verified EFI coaches by city, state, ZIP, specialty, and service format.</p>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="notice" style="margin-bottom:var(--space-lg);">
+          Public listings shown below are verification-passed and moderation-approved. Profiles with pending review are held out of public search results.
+        </div>
+
+        <div class="grid grid--4" style="align-items:end;">
+          <div>
+            <label for="dir-search">Search</label>
+            <input id="dir-search" class="form-control" placeholder="Name, city, state, ZIP" />
+          </div>
+          <div>
+            <label for="dir-specialty">Specialty</label>
+            <select id="dir-specialty" class="form-control">
+              <option value="">All specialties</option>
+            </select>
+          </div>
+          <div>
+            <label for="dir-mode">Delivery Mode</label>
+            <select id="dir-mode" class="form-control">
+              <option value="">All modes</option>
+              <option value="virtual">Virtual</option>
+              <option value="in-person">In-person</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" id="dir-reset" class="btn btn--secondary btn--sm">Reset Filters</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:var(--space-lg);">
+          <div style="display:flex;justify-content:space-between;gap:var(--space-md);flex-wrap:wrap;align-items:center;">
+            <h3 style="margin:0;">Directory Results</h3>
+            <p id="dir-count" style="margin:0;color:var(--color-text-light);font-size:0.95rem;">Loading...</p>
+          </div>
+          <div class="table-wrapper" style="margin-top:var(--space-md);">
+            <table>
+              <thead>
+                <tr>
+                  <th>Coach</th>
+                  <th>Location</th>
+                  <th>Specialty</th>
+                  <th>Delivery</th>
+                  <th>Profile</th>
+                </tr>
+              </thead>
+              <tbody id="dir-body">
+                <tr><td colspan="5">Loading directory...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid--2" style="margin-top:var(--space-xl);">
+          <article class="card" style="border-left:4px solid var(--module-6);">
+            <h3>Listing Governance</h3>
+            <ul class="checklist">
+              <li>Directory visibility requires completion + passing capstone scores.</li>
+              <li>Profiles are reviewed for scope-safe language and accurate service claims.</li>
+              <li>Verification records include credential ID and last review timestamp.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Need Changes to a Listing?</h3>
+            <p>Use this if a listing has stale location data, inaccurate claims, or broken links.</p>
+            <div class="button-group">
+              <a href="mailto:info@theexecutivefunctioninginstitute.com?subject=Directory%20Listing%20Update" class="btn btn--secondary btn--sm">Request Listing Update</a>
+              <a href="verify.html" class="btn btn--ghost btn--sm">Verify Credential ID</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom"><span>© 2026 Executive Functioning Institute</span></div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script src="js/coach-directory.js"></script>
+</body>
+</html>

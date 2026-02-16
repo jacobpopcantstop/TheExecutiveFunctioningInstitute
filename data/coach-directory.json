@@ -1,0 +1,70 @@
+{
+  "updated_at": "2026-02-16",
+  "records": [
+    {
+      "name": "Jordan Ellis",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78704",
+      "specialty": "Student EF",
+      "delivery_modes": ["virtual", "in-person"],
+      "website": "",
+      "credential_id": "EFI-CEFC-2026-001",
+      "verification_status": "verified",
+      "moderation_status": "approved",
+      "last_reviewed": "2026-02-12"
+    },
+    {
+      "name": "Taylor Morgan",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": "60614",
+      "specialty": "College Transition",
+      "delivery_modes": ["virtual"],
+      "website": "",
+      "credential_id": "EFI-CEFC-2026-002",
+      "verification_status": "verified",
+      "moderation_status": "approved",
+      "last_reviewed": "2026-02-10"
+    },
+    {
+      "name": "Casey Nguyen",
+      "city": "San Diego",
+      "state": "CA",
+      "zip": "92103",
+      "specialty": "Adult ADHD",
+      "delivery_modes": ["virtual", "in-person"],
+      "website": "",
+      "credential_id": "EFI-CEFC-2026-003",
+      "verification_status": "verified",
+      "moderation_status": "approved",
+      "last_reviewed": "2026-02-11"
+    },
+    {
+      "name": "Riley Kim",
+      "city": "Atlanta",
+      "state": "GA",
+      "zip": "30309",
+      "specialty": "Family Coaching",
+      "delivery_modes": ["virtual"],
+      "website": "",
+      "credential_id": "EFI-CEFC-2026-004",
+      "verification_status": "verified",
+      "moderation_status": "approved",
+      "last_reviewed": "2026-02-09"
+    },
+    {
+      "name": "Pending Example",
+      "city": "Seattle",
+      "state": "WA",
+      "zip": "98103",
+      "specialty": "Student EF",
+      "delivery_modes": ["virtual"],
+      "website": "",
+      "credential_id": "EFI-CEFC-2026-005",
+      "verification_status": "pending",
+      "moderation_status": "pending",
+      "last_reviewed": "2026-02-16"
+    }
+  ]
+}
