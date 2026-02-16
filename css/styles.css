@@ -800,6 +800,15 @@ p {
   font-size: 1.1rem;
 }
 
+.section-cite {
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+  border-left: 3px solid rgba(74, 158, 218, 0.35);
+  padding-left: var(--space-sm);
+}
+
 /* --- Feature List --- */
 .feature-list {
   display: grid;
@@ -2927,6 +2936,11 @@ body.has-topic-clusters.has-topic-clusters-plain main {
 [data-theme="dark"] .section-header__tag {
   background: rgba(74, 158, 218, 0.15);
   color: var(--color-primary);
+}
+
+[data-theme="dark"] .section-cite {
+  color: #9fb2cb;
+  border-left-color: rgba(74, 158, 218, 0.5);
 }
 
 [data-theme="dark"] .callout {

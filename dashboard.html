@@ -46,7 +46,7 @@
   <!-- Quick Stats -->
   <section class="section">
     <div class="container">
-      <div class="grid grid--3 stagger" id="dash-stats">
+      <div class="grid grid--4 stagger" id="dash-stats">
         <div class="card text-center" style="border-top:4px solid var(--color-primary);">
           <div style="font-size:2.5rem;font-weight:700;color:var(--color-primary);" id="stat-purchases">0</div>
           <p style="margin-bottom:0;color:var(--color-text-muted);">Purchases</p>
@@ -58,6 +58,29 @@
         <div class="card text-center" style="border-top:4px solid var(--module-6);">
           <div style="font-size:2.5rem;font-weight:700;color:var(--module-6);" id="stat-cert">&#8212;</div>
           <p style="margin-bottom:0;color:var(--color-text-muted);">Certificate Status</p>
+        </div>
+        <div class="card text-center" style="border-top:4px solid var(--module-3);">
+          <div style="font-size:2.5rem;font-weight:700;color:var(--module-3);" id="stat-avg-score">&#8212;</div>
+          <p style="margin-bottom:0;color:var(--color-text-muted);">Average Score</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="grid grid--3">
+        <div class="card">
+          <h3 style="margin-bottom:var(--space-xs);">Completion Trend</h3>
+          <p id="metric-completion-trend" style="color:var(--color-text-muted);margin-bottom:0;">Loading...</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:var(--space-xs);">Pending Release</h3>
+          <p id="metric-pending-release" style="color:var(--color-text-muted);margin-bottom:0;">Loading...</p>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:var(--space-xs);">Next Feedback Unlock</h3>
+          <p id="metric-next-release" style="color:var(--color-text-muted);margin-bottom:0;">Loading...</p>
         </div>
       </div>
     </div>
@@ -397,6 +420,51 @@
       });
     }
 
+    function renderOutcomeMetrics() {
+      var latestUser = EFI.Auth.getCurrentUser();
+      if (!latestUser) return;
+      var progress = latestUser.progress || {};
+      var submissions = progress.submissions || {};
+      var moduleIds = ['1', '2', '3', '4', '5', '6'];
+      var completed = moduleIds.filter(function(id) { return !!(progress.modules && progress.modules[id]); }).length;
+      var completionPct = Math.round((completed / moduleIds.length) * 100);
+      document.getElementById('metric-completion-trend').textContent = completed + '/6 modules passed (' + completionPct + '%)';
+
+      var pending = 0;
+      var scores = [];
+      var releaseTimes = [];
+      Object.keys(submissions).forEach(function (key) {
+        var row = submissions[key] || {};
+        if (typeof row.score === 'number') scores.push(row.score);
+        if (row.releaseAt) {
+          var t = new Date(row.releaseAt).getTime();
+          if (t > Date.now()) {
+            pending += 1;
+            releaseTimes.push(t);
+          }
+        }
+      });
+      if (progress.capstone && progress.capstone.releaseAt) {
+        var ct = new Date(progress.capstone.releaseAt).getTime();
+        if (ct > Date.now()) {
+          pending += 1;
+          releaseTimes.push(ct);
+        }
+      }
+
+      var avg = scores.length ? Math.round(scores.reduce(function(a, b) { return a + b; }, 0) / scores.length) : null;
+      document.getElementById('stat-avg-score').textContent = avg == null ? 'N/A' : (avg + '%');
+      document.getElementById('metric-pending-release').textContent = pending + ' submission(s) waiting for release';
+
+      if (!releaseTimes.length) {
+        document.getElementById('metric-next-release').textContent = 'No pending feedback release windows.';
+      } else {
+        releaseTimes.sort(function (a, b) { return a - b; });
+        var nextMs = releaseTimes[0];
+        document.getElementById('metric-next-release').textContent = new Date(nextMs).toLocaleString();
+      }
+    }
+
     // Purchase stats
     var purchases = user.purchases || [];
     var totalSpent = purchases.reduce(function(s, p) { return s + p.total; }, 0);
@@ -407,6 +475,7 @@
     document.getElementById('stat-spent').textContent = '$' + totalSpent;
     document.getElementById('stat-cert').textContent = certStatus.fullyCertified ? 'Earned' : (certStatus.eligibleForCertificate ? 'Ready to Purchase' : 'In Progress');
     if (certStatus.fullyCertified) document.getElementById('stat-cert').style.color = 'var(--color-accent)';
+    renderOutcomeMetrics();
 
     // Purchase history
     var listEl = document.getElementById('purchase-list');
@@ -461,6 +530,7 @@
           check.style.fontSize = '';
         }
         renderCertificationReadiness();
+        renderOutcomeMetrics();
       });
     });
 
@@ -486,6 +556,7 @@
           ? ('Capstone submitted. AI rubric review will unlock in dashboard after 24 hours (' + new Date(result.release_at).toLocaleString() + ').')
           : result.error;
         renderCertificationReadiness();
+        renderOutcomeMetrics();
       });
     });
 
@@ -505,6 +576,7 @@
 
     Promise.resolve(EFI.Auth.runAutoGrading()).finally(function () {
       renderCertificationReadiness();
+      renderOutcomeMetrics();
     });
   })();
   </script>

@@ -63,6 +63,58 @@ async function issuePurchase(body) {
   if (!items.length) return json(400, { ok: false, error: 'At least one item is required' });
 
   const total = items.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const requestedIds = items.map((i) => String(i.id || '').trim());
+
+  if (requestedIds.some((id) => id === 'certificate' || id === 'certificate-frame')) {
+    const progressRow = await db.getProgress(email).catch(() => ({ found: false, progress: null }));
+    const progress = progressRow && progressRow.progress ? progressRow.progress : {};
+    const modules = progress.modules && typeof progress.modules === 'object' ? progress.modules : {};
+    const capstone = progress.capstone && typeof progress.capstone === 'object' ? progress.capstone : {};
+
+    const requiredModuleIds = ['1', '2', '3', '4', '5', '6'];
+    const modulePassByProgress = requiredModuleIds.reduce((acc, id) => {
+      acc[id] = !!modules[id];
+      return acc;
+    }, {});
+
+    const submissionsRow = await db.listSubmissions(email).catch(() => ({ submissions: [] }));
+    const submissions = Array.isArray(submissionsRow.submissions) ? submissionsRow.submissions : [];
+    const latestByModule = {};
+    let capstonePassedFromSubmissions = false;
+    submissions.forEach((row) => {
+      if (row.kind === 'module' && row.module_id) {
+        const key = String(row.module_id);
+        const prev = latestByModule[key];
+        if (!prev || String(prev.submitted_at || '') < String(row.submitted_at || '')) {
+          latestByModule[key] = row;
+        }
+      }
+      if (row.kind === 'capstone') {
+        const passed = typeof row.score === 'number' && row.score >= 75;
+        if (passed) capstonePassedFromSubmissions = true;
+      }
+    });
+
+    const modulePassBySubmissions = requiredModuleIds.reduce((acc, id) => {
+      const row = latestByModule[id];
+      acc[id] = !!(row && typeof row.score === 'number' && row.score >= 75);
+      return acc;
+    }, {});
+
+    const allModulesPassed = requiredModuleIds.every((id) => modulePassByProgress[id] || modulePassBySubmissions[id]);
+    const capstonePassed = (String(capstone.status || '').toLowerCase() === 'passed') || capstonePassedFromSubmissions;
+    if (!allModulesPassed || !capstonePassed) {
+      return json(403, {
+        ok: false,
+        error: 'Certificate products require all six modules passed and capstone passed.',
+        eligibility: {
+          all_modules_passed: allModulesPassed,
+          capstone_passed: capstonePassed
+        }
+      });
+    }
+  }
+
   const now = new Date().toISOString();
   const purchase = {
     id: 'ord_' + crypto.randomBytes(6).toString('hex'),

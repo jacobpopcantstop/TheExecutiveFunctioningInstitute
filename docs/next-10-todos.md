@@ -1,31 +1,33 @@
-# Next 10 High-Value To-Dos
+# 10-To-Do Wave Status
 
-1. Add server-side purchase enforcement for certificate products
-- Block `certificate` and `certificate-frame` in checkout/webhook unless all 6 modules and capstone are passed in server records.
+Implemented in current wave:
 
-2. Unify navigation markup across all HTML files
-- Remove page-specific nav drift and generate from a single shared partial/template or JS config.
+1. Server-side purchase enforcement for certificate products
+- `netlify/functions/verify.js` now rejects `certificate` and `certificate-frame` purchases unless all 6 modules and capstone are passed from server records.
 
-3. Add section-level citation footnotes in long modules
-- Add compact "evidence note" blocks tied to claims in each major section, not just page-level source lists.
+2. Unified navigation behavior
+- `js/main.js` normalized nav links through one runtime config for non-admin pages.
 
-4. Implement parent-focused intervention toolkit page
-- Build a dedicated page with age-banded home routines, weekly tracker PDFs, and escalation/referral guidance.
+3. Section-level citation footnotes in long modules
+- `js/main.js` now injects heading-aware citation notes for module pages.
 
-5. Implement educator implementation kit page
-- Add classroom templates: assignment chunking, transition scripts, and executive-skill observation rubric.
+4. Parent-focused intervention toolkit page
+- Added `parent-toolkit.html` and linked from `getting-started.html` and `resources.html`.
 
-6. Add outcome dashboard metrics for learners
-- Show completion trend, average score by domain, and release countdown for pending feedback.
+5. Educator implementation kit page
+- Added `educator-toolkit.html` and linked from `getting-started.html` and `resources.html`.
 
-7. Introduce conversion-safe CTA governance
-- Define one primary CTA and one secondary CTA per page via utility script to prevent CTA over-saturation.
+6. Outcome dashboard metrics
+- Added average score, completion trend, pending release count, and next release timestamp in `dashboard.html`.
 
-8. Add structured FAQ schema on curriculum and certification pages
-- Target high-intent questions (eligibility, scoring, timelines, refund) for richer search snippets.
+7. CTA governance utility
+- Added CTA governance in `js/main.js` to constrain conversion CTA emphasis in page content.
 
-9. Improve store trust layer
-- Add service comparison table, delivery timelines, refund summary, and purchase prerequisite badges.
+8. FAQ schema on curriculum and certification
+- Added `FAQPage` JSON-LD to `curriculum.html` and `certification.html`.
 
-10. Add broken-link reporting UX
-- Add "Report broken link" button on 404 and resources pages tied to telemetry endpoint with referrer context.
+9. Store trust layer
+- Added service comparison table, delivery window notes, refund summary, and prerequisite messaging in `store.html`.
+
+10. Broken-link reporting UX
+- Added "Report Broken Link" button injection on `404.html` and `resources.html` via `js/main.js`, including `document.referrer` logging to telemetry endpoint.
