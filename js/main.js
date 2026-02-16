@@ -1,5 +1,5 @@
 /* ============================================
-   The Executive Function Institute
+   The Executive Functioning Institute
    Main JavaScript
    ============================================ */
 
@@ -251,17 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   (function injectGettingStartedPrompts() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    if (currentPage === 'index.html') {
-      var heroActions = document.querySelector('.hero__actions');
-      if (heroActions && !heroActions.querySelector('a[href="getting-started.html"]')) {
-        var start = document.createElement('a');
-        start.href = 'getting-started.html';
-        start.className = 'btn btn--outline-white btn--lg';
-        start.textContent = 'New? Start Here';
-        heroActions.appendChild(start);
-      }
-      return;
-    }
+    if (currentPage === 'index.html') return;
     if (['resources.html', 'curriculum.html'].indexOf(currentPage) === -1) return;
     if (document.getElementById('getting-started-guide-card')) return;
     var headerContainer = document.querySelector('.page-header .container');
@@ -282,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   (function injectSiteGuide() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    if (['admin.html', 'checkout.html', 'login.html', 'certificate.html', '404.html'].indexOf(currentPage) >= 0) return;
+    if (currentPage !== 'getting-started.html') return;
     if (document.querySelector('.site-guide')) return;
 
     var mount = document.querySelector('.page-header .container') || document.querySelector('main .container');
@@ -516,6 +506,12 @@ document.addEventListener('DOMContentLoaded', function () {
         options: ['Start with random tasks', 'Define the finished outcome first, then reverse-map steps', 'Avoid calendars', 'Work only when urgent'],
         answer: 1,
         rationale: 'Backward planning starts at the done-state and maps milestones in reverse order.'
+      },
+      'curriculum.html': {
+        question: 'What unlocks graded tests, assignment review, and credential workflows?',
+        options: ['Reading a single free article', 'Paid enrollment in certification services', 'Visiting the home page twice', 'Creating a community comment'],
+        answer: 1,
+        rationale: 'Core information is open, while graded assessments and credential review are part of paid certification services.'
       }
     };
 
@@ -577,6 +573,98 @@ document.addEventListener('DOMContentLoaded', function () {
           at: new Date().toISOString()
         }));
       } catch (e) {}
+    });
+  })();
+
+  (function injectLearnMorePanels() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (!/^module-|^curriculum\.html$/.test(currentPage)) return;
+
+    var deepDives = {
+      'module-1.html': {
+        text: 'Technical dive: EF impairment is modeled as a performance regulation problem across time. Key mechanisms include response inhibition gating, delayed reward discounting, and context-dependent executive load.',
+        links: [
+          { href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Barkley 1997 (Psychological Bulletin)' },
+          { href: 'https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf', label: 'Barkley EF/SR Fact Sheet' }
+        ]
+      },
+      'module-2.html': {
+        text: 'Technical dive: intake quality depends on triangulating self-report, environmental constraints, and execution variance under realistic load.',
+        links: [
+          { href: 'Conv17-305-dawson-executive-skills-questionnaire.pdf', label: 'ESQ-R Source PDF' },
+          { href: 'https://www.brownadhdclinic.com/brown-ef-model-adhd', label: 'Brown EF Model' }
+        ]
+      },
+      'module-3.html': {
+        text: 'Technical dive: coaching architecture depends on alliance quality, metacognitive prompt design, and point-of-performance behavior shaping.',
+        links: [
+          { href: 'https://coachingfederation.org/credentials-and-standards/core-competencies', label: 'ICF Core Competencies' },
+          { href: 'scope-of-practice.html', label: 'Scope of Practice' }
+        ]
+      },
+      'module-4.html': {
+        text: 'Technical dive: temporal supports are strongest when combining future-state visualization, reverse sequencing, and externalized elapsed-time cues.',
+        links: [
+          { href: 'https://www.efpractice.com/getreadydodone', label: 'Get Ready Do Done' },
+          { href: 'https://sarahwardidanmark.dk/wp-content/uploads/2021/05/WARD-360-grader.pdf', label: '360 Thinking Paper' }
+        ]
+      },
+      'module-5.html': {
+        text: 'Technical dive: intervention quality improves when you layer environmental engineering, initiation scaffolds, and emotion-regulation fallback protocols.',
+        links: [
+          { href: 'Enhancing-and-Practicing-Executive-Function-Skills-with-Children-from-Infancy-to-Adolescence-1.pdf', label: 'Harvard EF Activities PDF' },
+          { href: 'resources.html#assessment', label: 'Assessment Tools' }
+        ]
+      },
+      'module-6.html': {
+        text: 'Technical dive: ethical reliability depends on scope boundaries, transparent standards, and consistent quality-control release workflows.',
+        links: [
+          { href: 'terms.html', label: 'Terms and Delivery Model' },
+          { href: 'accreditation.html', label: 'Alignment Status' }
+        ]
+      },
+      'curriculum.html': {
+        text: 'Technical dive: curriculum integration follows Theory -> Practice -> Credential workflow, with open informational content and paid graded services.',
+        links: [
+          { href: 'getting-started.html', label: 'Guided Paths' },
+          { href: 'certification.html', label: 'Capstone and Rubrics' }
+        ]
+      }
+    };
+
+    var model = deepDives[currentPage] || deepDives['curriculum.html'];
+    var targets = document.querySelectorAll('.card, .callout, .hub-card');
+    var limit = 16;
+    var count = 0;
+    targets.forEach(function (el) {
+      if (count >= limit) return;
+      if (el.querySelector('.learn-more-toggle')) return;
+      if ((el.textContent || '').trim().length < 140) return;
+      count += 1;
+
+      var panelId = 'learn-more-' + Math.random().toString(36).slice(2, 8);
+      var links = model.links.map(function (item) {
+        return '<a href="' + item.href + '" target="_blank" rel="noopener">' + item.label + '</a>';
+      }).join(' &bull; ');
+
+      var wrap = document.createElement('div');
+      wrap.style.marginTop = 'var(--space-sm)';
+      wrap.innerHTML =
+        '<button type="button" class="btn btn--secondary btn--sm learn-more-toggle" aria-expanded="false" aria-controls="' + panelId + '">Learn More</button>' +
+        '<div id="' + panelId + '" class="notice" style="display:none;margin-top:var(--space-sm);">' +
+          '<p style="margin-bottom:var(--space-sm);">' + model.text + '</p>' +
+          '<p style="margin-bottom:0;font-size:0.86rem;">Sources: ' + links + '</p>' +
+        '</div>';
+      el.appendChild(wrap);
+
+      var toggle = wrap.querySelector('.learn-more-toggle');
+      var panel = wrap.querySelector('#' + panelId);
+      if (!toggle || !panel) return;
+      toggle.addEventListener('click', function () {
+        var open = panel.style.display !== 'none';
+        panel.style.display = open ? 'none' : 'block';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
     });
   })();
 

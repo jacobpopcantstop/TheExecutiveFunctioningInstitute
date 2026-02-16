@@ -1,5 +1,5 @@
 /* ============================================
-   The Executive Function Institute
+   The Executive Functioning Institute
    Core Stylesheet — Audited & Improved
    ============================================ */
 
@@ -276,6 +276,10 @@ p {
   font-size: 1.15rem;
   color: var(--color-primary-dark);
   text-decoration: none;
+}
+
+.nav .nav__logo > span {
+  display: none;
 }
 
 .nav__logo-icon {
@@ -2574,21 +2578,6 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   transform: translateY(-1px);
 }
 
-.store-sale-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: var(--space-sm);
-  border-radius: 999px;
-  padding: 0.2rem 0.58rem;
-  background: rgba(220, 38, 38, 0.1);
-  color: #b91c1c;
-  border: 1px solid rgba(185, 28, 28, 0.2);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-}
-
 .store-card__price-wrap {
   display: flex;
   align-items: baseline;
@@ -2840,10 +2829,39 @@ body.has-topic-clusters.has-topic-clusters-plain main {
   color: #c9d6ea;
 }
 
-[data-theme="dark"] .store-sale-chip {
-  background: rgba(248, 113, 113, 0.2);
-  color: #fecaca;
-  border-color: rgba(248, 113, 113, 0.35);
+[data-theme="dark"] .table-wrapper {
+  background: #1a2332;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] th {
+  background: #0f1728;
+  color: var(--color-heading);
+}
+
+[data-theme="dark"] td {
+  color: var(--color-text);
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] .resource-card {
+  background: #1a2332;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .resource-card p,
+[data-theme="dark"] .resource-card h4,
+[data-theme="dark"] .resource-card__meta {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] #video .fade-in > div[style*="background"] {
+  background: #1a2332 !important;
+  border-color: var(--color-border) !important;
+}
+
+[data-theme="dark"] #video ol {
+  color: var(--color-text) !important;
 }
 
 [data-theme="dark"] .store-card__price-old,
