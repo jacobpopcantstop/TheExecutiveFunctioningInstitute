@@ -102,7 +102,8 @@
             <li>Permanent listing in SEO-optimized coach directory</li>
             <li>Registry-safe record for client and employer checks</li>
           </ul>
-          <button type="button" class="btn btn--primary btn--lg store-card__btn" data-product="certificate" data-name="Certificate Registry Fee" data-price="99" style="margin-top:auto;">Add to Cart</button>
+          <p class="notice" style="margin-top:var(--space-md);font-size:0.9rem;">Requires all 6 modules passed + capstone passed.</p>
+          <button type="button" class="btn btn--primary btn--lg store-card__btn" data-product="certificate" data-name="Certificate Registry Fee" data-price="99" data-requires-cert="true" style="margin-top:auto;">Add to Cart</button>
         </div>
 
         <div class="card store-card" style="border-top:4px solid var(--color-primary);">
@@ -114,7 +115,8 @@
             <li>Premium frame finish for client-facing spaces</li>
             <li>Tracked U.S. shipping included</li>
           </ul>
-          <button type="button" class="btn btn--primary btn--lg store-card__btn" data-product="certificate-frame" data-name="Premium Framed Certificate" data-price="189" style="margin-top:auto;">Add to Cart</button>
+          <p class="notice" style="margin-top:var(--space-md);font-size:0.9rem;">Locked until certificate eligibility is reached.</p>
+          <button type="button" class="btn btn--primary btn--lg store-card__btn" data-product="certificate-frame" data-name="Premium Framed Certificate" data-price="189" data-requires-cert="true" style="margin-top:auto;">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -206,6 +208,15 @@
   (function() {
     function renderCart() {
       var cart = EFI.Auth.getCart();
+      var status = EFI.Auth.getCertificationStatus();
+      if (!status.eligibleForCertificate) {
+        var hadLocked = cart.some(function(item) { return item.id === 'certificate' || item.id === 'certificate-frame'; });
+        if (hadLocked) {
+          EFI.Auth.removeFromCart('certificate');
+          EFI.Auth.removeFromCart('certificate-frame');
+          cart = EFI.Auth.getCart();
+        }
+      }
       var emptyEl = document.getElementById('cart-empty');
       var itemsEl = document.getElementById('cart-items');
       var listEl = document.getElementById('cart-list');
@@ -246,9 +257,18 @@
 
     function updateButtons() {
       var cart = EFI.Auth.getCart();
+      var status = EFI.Auth.getCertificationStatus();
       var cartIds = cart.map(function(c) { return c.id; });
       document.querySelectorAll('.store-card__btn').forEach(function(btn) {
         var pid = btn.getAttribute('data-product');
+        var requiresCert = btn.getAttribute('data-requires-cert') === 'true';
+        if (requiresCert && !status.eligibleForCertificate) {
+          btn.textContent = 'Locked: Finish Program First';
+          btn.disabled = true;
+          btn.classList.add('btn--secondary');
+          btn.classList.remove('btn--primary');
+          return;
+        }
         if (cartIds.indexOf(pid) !== -1) {
           btn.textContent = 'In Cart';
           btn.disabled = true;
@@ -266,6 +286,11 @@
     // Add to cart handlers
     document.querySelectorAll('.store-card__btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
+        var requiresCert = this.getAttribute('data-requires-cert') === 'true';
+        var status = EFI.Auth.getCertificationStatus();
+        if (requiresCert && !status.eligibleForCertificate) {
+          return;
+        }
         EFI.Auth.addToCart({
           id: this.getAttribute('data-product'),
           name: this.getAttribute('data-name'),

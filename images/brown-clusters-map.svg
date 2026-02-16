@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 420" role="img" aria-label="Brown six clusters map">
+  <defs>
+    <style>
+      .bg { fill: #f8fbfd; }
+      .title { font: 700 28px Georgia, serif; fill: #17384f; }
+      .sub { font: 500 14px Arial, sans-serif; fill: #4b6475; }
+      .core { fill: #1f5e87; }
+      .coreText { font: 700 18px Arial, sans-serif; fill: #fff; }
+      .bubble { fill: #fff; stroke: #bcd3e3; stroke-width: 2; }
+      .h { font: 700 16px Arial, sans-serif; fill: #1d5276; }
+      .p { font: 500 12px Arial, sans-serif; fill: #4c6172; }
+      .line { stroke: #4f8db7; stroke-width: 2.4; }
+    </style>
+  </defs>
+  <rect class="bg" width="980" height="420" rx="18"/>
+  <text class="title" x="34" y="46">Brown Model: 6 Executive Function Clusters</text>
+  <text class="sub" x="34" y="70">Interacting domains explain situational variability in real-world performance.</text>
+
+  <line class="line" x1="490" y1="210" x2="220" y2="120"/>
+  <line class="line" x1="490" y1="210" x2="490" y2="110"/>
+  <line class="line" x1="490" y1="210" x2="760" y2="120"/>
+  <line class="line" x1="490" y1="210" x2="250" y2="320"/>
+  <line class="line" x1="490" y1="210" x2="490" y2="336"/>
+  <line class="line" x1="490" y1="210" x2="730" y2="320"/>
+
+  <circle class="core" cx="490" cy="210" r="74"/>
+  <text class="coreText" x="451" y="205">Cognitive</text>
+  <text class="coreText" x="440" y="230">Management</text>
+
+  <rect class="bubble" x="130" y="76" width="190" height="86" rx="14"/>
+  <text class="h" x="146" y="105">Activation</text>
+  <text class="p" x="146" y="126">Organize, prioritize, initiate.</text>
+
+  <rect class="bubble" x="392" y="62" width="196" height="86" rx="14"/>
+  <text class="h" x="409" y="92">Focus</text>
+  <text class="p" x="409" y="113">Sustain, shift, re-engage.</text>
+
+  <rect class="bubble" x="662" y="76" width="190" height="86" rx="14"/>
+  <text class="h" x="679" y="105">Effort</text>
+  <text class="p" x="679" y="126">Alertness + processing speed.</text>
+
+  <rect class="bubble" x="160" y="292" width="190" height="86" rx="14"/>
+  <text class="h" x="176" y="322">Emotion</text>
+  <text class="p" x="176" y="343">Frustration and modulation.</text>
+
+  <rect class="bubble" x="390" y="316" width="200" height="86" rx="14"/>
+  <text class="h" x="406" y="346">Memory</text>
+  <text class="p" x="406" y="367">Working memory + recall access.</text>
+
+  <rect class="bubble" x="640" y="292" width="190" height="86" rx="14"/>
+  <text class="h" x="658" y="322">Action</text>
+  <text class="p" x="658" y="343">Self-monitoring and execution.</text>
+</svg>

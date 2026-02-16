@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 340" role="img" aria-label="Barkley inhibition cascade diagram">
+  <defs>
+    <style>
+      .bg { fill: #f7fbff; }
+      .title { font: 700 28px Georgia, serif; fill: #10324a; }
+      .sub { font: 500 14px Arial, sans-serif; fill: #3c5568; }
+      .box { fill: #ffffff; stroke: #bfd2e0; stroke-width: 2; rx: 14; }
+      .h { font: 700 18px Arial, sans-serif; fill: #18496b; }
+      .p { font: 500 13px Arial, sans-serif; fill: #4a5f6f; }
+      .arrow { stroke: #1f6f9f; stroke-width: 3.2; fill: none; marker-end: url(#m); }
+      .chip { fill: #e8f4ff; stroke: #9cc2df; }
+      .chipText { font: 700 12px Arial, sans-serif; fill: #20567b; }
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f6f9f"/>
+    </marker>
+  </defs>
+  <rect class="bg" x="0" y="0" width="980" height="340" rx="18"/>
+  <text class="title" x="34" y="46">Barkley Inhibition Cascade</text>
+  <text class="sub" x="34" y="70">Self-regulation sequence: inhibition enables future-directed executive action.</text>
+
+  <rect class="box" x="34" y="96" width="210" height="164" rx="14"/>
+  <text class="h" x="52" y="126">1) Stop</text>
+  <text class="p" x="52" y="149">Pause competing response.</text>
+  <text class="p" x="52" y="169">Interrupt automatic behavior.</text>
+  <rect class="chip" x="52" y="192" width="170" height="28" rx="14"/>
+  <text class="chipText" x="66" y="210">Inhibitory Gate</text>
+
+  <rect class="box" x="274" y="96" width="210" height="164" rx="14"/>
+  <text class="h" x="292" y="126">2) Delay</text>
+  <text class="p" x="292" y="149">Hold action long enough</text>
+  <text class="p" x="292" y="169">to consult working memory.</text>
+  <rect class="chip" x="292" y="192" width="170" height="28" rx="14"/>
+  <text class="chipText" x="304" y="210">Temporal Buffer</text>
+
+  <rect class="box" x="514" y="96" width="210" height="164" rx="14"/>
+  <text class="h" x="532" y="126">3) Protect Goal</text>
+  <text class="p" x="532" y="149">Shield intention from</text>
+  <text class="p" x="532" y="169">distraction and impulse.</text>
+  <rect class="chip" x="532" y="192" width="170" height="28" rx="14"/>
+  <text class="chipText" x="542" y="210">Interference Control</text>
+
+  <rect class="box" x="754" y="96" width="192" height="164" rx="14"/>
+  <text class="h" x="772" y="126">Executive Output</text>
+  <text class="p" x="772" y="149">Planning, sequencing,</text>
+  <text class="p" x="772" y="169">emotion regulation,</text>
+  <text class="p" x="772" y="189">goal persistence.</text>
+  <rect class="chip" x="772" y="212" width="152" height="28" rx="14"/>
+  <text class="chipText" x="790" y="230">Point of Performance</text>
+
+  <path class="arrow" d="M244 178 L272 178"/>
+  <path class="arrow" d="M484 178 L512 178"/>
+  <path class="arrow" d="M724 178 L752 178"/>
+</svg>

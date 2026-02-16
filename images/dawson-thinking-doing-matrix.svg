@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 380" role="img" aria-label="Dawson and Guare thinking vs doing matrix">
+  <defs>
+    <style>
+      .bg { fill: #f8fbff; }
+      .title { font: 700 28px Georgia, serif; fill: #163951; }
+      .sub { font: 500 14px Arial, sans-serif; fill: #4a6072; }
+      .colA { fill: #ecf6ff; stroke: #b9d6ed; stroke-width: 2; }
+      .colB { fill: #ecfff4; stroke: #b8e7ca; stroke-width: 2; }
+      .h { font: 700 18px Arial, sans-serif; fill: #1d5276; }
+      .p { font: 600 14px Arial, sans-serif; fill: #2e4e64; }
+    </style>
+  </defs>
+  <rect class="bg" width="980" height="380" rx="18"/>
+  <text class="title" x="34" y="46">Dawson &amp; Guare: Thinking vs Doing Skills</text>
+  <text class="sub" x="34" y="70">Use this matrix to target intervention type: cognitive strategy vs execution scaffold.</text>
+
+  <rect class="colA" x="42" y="96" width="438" height="244" rx="14"/>
+  <text class="h" x="62" y="126">Thinking Skills</text>
+  <text class="p" x="62" y="155">• Working Memory</text>
+  <text class="p" x="62" y="180">• Planning / Prioritization</text>
+  <text class="p" x="62" y="205">• Organization</text>
+  <text class="p" x="62" y="230">• Time Awareness</text>
+  <text class="p" x="62" y="255">• Metacognition</text>
+  <text class="p" x="62" y="280">Intervention Focus: modeling, cueing,</text>
+  <text class="p" x="62" y="302">explicit strategy instruction.</text>
+
+  <rect class="colB" x="500" y="96" width="438" height="244" rx="14"/>
+  <text class="h" x="520" y="126">Doing Skills</text>
+  <text class="p" x="520" y="155">• Response Inhibition</text>
+  <text class="p" x="520" y="180">• Task Initiation</text>
+  <text class="p" x="520" y="205">• Sustained Attention</text>
+  <text class="p" x="520" y="230">• Goal-Directed Persistence</text>
+  <text class="p" x="520" y="255">• Flexibility / Shift</text>
+  <text class="p" x="520" y="280">Intervention Focus: environment design,</text>
+  <text class="p" x="520" y="302">external prompts, accountability loops.</text>
+</svg>
