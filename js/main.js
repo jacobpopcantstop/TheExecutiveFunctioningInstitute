@@ -175,29 +175,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
-  (function injectSaleBanner() {
-    var DISMISS_KEY = 'efi_sale_banner_dismissed_v1';
-    if (localStorage.getItem(DISMISS_KEY) === '1') return;
-    if (document.querySelector('.sale-banner')) return;
-    var banner = document.createElement('div');
-    banner.className = 'sale-banner';
-    banner.innerHTML =
-      '<span class="sale-banner__tag">40% OFF</span>' +
-      '<span class="sale-banner__text">Professional services sale is live.</span>' +
-      '<a href="store.html" class="btn btn--sm" data-analytics-event="sale_banner_store_click">Shop Offer</a>' +
-      '<button type="button" class="sale-banner__close" aria-label="Dismiss sale banner">&times;</button>';
-    document.body.appendChild(banner);
-    document.body.classList.add('has-sale-banner');
-    var closeBtn = banner.querySelector('.sale-banner__close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function () {
-        localStorage.setItem(DISMISS_KEY, '1');
-        document.body.classList.remove('has-sale-banner');
-        banner.remove();
-      });
-    }
-  })();
-
   (function injectFloatingStoreCTA() {
     if (window.location.pathname.split('/').pop() === 'store.html') return;
     if (window.location.pathname.split('/').pop() === 'checkout.html') return;
