@@ -164,3 +164,15 @@
 3. ✅ Added public-listing gating logic in `js/coach-directory.js` (only verified + approved records render).
 4. ✅ Added listing-governance copy clarifying moderation and credential checks for trust/compliance posture.
 5. ✅ Added profile-update and credential-verification links to support correction workflows.
+
+## Wave 16: Trust + Pedagogy Deployment Tightening (This Pass)
+1. ✅ Added founder/leadership transparency block in `about.html` with direct contact details.
+2. ✅ Added explicit "curriculum free vs certification earned" positioning in `index.html` hero.
+3. ✅ Added role-specific "Parent Start Path" and "Professional Start Path" links in homepage hero.
+4. ✅ Added Barkley inhibition flow diagram embed in `module-1.html`.
+5. ✅ Added "When to use Barkley vs Brown" coaching guidance block in `module-1.html`.
+6. ✅ Added pre-submission pass criteria accordion for Module 1 assignment grading transparency.
+7. ✅ Updated Module 1 CTA to linear progression (`Start Module 2`) instead of circular return.
+8. ✅ Added launch kit preview artifact (`images/launch-kit-preview.svg`) and file inventory section in `curriculum.html`.
+9. ✅ Added explicit accreditation status block with current date in `certification.html`.
+10. ✅ Added "Last updated" stamp to `accreditation.html` header/footer.
