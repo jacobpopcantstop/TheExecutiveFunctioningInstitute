@@ -164,3 +164,31 @@
 3. ✅ Added public-listing gating logic in `js/coach-directory.js` (only verified + approved records render).
 4. ✅ Added listing-governance copy clarifying moderation and credential checks for trust/compliance posture.
 5. ✅ Added profile-update and credential-verification links to support correction workflows.
+
+## Wave 16: Trust + Pedagogy Deployment Tightening (This Pass)
+1. ✅ Added founder/leadership transparency block in `about.html` with direct contact details.
+2. ✅ Added explicit "curriculum free vs certification earned" positioning in `index.html` hero.
+3. ✅ Added role-specific "Parent Start Path" and "Professional Start Path" links in homepage hero.
+4. ✅ Added Barkley inhibition flow diagram embed in `module-1.html`.
+5. ✅ Added "When to use Barkley vs Brown" coaching guidance block in `module-1.html`.
+6. ✅ Added pre-submission pass criteria accordion for Module 1 assignment grading transparency.
+7. ✅ Updated Module 1 CTA to linear progression (`Start Module 2`) instead of circular return.
+8. ✅ Added launch kit preview artifact (`images/launch-kit-preview.svg`) and file inventory section in `curriculum.html`.
+9. ✅ Added explicit accreditation status block with current date in `certification.html`.
+10. ✅ Added "Last updated" stamp to `accreditation.html` header/footer.
+
+## Wave 17: Directory Moderation Backend (This Pass)
+1. ✅ Added server authz helper (`netlify/functions/_authz.js`) for reviewer/admin checks via Supabase bearer token or admin key.
+2. ✅ Added API endpoint `netlify/functions/coach-directory.js` with public listing fetch and privileged moderation actions.
+3. ✅ Extended durable storage layer (`netlify/functions/_db.js`) with directory listing, upsert, and moderation methods.
+4. ✅ Updated public directory UI (`js/coach-directory.js`) to consume `/api/coach-directory` with JSON fallback.
+5. ✅ Added admin moderation queue UI and approve/reject actions (`admin.html`, `js/admin-directory.js`).
+6. ✅ Updated Supabase schema docs with `efi_coach_directory` table and indexes (`docs/supabase-schema.sql`).
+7. ✅ Updated OpenAPI contract with `/coach-directory` endpoint (`docs/api/openapi.yaml`).
+
+## Wave 18: Directory Submission + Review History UX (This Pass)
+1. ✅ Added public "Apply For Directory Listing" form on `coach-directory.html`.
+2. ✅ Wired listing submission form to `/api/coach-directory` (`action=submit_listing`) in `js/coach-directory.js`.
+3. ✅ Added moderation note input per pending record in admin queue (`admin.html`, `js/admin-directory.js`).
+4. ✅ Added "Recent Directory Decisions" history table in admin with reviewer, timestamp, and notes.
+5. ✅ Updated moderation actions to persist custom notes entered by reviewer before approve/reject.
