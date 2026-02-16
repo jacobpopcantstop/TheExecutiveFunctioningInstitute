@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Certified Coach Directory | EFI</title><meta name="description" content="Searchable alumni certified coach directory by city, state, and zip." /><link rel="canonical" href="https://executivefunctioninginstitute.com/coach-directory.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Coach Directory | EFI</title><meta name="description" content="Directory interface for EFI coach discovery by city, state, and zip." /><link rel="canonical" href="https://executivefunctioninginstitute.com/coach-directory.html" /><link rel="stylesheet" href="css/styles.css" /></head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 <nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Function Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="teacher-to-coach.html" class="nav__link">Business</a><a href="community.html" class="nav__link">Community</a><a href="certification.html" class="nav__link">Certification</a><a href="enroll.html" class="nav__link nav__link--cta">Enroll</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
-<header class="page-header"><div class="container"><h1>Certified Coach Directory</h1><p>Search certified EFI coaches by city, state, zip, and specialty to support local-intent discovery.</p></div></header>
-<main id="main-content"><section class="section"><div class="container"><div class="directory-controls"><label for="dir-search">Search</label><input id="dir-search" class="form-control" placeholder="Search name, city, state, zip" /><label for="dir-specialty">Specialty</label><select id="dir-specialty" class="form-control"><option value="">All specialties</option><option>Student EF</option><option>College Transition</option><option>Adult ADHD</option><option>Family Coaching</option></select></div><div class="table-wrapper"><table><thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Specialty</th><th>Website</th></tr></thead><tbody id="dir-body"></tbody></table></div></div></section></main>
+<header class="page-header"><div class="container"><h1>Coach Directory</h1><p>Search EFI coaches by city, state, zip, and specialty.</p></div></header>
+<main id="main-content"><section class="section"><div class="container"><div class="notice" style="margin-bottom:var(--space-lg);">Directory records below are sample placeholders while verification + moderation workflows are finalized. Do not treat these sample entries as active public listings.</div><div class="directory-controls"><label for="dir-search">Search</label><input id="dir-search" class="form-control" placeholder="Search name, city, state, zip" /><label for="dir-specialty">Specialty</label><select id="dir-specialty" class="form-control"><option value="">All specialties</option><option>Student EF</option><option>College Transition</option><option>Adult ADHD</option><option>Family Coaching</option></select></div><div class="table-wrapper"><table><thead><tr><th>Name</th><th>City</th><th>State</th><th>Zip</th><th>Specialty</th><th>Website</th></tr></thead><tbody id="dir-body"></tbody></table></div></div></section></main>
 <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Function Institute</span></div></div></footer>
 <script src="js/main.js"></script>
 <script>
   var coaches = [
-    {name:'J. Rivera, CEFC', city:'Austin', state:'TX', zip:'78704', specialty:'Student EF', website:'#'},
-    {name:'M. Thompson, CEFC', city:'Chicago', state:'IL', zip:'60614', specialty:'College Transition', website:'#'},
-    {name:'A. Chen, CEFC', city:'San Diego', state:'CA', zip:'92103', specialty:'Adult ADHD', website:'#'},
-    {name:'R. Patel, CEFC', city:'Atlanta', state:'GA', zip:'30309', specialty:'Family Coaching', website:'#'}
+    {name:'Sample Coach A', city:'Austin', state:'TX', zip:'78704', specialty:'Student EF', website:''},
+    {name:'Sample Coach B', city:'Chicago', state:'IL', zip:'60614', specialty:'College Transition', website:''},
+    {name:'Sample Coach C', city:'San Diego', state:'CA', zip:'92103', specialty:'Adult ADHD', website:''},
+    {name:'Sample Coach D', city:'Atlanta', state:'GA', zip:'30309', specialty:'Family Coaching', website:''}
   ];
   function render(){
     var q = (document.getElementById('dir-search').value || '').toLowerCase();
@@ -23,7 +23,7 @@
       var passS = !s || c.specialty === s;
       return passQ && passS;
     }).map(function(c){
-      return '<tr><td>'+c.name+'</td><td>'+c.city+'</td><td>'+c.state+'</td><td>'+c.zip+'</td><td>'+c.specialty+'</td><td><a href="'+c.website+'">Profile</a></td></tr>';
+      return '<tr><td>'+c.name+'</td><td>'+c.city+'</td><td>'+c.state+'</td><td>'+c.zip+'</td><td>'+c.specialty+'</td><td>'+(c.website ? '<a href="'+c.website+'">Profile</a>' : 'Pending')+'</td></tr>';
     }).join('');
     document.getElementById('dir-body').innerHTML = rows || '<tr><td colspan="6">No coaches found for that filter.</td></tr>';
   }
