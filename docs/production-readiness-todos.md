@@ -150,3 +150,10 @@
 6. ✅ Removed client-side auto-trigger of grading processor to enforce server-side release control.
 7. ✅ Updated legal terms language to production-ready contract framing (removed prototype disclaimer).
 8. ✅ Added explicit video accessibility note/caption guidance on Further Sources embed hub.
+
+## Wave 14: Guided Onboarding + Standards Visibility (This Pass)
+1. ✅ Added standards-pack links directly into `getting-started.html` onboarding checklist.
+2. ✅ Added dedicated transparency callout on getting-started with rubric/crosswalk downloads.
+3. ✅ Added linear four-step guided route section to `index.html` to reduce circular navigation.
+4. ✅ Updated getting-started conversion copy to reflect current paid model (graded review, credentialing, alumni network).
+5. ✅ Expanded `further-sources.html` with explicit caption/transcript review guidance for external video references.
