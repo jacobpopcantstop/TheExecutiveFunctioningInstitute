@@ -74,6 +74,7 @@ create index if not exists idx_efi_events_at on public.efi_events(at);
 create table if not exists public.efi_coach_directory (
   id text primary key,
   name text not null,
+  email text,
   city text not null,
   state text not null,
   zip text not null,
@@ -92,3 +93,4 @@ create table if not exists public.efi_coach_directory (
 );
 create index if not exists idx_efi_coach_directory_visibility on public.efi_coach_directory(verification_status, moderation_status);
 create index if not exists idx_efi_coach_directory_geo on public.efi_coach_directory(state, zip);
+create index if not exists idx_efi_coach_directory_email on public.efi_coach_directory(email);

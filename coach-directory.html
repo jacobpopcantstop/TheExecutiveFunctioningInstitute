@@ -86,6 +86,7 @@
             <h3 style="margin:0;">Directory Results</h3>
             <p id="dir-count" style="margin:0;color:var(--color-text-light);font-size:0.95rem;">Loading...</p>
           </div>
+          <p id="dir-stats" style="margin-top:var(--space-sm);color:var(--color-text-muted);font-size:0.9rem;">Loading directory statistics...</p>
           <div class="table-wrapper" style="margin-top:var(--space-md);">
             <table>
               <thead>
@@ -180,6 +181,10 @@
               <label for="dir-submit-bio">Brief Bio (optional)</label>
               <textarea id="dir-submit-bio" class="form-control" rows="4" maxlength="500" placeholder="Share your coaching focus and populations served."></textarea>
             </div>
+            <div style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label for="dir-submit-company">Company</label>
+              <input id="dir-submit-company" class="form-control" type="text" tabindex="-1" autocomplete="off">
+            </div>
             <label style="display:flex;gap:0.5rem;align-items:flex-start;margin-top:var(--space-md);">
               <input id="dir-submit-attest" type="checkbox" required style="margin-top:0.3rem;">
               <span>I attest this listing is accurate and within coaching scope of practice. I understand publication requires moderation approval.</span>
@@ -189,6 +194,33 @@
               <button type="submit" id="dir-submit-btn" class="btn btn--primary btn--sm">Submit Listing Request</button>
             </div>
           </form>
+        </article>
+
+        <article class="card" style="margin-top:var(--space-xl);">
+          <h3>Check Listing Request Status</h3>
+          <p>If you already submitted a request, check whether it is pending, approved, or needs revision.</p>
+          <form id="dir-status-form" class="button-group" style="align-items:flex-end;">
+            <div style="min-width:280px;">
+              <label for="dir-status-email">Email</label>
+              <input id="dir-status-email" class="form-control" type="email" required>
+            </div>
+            <button type="submit" id="dir-status-btn" class="btn btn--secondary btn--sm">Check Status</button>
+          </form>
+          <div class="table-wrapper" style="margin-top:var(--space-md);">
+            <table>
+              <thead>
+                <tr>
+                  <th>Credential ID</th>
+                  <th>Moderation</th>
+                  <th>Verification</th>
+                  <th>Last Reviewed</th>
+                </tr>
+              </thead>
+              <tbody id="dir-status-body">
+                <tr><td colspan="4">No status lookup yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
         </article>
       </div>
     </section>

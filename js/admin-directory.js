@@ -34,6 +34,22 @@
     });
   }
 
+  function updateListing(id, patch) {
+    return fetch('/api/coach-directory', {
+      method: 'POST',
+      headers: Object.assign({ 'Content-Type': 'application/json' }, authHeaders()),
+      body: JSON.stringify(Object.assign({
+        action: 'update_listing',
+        id: id
+      }, patch || {}))
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (payload) {
+        if (!res.ok || payload.ok === false) throw new Error(payload.error || 'Listing update failed');
+        return payload;
+      });
+    });
+  }
+
   function renderRows(records) {
     var body = byId('directory-moderation-body');
     if (!body) return;
@@ -59,6 +75,7 @@
             '<div class="button-group">' +
               '<button type="button" class="btn btn--sm btn--secondary js-dir-approve">Approve</button>' +
               '<button type="button" class="btn btn--sm btn--ghost js-dir-reject">Reject</button>' +
+              '<button type="button" class="btn btn--sm btn--ghost js-dir-edit">Edit</button>' +
             '</div>' +
           '</td>' +
         '</tr>'
@@ -113,6 +130,31 @@
         moderateListing(id, 'rejected', 'pending', notes || 'Rejected in admin queue')
           .then(loadQueue)
           .catch(function (err) { setStatus(err.message || 'Unable to reject listing.'); })
+          .finally(function () { target.disabled = false; });
+      }
+
+      if (target.classList.contains('js-dir-edit')) {
+        target.disabled = true;
+        var currentName = row.children[0] ? row.children[0].innerText.split('\n')[0] : '';
+        var currentCityStateZip = row.children[1] ? row.children[1].innerText : '';
+        var currentSpecialty = row.children[2] ? row.children[2].innerText : '';
+        var name = window.prompt('Update name', currentName) || currentName;
+        var location = window.prompt('Update location as City, ST, ZIP', currentCityStateZip) || currentCityStateZip;
+        var specialty = window.prompt('Update specialty', currentSpecialty) || currentSpecialty;
+        var parts = location.split(',').map(function (x) { return x.trim(); });
+        var city = parts[0] || '';
+        var state = parts[1] || '';
+        var zip = parts[2] || '';
+
+        updateListing(id, {
+          name: name,
+          city: city,
+          state: state,
+          zip: zip,
+          specialty: specialty
+        })
+          .then(loadQueue)
+          .catch(function (err) { setStatus(err.message || 'Unable to update listing.'); })
           .finally(function () { target.disabled = false; });
       }
     });

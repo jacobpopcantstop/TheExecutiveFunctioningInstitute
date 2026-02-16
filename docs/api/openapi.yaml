@@ -235,6 +235,10 @@ paths:
           required: false
           schema: { type: string }
         - in: query
+          name: email
+          required: false
+          schema: { type: string, format: email }
+        - in: query
           name: specialty
           required: false
           schema: { type: string }
@@ -257,7 +261,7 @@ paths:
               properties:
                 action:
                   type: string
-                  enum: [submit_listing, moderate_listing]
+                  enum: [submit_listing, moderate_listing, update_listing]
                 id: { type: string }
                 name: { type: string }
                 email: { type: string, format: email }
@@ -274,6 +278,7 @@ paths:
                 moderation_status: { type: string, enum: [approved, rejected, pending] }
                 verification_status: { type: string, enum: [verified, rejected, pending] }
                 moderation_notes: { type: string }
+                company: { type: string, description: "Honeypot field; must be empty." }
       responses:
         '200':
           description: Listing accepted or moderation action applied
