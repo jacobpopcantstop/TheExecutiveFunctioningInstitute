@@ -460,6 +460,126 @@ document.addEventListener('DOMContentLoaded', function () {
     anchorSection.parentNode.insertBefore(panel, anchorSection);
   })();
 
+  (function injectModuleKnowledgeCheck() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var checks = {
+      'module-1.html': {
+        question: 'In Barkley\'s model, which function must engage first before the others can run reliably?',
+        options: ['Response inhibition', 'Processing speed', 'Task initiation', 'Reading comprehension'],
+        answer: 0,
+        rationale: 'Barkley frames inhibition as the gatekeeper that enables downstream executive functions.'
+      },
+      'module-2.html': {
+        question: 'Which assessment behavior is most consistent with situational variability?',
+        options: ['Consistent performance in every context', 'Strong output only in high-interest contexts', 'No skill development over time', 'Perfect behavior under sleep deprivation'],
+        answer: 1,
+        rationale: 'Situational variability means performance can swing dramatically by context and stimulation.'
+      },
+      'module-3.html': {
+        question: 'What is the core shift from tutoring to EF coaching?',
+        options: ['Teach more content faster', 'Replace assignments with motivation talks', 'Teach process and execution systems', 'Avoid goal setting'],
+        answer: 2,
+        rationale: 'EF coaching targets planning, follow-through, and self-regulation process, not just content delivery.'
+      },
+      'module-4.html': {
+        question: 'In Get Ready, Do, Done, which stage comes first?',
+        options: ['Do', 'Done', 'Get Ready', 'Review'],
+        answer: 1,
+        rationale: 'The model starts with Done (future picture), then Do (steps), then Get Ready (materials).'
+      },
+      'module-5.html': {
+        question: 'Which intervention best reflects environmental scaffolding?',
+        options: ['Rely only on willpower', 'Add visible timers and friction-reducing cues', 'Increase punishment frequency', 'Delay all supports until failure'],
+        answer: 1,
+        rationale: 'Environmental scaffolds externalize executive supports so action is easier to start and sustain.'
+      },
+      'module-6.html': {
+        question: 'Which statement reflects ethical scope in EF coaching?',
+        options: ['Diagnose mental disorders during intake', 'Provide psychotherapy if the client asks', 'Refer out when clinical risk exceeds coaching scope', 'Guarantee symptom remission in writing'],
+        answer: 2,
+        rationale: 'Coaches maintain scope boundaries and refer when needs move into clinical treatment.'
+      },
+      'module-a-neuroscience.html': {
+        question: 'Why is the prefrontal cortex central to executive functioning?',
+        options: ['It controls hair growth', 'It supports inhibition, planning, and regulation under load', 'It eliminates all emotional reactions', 'It matures fully by age 10'],
+        answer: 1,
+        rationale: 'PFC systems support top-down regulation, and maturation extends into young adulthood.'
+      },
+      'module-b-pedagogy.html': {
+        question: 'Which move is most aligned with coaching pedagogy?',
+        options: ['Give the student the answer immediately', 'Focus only on grading outcomes', 'Teach the student how to build repeatable process habits', 'Ignore environmental setup'],
+        answer: 2,
+        rationale: 'Coaching emphasizes process design, metacognition, and transferable execution habits.'
+      },
+      'module-c-interventions.html': {
+        question: 'What is a core goal of backward planning?',
+        options: ['Start with random tasks', 'Define the finished outcome first, then reverse-map steps', 'Avoid calendars', 'Work only when urgent'],
+        answer: 1,
+        rationale: 'Backward planning starts at the done-state and maps milestones in reverse order.'
+      }
+    };
+
+    var check = checks[currentPage];
+    if (!check || document.getElementById('module-knowledge-check')) return;
+
+    var anchor = document.getElementById('module-assessment-preview') ||
+      document.querySelector('main .cta-section') ||
+      document.querySelector('main section:last-of-type');
+    if (!anchor || !anchor.parentNode) return;
+
+    var wrap = document.createElement('div');
+    wrap.id = 'module-knowledge-check';
+    wrap.className = 'card module-quiz';
+
+    var optionsHtml = '';
+    check.options.forEach(function (option, index) {
+      optionsHtml +=
+        '<label class="module-quiz__option">' +
+          '<input type="radio" name="knowledge-check" value="' + index + '">' +
+          '<span>' + option + '</span>' +
+        '</label>';
+    });
+
+    wrap.innerHTML =
+      '<div class="module-reading-highlight__title">' +
+        '<h3 style="margin-bottom:0;">Quick Knowledge Check</h3>' +
+        '<span class="module-reading-highlight__badge">1 Question</span>' +
+      '</div>' +
+      '<p class="module-quiz__question">' + check.question + '</p>' +
+      '<div class="module-quiz__options">' + optionsHtml + '</div>' +
+      '<div class="button-group" style="margin-top:var(--space-md);">' +
+        '<button type="button" class="btn btn--secondary btn--sm" id="knowledge-check-submit">Check Answer</button>' +
+        '<a href="enroll.html" class="btn btn--primary btn--sm">Unlock Graded Assessments</a>' +
+      '</div>' +
+      '<div id="knowledge-check-result" aria-live="polite"></div>';
+
+    anchor.parentNode.insertBefore(wrap, anchor);
+
+    var submit = document.getElementById('knowledge-check-submit');
+    var result = document.getElementById('knowledge-check-result');
+    if (!submit || !result) return;
+
+    submit.addEventListener('click', function () {
+      var selected = wrap.querySelector('input[name="knowledge-check"]:checked');
+      if (!selected) {
+        result.className = 'module-quiz__result module-quiz__result--no';
+        result.textContent = 'Choose an option first, then submit.';
+        return;
+      }
+      var chosen = Number(selected.value);
+      var correct = chosen === check.answer;
+      result.className = 'module-quiz__result ' + (correct ? 'module-quiz__result--ok' : 'module-quiz__result--no');
+      result.textContent = (correct ? 'Correct. ' : 'Not quite. ') + check.rationale;
+      try {
+        localStorage.setItem('efi_quiz_' + currentPage, JSON.stringify({
+          correct: correct,
+          selected: chosen,
+          at: new Date().toISOString()
+        }));
+      } catch (e) {}
+    });
+  })();
+
   /* --- Dark Mode Toggle --- */
   (function () {
     var THEME_KEY = 'efi_theme';
