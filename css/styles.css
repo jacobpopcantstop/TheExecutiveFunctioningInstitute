@@ -2272,6 +2272,82 @@ select.form-control {
   background: rgba(255, 255, 255, 0.14);
 }
 
+/* --- Site Guide --- */
+.site-guide {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(120deg, rgba(26, 82, 118, 0.08), rgba(30, 132, 73, 0.08));
+}
+
+.site-guide__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.site-guide__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.site-guide__hint {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.site-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.site-guide__card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+}
+
+.site-guide__card h4 {
+  margin: 0 0 var(--space-xs);
+  font-size: 1rem;
+}
+
+.site-guide__card p {
+  margin-bottom: var(--space-sm);
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.site-guide__quicklinks {
+  margin-top: var(--space-md);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.site-guide__quicklinks a {
+  display: inline-flex;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  font-size: 0.82rem;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.site-guide__quicklinks a:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary-light);
+}
+
 body.has-topic-clusters .hero {
   padding-top: 104px;
 }
@@ -2630,6 +2706,18 @@ body.has-sale-banner .floating-store-cta {
     grid-template-columns: 1fr;
   }
 
+  .site-guide__head {
+    display: block;
+  }
+
+  .site-guide__hint {
+    margin-top: var(--space-xs);
+  }
+
+  .site-guide__grid {
+    grid-template-columns: 1fr;
+  }
+
   .matrix__row {
     grid-template-columns: 1fr;
   }
@@ -2714,6 +2802,10 @@ body.has-sale-banner .floating-store-cta {
   color: #fff;
 }
 
+[data-theme="dark"] .nav__links {
+  background: transparent;
+}
+
 [data-theme="dark"] .hero {
   background: linear-gradient(135deg, #0a0f1a 0%, #121827 50%, #1a3a2a 100%);
 }
@@ -2785,6 +2877,19 @@ body.has-sale-banner .floating-store-cta {
 [data-theme="dark"] .topic-clusters__link--active {
   background: rgba(107, 181, 232, 0.14);
   border-color: rgba(107, 181, 232, 0.35);
+}
+
+[data-theme="dark"] .hub-card,
+[data-theme="dark"] .tool-panel {
+  background: #1a2332;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .hub-card p,
+[data-theme="dark"] .hub-card li,
+[data-theme="dark"] .tool-panel p,
+[data-theme="dark"] .tool-panel li {
+  color: var(--color-text);
 }
 
 [data-theme="dark"] .tool-output,
@@ -2879,8 +2984,55 @@ body.has-sale-banner .floating-store-cta {
   color: var(--color-heading);
 }
 
+[data-theme="dark"] .accordion {
+  background: #1a2332;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .accordion__item {
+  border-bottom-color: var(--color-border);
+}
+
+[data-theme="dark"] .accordion__header:hover {
+  background: #232f45;
+}
+
+[data-theme="dark"] .accordion__icon {
+  color: var(--color-primary-light);
+}
+
 [data-theme="dark"] .accordion__body {
   background: #1a2332;
+}
+
+[data-theme="dark"] .accordion__content p,
+[data-theme="dark"] .accordion__content li {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .site-guide {
+  background: linear-gradient(120deg, rgba(74, 158, 218, 0.18), rgba(46, 204, 113, 0.18));
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .site-guide__title {
+  color: var(--color-heading);
+}
+
+[data-theme="dark"] .site-guide__hint,
+[data-theme="dark"] .site-guide__card p {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .site-guide__card {
+  background: #111a2a;
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .site-guide__quicklinks a {
+  background: #111a2a;
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 [data-theme="dark"] .testimonial::before {
@@ -2903,5 +3055,12 @@ body.has-sale-banner .floating-store-cta {
     --color-white: #ffffff;
     --color-heading: #1a2a3a;
     --color-border: #dce1e5;
+  }
+}
+
+@media (max-width: 768px) {
+  [data-theme="dark"] .nav__links {
+    background: #111a2a;
+    border-bottom-color: var(--color-border);
   }
 }

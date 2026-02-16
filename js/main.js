@@ -154,6 +154,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })();
 
+  (function normalizePrimaryNav() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (currentPage === 'admin.html') return;
+
+    var primaryLinks = [
+      { href: 'index.html', label: 'Home' },
+      { href: 'getting-started.html', label: 'Start Here' },
+      { href: 'module-a-neuroscience.html', label: 'Theory' },
+      { href: 'module-c-interventions.html', label: 'Practice' },
+      { href: 'teacher-to-coach.html', label: 'Business' },
+      { href: 'resources.html', label: 'Resources' },
+      { href: 'store.html', label: 'Store' },
+      { href: 'certification.html', label: 'Certification' }
+    ];
+
+    document.querySelectorAll('.nav__links').forEach(function (links) {
+      var existingAuth = links.querySelector('.nav__auth');
+      var authHtml = existingAuth ? existingAuth.innerHTML : '';
+      var html = '';
+
+      primaryLinks.forEach(function (item) {
+        html += '<a href="' + item.href + '" class="nav__link">' + item.label + '</a>';
+      });
+
+      html += '<span class="nav__auth">' + authHtml + '</span>';
+      html += '<a href="enroll.html" class="nav__link nav__link--cta">Enroll</a>';
+      links.innerHTML = html;
+    });
+  })();
+
   (function ensureStoreVisibility() {
     document.querySelectorAll('.nav__links').forEach(function (links) {
       if (links.querySelector('a[href="store.html"]')) return;
@@ -176,6 +206,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   (function injectFloatingStoreCTA() {
+    if (!document.body.hasAttribute('data-enable-floating-store')) return;
     if (window.location.pathname.split('/').pop() === 'store.html') return;
     if (window.location.pathname.split('/').pop() === 'checkout.html') return;
     if (document.querySelector('.floating-store-cta')) return;
@@ -247,6 +278,48 @@ document.addEventListener('DOMContentLoaded', function () {
       '<a href="esqr.html" class="btn btn--secondary btn--sm">Take Free ESQ-R</a>' +
       '</div>';
     headerContainer.appendChild(card);
+  })();
+
+  (function injectSiteGuide() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    if (['admin.html', 'checkout.html', 'login.html', 'certificate.html', '404.html'].indexOf(currentPage) >= 0) return;
+    if (document.querySelector('.site-guide')) return;
+
+    var mount = document.querySelector('.page-header .container') || document.querySelector('main .container');
+    if (!mount) return;
+
+    var guide = document.createElement('div');
+    guide.className = 'site-guide';
+    guide.innerHTML =
+      '<div class="site-guide__head">' +
+        '<p class="site-guide__title">Where should I start?</p>' +
+        '<p class="site-guide__hint">Pick your path and follow the sequence. You can always switch tracks.</p>' +
+      '</div>' +
+      '<div class="site-guide__grid">' +
+        '<article class="site-guide__card">' +
+          '<h4>Parent Path</h4>' +
+          '<p>Learn key EF concepts, run ESQ-R, then apply home interventions.</p>' +
+          '<a class="btn btn--secondary btn--sm" href="getting-started.html">Follow Parent Steps</a>' +
+        '</article>' +
+        '<article class="site-guide__card">' +
+          '<h4>Educator Path</h4>' +
+          '<p>Use pedagogy + intervention modules, then move into practical toolkits.</p>' +
+          '<a class="btn btn--secondary btn--sm" href="module-b-pedagogy.html">Follow Educator Steps</a>' +
+        '</article>' +
+        '<article class="site-guide__card">' +
+          '<h4>Coach Path</h4>' +
+          '<p>Complete curriculum, enroll, and unlock tests, assignments, and review.</p>' +
+          '<a class="btn btn--primary btn--sm" href="certification.html">Follow Coach Steps</a>' +
+        '</article>' +
+      '</div>' +
+      '<div class="site-guide__quicklinks">' +
+        '<a href="curriculum.html">Curriculum</a>' +
+        '<a href="esqr.html">Free ESQ-R</a>' +
+        '<a href="resources.html">Resource Hub</a>' +
+        '<a href="store.html">Store</a>' +
+        '<a href="dashboard.html">Dashboard</a>' +
+      '</div>';
+    mount.appendChild(guide);
   })();
 
   (function injectRoadmapHubLinks() {
