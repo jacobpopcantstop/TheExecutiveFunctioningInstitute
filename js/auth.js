@@ -1,6 +1,6 @@
 /* ============================================
    EFI Authentication & User State Module
-   localStorage-based auth for demo purposes
+   transitional localStorage auth state
    ============================================ */
 
 var EFI = window.EFI || {};
@@ -51,7 +51,7 @@ EFI.Auth = (function () {
   }
 
   function hashPasswordLegacy(pw) {
-    // Legacy hash retained for migration of older local demo users.
+    // Legacy hash retained for migration of older local users.
     var hash = 0;
     for (var i = 0; i < pw.length; i++) {
       var ch = pw.charCodeAt(i);
