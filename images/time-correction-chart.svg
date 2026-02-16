@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 320" role="img" aria-label="Prediction versus reality time correction chart">
+  <defs>
+    <style>
+      .bg { fill: #f8fbff; }
+      .title { font: 700 24px Georgia, serif; fill: #153a53; }
+      .axis { stroke: #9db8cc; stroke-width: 2; }
+      .pred { fill: #74b3e3; }
+      .actual { fill: #2f7f4f; }
+      .txt { font: 600 12px Arial, sans-serif; fill: #3e5567; }
+      .legend { font: 700 13px Arial, sans-serif; fill: #294c64; }
+    </style>
+  </defs>
+  <rect class="bg" width="980" height="320" rx="14"/>
+  <text class="title" x="28" y="36">Prediction vs Reality: Time Correction Factor</text>
+  <line class="axis" x1="70" y1="264" x2="940" y2="264"/>
+  <line class="axis" x1="70" y1="64" x2="70" y2="264"/>
+
+  <rect class="pred" x="130" y="214" width="44" height="50"/>
+  <rect class="actual" x="182" y="144" width="44" height="120"/>
+  <text class="txt" x="132" y="284">Shower</text>
+
+  <rect class="pred" x="286" y="224" width="44" height="40"/>
+  <rect class="actual" x="338" y="164" width="44" height="100"/>
+  <text class="txt" x="280" y="284">Pack Bag</text>
+
+  <rect class="pred" x="442" y="214" width="44" height="50"/>
+  <rect class="actual" x="494" y="124" width="44" height="140"/>
+  <text class="txt" x="434" y="284">Email</text>
+
+  <rect class="pred" x="598" y="164" width="44" height="100"/>
+  <rect class="actual" x="650" y="64" width="44" height="200"/>
+  <text class="txt" x="588" y="284">Homework</text>
+
+  <text class="legend" x="760" y="98">Predicted</text>
+  <rect class="pred" x="730" y="86" width="18" height="18"/>
+  <text class="legend" x="760" y="132">Actual</text>
+  <rect class="actual" x="730" y="120" width="18" height="18"/>
+  <text class="txt" x="730" y="170">Average correction:</text>
+  <text class="txt" x="730" y="188">2.4x to 2.8x</text>
+</svg>

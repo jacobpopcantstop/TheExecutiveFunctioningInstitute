@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var check = checks[currentPage];
     if (!check || document.getElementById('module-knowledge-check')) return;
 
-    var anchor = document.getElementById('module-assessment-preview');
+    var anchor = document.getElementById('module-knowledge-check-anchor') || document.getElementById('module-assessment-preview');
     if (!anchor) {
       var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
       anchor = sections.find(function (section) {

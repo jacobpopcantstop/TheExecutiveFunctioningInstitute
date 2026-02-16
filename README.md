@@ -1,4 +1,4 @@
-# The Executive Function Institute
+# The Executive Functioning Institute
 
 An open-source, science-based Executive Function Coaching Certification program grounded in the work of Barkley, Brown, Dawson & Guare, and Ward.
 
@@ -12,7 +12,7 @@ EFI is an asynchronous-first product:
 
 ## About
 
-The Executive Function Institute provides a rigorous six-module certification curriculum that trains professionals to become Certified Executive Function Coaches (CEFC). The program bridges the gap between theoretical neuroscience and practical coaching, training coaches to be the "external frontal lobe" their clients need.
+The Executive Functioning Institute provides a rigorous six-module certification curriculum that trains professionals to become Certified Executive Function Coaches (CEFC). The program bridges the gap between theoretical neuroscience and practical coaching, training coaches to be the "external frontal lobe" their clients need.
 
 ## Site Structure
 

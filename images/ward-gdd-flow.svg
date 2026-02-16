@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 320" role="img" aria-label="Get Ready Do Done flow">
+  <defs>
+    <style>
+      .bg { fill: #f8fcfa; }
+      .title { font: 700 28px Georgia, serif; fill: #154434; }
+      .sub { font: 500 14px Arial, sans-serif; fill: #44695c; }
+      .step { fill: #fff; stroke: #b8e6cf; stroke-width: 2; rx: 14; }
+      .h { font: 700 18px Arial, sans-serif; fill: #176b4c; }
+      .p { font: 500 13px Arial, sans-serif; fill: #4c6a5f; }
+      .arrow { stroke: #2d8b63; stroke-width: 3.2; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2d8b63"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="980" height="320" rx="18"/>
+  <text class="title" x="34" y="46">Ward Model: Get Ready • Do • Done</text>
+  <text class="sub" x="34" y="70">Backwards planning sequence for future-oriented execution.</text>
+
+  <rect class="step" x="46" y="96" width="276" height="164" rx="14"/>
+  <text class="h" x="66" y="126">1) Done (Future Picture)</text>
+  <text class="p" x="66" y="150">Define what finished success looks like.</text>
+  <text class="p" x="66" y="172">Use visual criteria and concrete outcomes.</text>
+
+  <rect class="step" x="352" y="96" width="276" height="164" rx="14"/>
+  <text class="h" x="372" y="126">2) Do (Action Sequence)</text>
+  <text class="p" x="372" y="150">List steps in execution order.</text>
+  <text class="p" x="372" y="172">Add time anchors and checkpoints.</text>
+
+  <rect class="step" x="658" y="96" width="276" height="164" rx="14"/>
+  <text class="h" x="678" y="126">3) Get Ready (Materials)</text>
+  <text class="p" x="678" y="150">Gather tools only after steps are clear.</text>
+  <text class="p" x="678" y="172">Reduce friction before start time.</text>
+
+  <path class="arrow" d="M322 176 L348 176"/>
+  <path class="arrow" d="M628 176 L654 176"/>
+</svg>

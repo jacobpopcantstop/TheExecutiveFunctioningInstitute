@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 260" role="img" aria-label="Certification pipeline">
+  <defs>
+    <style>
+      .bg { fill: #f7faff; }
+      .title { font: 700 24px Georgia, serif; fill: #163a53; }
+      .node { fill: #fff; stroke: #bed6e7; stroke-width: 2; rx: 12; }
+      .h { font: 700 14px Arial, sans-serif; fill: #1f567a; }
+      .p { font: 500 12px Arial, sans-serif; fill: #4c6475; }
+      .arrow { stroke: #2b79ab; stroke-width: 2.8; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#2b79ab"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="980" height="260" rx="14"/>
+  <text class="title" x="28" y="38">Certification Pipeline (Asynchronous)</text>
+
+  <rect class="node" x="24" y="74" width="150" height="120" rx="12"/>
+  <text class="h" x="42" y="108">Module Completion</text>
+  <text class="p" x="42" y="130">6 units</text>
+  <text class="p" x="42" y="148">tests + assignments</text>
+
+  <rect class="node" x="214" y="74" width="150" height="120" rx="12"/>
+  <text class="h" x="232" y="108">Capstone Intake</text>
+  <text class="p" x="232" y="130">structured prompt</text>
+
+  <rect class="node" x="404" y="74" width="150" height="120" rx="12"/>
+  <text class="h" x="422" y="108">Case Intervention</text>
+  <text class="p" x="422" y="130">model integration</text>
+
+  <rect class="node" x="594" y="74" width="150" height="120" rx="12"/>
+  <text class="h" x="612" y="108">Original Tool</text>
+  <text class="p" x="612" y="130">usable artifact</text>
+
+  <rect class="node" x="784" y="74" width="170" height="120" rx="12"/>
+  <text class="h" x="804" y="108">Rubric + 24h Release</text>
+  <text class="p" x="804" y="130">audit escalation</text>
+  <text class="p" x="804" y="148">credential decision</text>
+
+  <path class="arrow" d="M176 136 L210 136"/>
+  <path class="arrow" d="M366 136 L400 136"/>
+  <path class="arrow" d="M556 136 L590 136"/>
+  <path class="arrow" d="M746 136 L780 136"/>
+</svg>
