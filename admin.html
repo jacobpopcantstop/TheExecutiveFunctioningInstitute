@@ -83,6 +83,9 @@
         <article class="card" style="grid-column:1 / -1;">
           <h2>Recent Directory Decisions</h2>
           <p>Latest approved/rejected records with reviewer notes and timestamps.</p>
+          <div class="button-group" style="margin-bottom:var(--space-sm);">
+            <button type="button" id="directory-audit-export-btn" class="btn btn--outline btn--sm">Export Audit CSV</button>
+          </div>
           <div class="table-wrapper">
             <table>
               <thead>
@@ -101,6 +104,60 @@
           </div>
         </article>
 
+        <article class="card" style="grid-column:1 / -1;">
+          <h2>Directory CMS</h2>
+          <p>Manage all directory records with filters, quick edits, and archive controls.</p>
+          <div class="grid grid--4" style="align-items:end;margin-bottom:var(--space-md);">
+            <div>
+              <label for="cms-search">Search</label>
+              <input id="cms-search" class="form-control" placeholder="Name, email, city, ZIP">
+            </div>
+            <div>
+              <label for="cms-moderation">Moderation</label>
+              <select id="cms-moderation" class="form-control">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="archived">Archived</option>
+              </select>
+            </div>
+            <div>
+              <label for="cms-verification">Verification</label>
+              <select id="cms-verification" class="form-control">
+                <option value="">All</option>
+                <option value="verified">Verified</option>
+                <option value="pending">Pending</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <div class="button-group">
+              <button type="button" id="cms-refresh-btn" class="btn btn--secondary btn--sm">Refresh</button>
+              <button type="button" id="cms-export-btn" class="btn btn--outline btn--sm">Export Records CSV</button>
+            </div>
+          </div>
+          <p id="cms-status" style="font-size:0.9rem;color:var(--color-text-muted);">Loading CMS records...</p>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Location</th>
+                  <th>Specialty</th>
+                  <th>Verification</th>
+                  <th>Moderation</th>
+                  <th>Updated</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cms-body">
+                <tr><td colspan="8">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
         <article class="card">
           <h2>Platform QA</h2>
           <ul class="checklist">
@@ -111,6 +168,29 @@
           <div class="cluster" style="margin-top:var(--space-md)">
             <a class="btn btn--outline btn--sm" href="telemetry.html">Open Telemetry</a>
             <a class="btn btn--outline btn--sm" href="health.html">Health Endpoint</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Launch Config Status</h2>
+          <p>Checks whether production environment variables are configured for payments, persistence, signing, and notifications.</p>
+          <p id="ops-config-status" style="font-size:0.9rem;color:var(--color-text-muted);">Loading config checks...</p>
+          <div class="button-group" style="margin-bottom:var(--space-sm);">
+            <button type="button" id="ops-config-export-btn" class="btn btn--outline btn--sm">Export Config CSV</button>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>Configured</th>
+                  <th>Strength Check</th>
+                </tr>
+              </thead>
+              <tbody id="ops-config-body">
+                <tr><td colspan="3">Loading...</td></tr>
+              </tbody>
+            </table>
           </div>
         </article>
 

@@ -1,4 +1,7 @@
-# Content Gap Audit (2026-02-16)
+# Content Gap Audit (2026-02-16, Archived Snapshot)
+
+> Status: Archived audit baseline. Multiple items in this file have since been resolved.  
+> For current outstanding gaps, use `docs/roadmap-to-perfection.md`.
 
 ## Summary
 This audit flags site content that is currently thin, missing high-value specificity, or needs stronger factual grounding before broad launch promotion.

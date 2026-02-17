@@ -1,12 +1,15 @@
 # Implementation Roadmap: Production Readiness Tracker
 
+> Status: Historical implementation log.  
+> For active outstanding items, use `docs/roadmap-to-perfection.md`.
+
 ## Wave 1 (Completed)
 1. ✅ Auth RBAC scaffold (`getRole/hasRole/requireRole`).
 2. ✅ Grading/certification workflow surfaced in dashboard.
-3. 🔄 Payment verification hardening (server webhook pending).
+3. ✅ Payment verification hardening (completed via webhook + server-side purchase checks in Waves 11-13).
 4. ✅ Module citation panel across modules.
 5. ✅ Automated local link validation in CI.
-6. 🔄 Icon normalization across all pages.
+6. 🔄 Icon normalization across all pages (legacy entities still being replaced on older utility pages).
 7. ✅ ESQ-R snapshot durability in local history.
 8. ✅ Certificate verification route (`verify.html`).
 9. ✅ Client telemetry baseline (`EFI.Telemetry`).
@@ -17,11 +20,11 @@
 2. ✅ Telemetry operations page.
 3. ✅ Sitemap expansion for legal/ops pages.
 4. ✅ Role hardening for ops surfaces.
-5. 🔄 Server-backed certificate verification API.
-6. 🔄 Server-backed ESQ-R storage.
+5. ✅ Server-backed certificate verification API.
+6. ✅ Server-backed ESQ-R storage.
 7. ✅ Scheduled external link checks.
 8. ✅ Canonical + JSON-LD phase 1.
-9. 🔄 Accessibility automation (expanded in Wave 4).
+9. ✅ Accessibility automation (expanded in Wave 4 and enforced in release gate).
 10. ✅ Deployment baseline scaffolding (`.env.example`, `serve.sh`, `health.html`).
 
 ## Wave 4: 15 Deployment-Focused Items Executed in This Pass
@@ -69,9 +72,9 @@
 ## Wave 6 Remaining (Next Integration Sprint)
 - ✅ Replace prototype localStorage lead capture with server/API integrations (ESP + CRM + consent logging).
 - ✅ Replace placeholder download assets with working PDF assets and signed delivery links.
-- Replace placeholder directory records with CMS-backed searchable profiles and moderation workflow.
+- ✅ Replace placeholder directory records with CMS-backed searchable profiles and moderation workflow.
 - ✅ Add analytics event instrumentation for funnel steps (landing -> calculator -> signup -> enroll).
-- Add production video hosting pipeline (storage, captions, bandwidth policy, fallback CDN logic).
+- 🔄 Add production video hosting CDN/storage layer (caption/transcript metadata + validation already implemented; CDN policy still pending).
 
 ## Wave 7: Further Sources Integration (This Pass)
 1. ✅ Added canonical root source file: `Further Sources`.
@@ -95,9 +98,9 @@
 ## Wave 8 Remaining
 - Wire CRM/ESP webhook endpoints as environment variables in Netlify production (`EFI_CRM_WEBHOOK_URL`, `EFI_ESP_WEBHOOK_URL`).
 - Rotate and set production signing secret (`EFI_DOWNLOAD_SIGNING_SECRET`) before launch.
-- Add server-side persistence/storage for lead and analytics records (current delivery is webhook-first).
-- 🔄 Implement CMS-backed directory management and moderation.
-- 🔄 Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
+- ✅ Add server-side persistence/storage for lead and analytics records (completed in Wave 13).
+- ✅ Implement CMS-backed directory management and moderation.
+- ✅ Add captions/transcripts and accessibility metadata for embedded video curriculum assets.
 
 ## Wave 9: UX and Asset Reliability Audit (This Pass)
 1. ✅ Added sitewide UX audit script (`scripts/check_ux_audit.py`) and resolved flagged structural issues.
@@ -192,3 +195,68 @@
 3. ✅ Added moderation note input per pending record in admin queue (`admin.html`, `js/admin-directory.js`).
 4. ✅ Added "Recent Directory Decisions" history table in admin with reviewer, timestamp, and notes.
 5. ✅ Updated moderation actions to persist custom notes entered by reviewer before approve/reject.
+
+## Wave 19: Directory Hardening + Ops Controls (This Pass)
+1. ✅ Fixed directory record persistence bug by storing applicant `email` in backend records.
+2. ✅ Added backend listing update path (`action=update_listing`) for privileged reviewer/admin edits.
+3. ✅ Added backend email status lookup (`GET /api/coach-directory?email=...`) for applicant self-check.
+4. ✅ Added anti-bot honeypot validation on listing submissions (`company` must be empty).
+5. ✅ Added submission rate limiting by IP and email in directory API.
+6. ✅ Added strict state/ZIP format validation in directory API.
+7. ✅ Added duplicate pending-request prevention per applicant/specialty/location.
+8. ✅ Added admin "Edit" action for pending listings (name/location/specialty quick correction).
+9. ✅ Added public listing status checker UI on `coach-directory.html`.
+10. ✅ Added directory summary stats surface from API and UI display (`#dir-stats`).
+
+## Wave 20: Security Hardening + UX Modernization (This Pass)
+1. ✅ Added persistent backend rate-limiting support in DB layer (`consumeRateLimit`) with Supabase + memory fallback.
+2. ✅ Replaced in-memory-only directory API throttles with persistent DB-backed limit checks.
+3. ✅ Added signed CSRF token issuance (`GET /api/coach-directory?action=csrf`) for privileged directory actions.
+4. ✅ Enforced CSRF validation on `moderate_listing` and `update_listing`.
+5. ✅ Added backend audit-log persistence (`saveAuditLog`, `listAuditLogs`) for directory moderation/change actions.
+6. ✅ Added audit log emission for listing submission, listing edit, and moderation decisions.
+7. ✅ Added audit stream return to privileged directory queue responses (`audit=1`) and wired admin history fallback.
+8. ✅ Expanded section-aware Learn More content with module-specific actionable implementation guidance in `js/main.js`.
+9. ✅ Added targeted Learn More mappings for Modules 1-6, Module A, Curriculum, and intervention evidence sections.
+10. ✅ Applied a non-breaking modernized CSS polish layer (nav/buttons/cards/forms/tables + dark mode parity) in `css/styles.css`.
+
+## Wave 21: Editorial Enforcement + Launch Ops Visibility (This Pass)
+1. ✅ Added editorial style guide (`docs/editorial-style-guide.md`) to keep copy precise and non-cliche.
+2. ✅ Added automated copy-style validator (`scripts/check_copy_style.py`) to catch known AI-isms.
+3. ✅ Enforced copy-style validator in release gate (`scripts/release_gate.py`).
+4. ✅ Replaced remaining "unlock"-style CTA copy in public enrollment/intervention messaging.
+5. ✅ Expanded video accessibility metadata in `further-sources.html` with segment-level caption/transcript/fallback matrix.
+6. ✅ Added privileged launch config API (`/api/ops-config`) for environment readiness checks.
+7. ✅ Added launch-config readiness panel in `admin.html` and `js/admin-directory.js`.
+8. ✅ Updated OpenAPI contract for new ops endpoint (`docs/api/openapi.yaml`).
+
+## Wave 22: CMS Operations + Video Pipeline + Admin Exports (This Pass)
+1. ✅ Extended directory API with CMS-grade filters (`moderation_status`, `verification_status`), pagination (`limit`, `offset`), and CSV export controls.
+2. ✅ Added archive action (`archive_listing`) for privileged lifecycle management of directory records.
+3. ✅ Rebuilt admin directory surface into CMS mode with full-record table, filters, and quick actions.
+4. ✅ Added admin CSV export for directory records, directory audit history, and launch config checks.
+5. ✅ Removed public client fallback to static directory JSON so published results are API/CMS-backed.
+6. ✅ Added video metadata manifest (`data/video-library.json`) with caption/transcript/fallback requirements.
+7. ✅ Added video pipeline validator (`scripts/check_video_pipeline.py`) and enforced it in release gate.
+8. ✅ Added video pipeline operations doc (`docs/video-pipeline.md`) and linked manifest usage in `further-sources.html`.
+
+## Wave 23: Content Robustness + Policy Completion Pass (This Pass)
+1. ✅ Rebuilt `community.html` into a real recap hub with monthly digest, topic archive, and anonymous question intake.
+2. ✅ Added directory policy page (`coach-directory-policy.html`) with status definitions and moderation lifecycle.
+3. ✅ Added trust-status communication for directory listings (active/probation/expired) and policy linkage.
+4. ✅ Expanded certification quality-control clarity with explicit review SLA windows and anonymized passing-outline examples.
+5. ✅ Replaced emoji-style launch-kit icons in `certification.html`, `resources.html`, and `starter-kit.html` with monochrome SVG icons.
+6. ✅ Updated `starter-kit.html` language to asynchronous brief delivery (removed conflicting "video content" phrasing).
+7. ✅ Added source-access reminder injection for source-heavy module pages in `js/main.js`.
+8. ✅ Added explicit free-vs-paid boundary callout to `curriculum.html`.
+9. ✅ Expanded `privacy.html` with implementation-specific data paths (Supabase, Netlify Functions, Stripe webhooks, Gemini grading).
+10. ✅ Expanded `terms.html` with explicit review timeline framing and dispute-resolution path.
+
+## Wave 24: Launch Blocker Closure Automation (This Pass)
+1. ✅ Added persistent community recap intake API (`/api/community-question`) with validation + rate limiting.
+2. ✅ Wired community hub question form to backend API submission flow.
+3. ✅ Added launch-blocker validation script (`scripts/check_launch_blockers.py`) for repo-level preflight enforcement.
+4. ✅ Enforced launch-blocker check in consolidated release gate (`scripts/release_gate.py`).
+5. ✅ Updated release checklist with expanded production API validation and environment verification list.
+6. ✅ Updated deployment baseline doc to reflect current server-backed architecture and ops-config checks.
+7. ✅ Updated OpenAPI spec for community-question endpoint and version increment.

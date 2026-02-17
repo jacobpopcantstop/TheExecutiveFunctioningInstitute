@@ -1,4 +1,7 @@
-# 10-To-Do Wave Status
+# 10-To-Do Wave Status (Archived Snapshot)
+
+> Status: Archived wave snapshot retained for history.  
+> Current active priorities are tracked in `docs/roadmap-to-perfection.md`.
 
 Implemented in current wave:
 
