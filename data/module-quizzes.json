@@ -1,0 +1,464 @@
+{
+  "quizzes": {
+    "module-1": {
+      "title": "Module 1: Neuropsychology of Self-Regulation",
+      "description": "Test your understanding of the neural foundations of executive function deficits.",
+      "questions": [
+        {
+          "id": "m1q1",
+          "question": "According to Barkley's model, which of the following is NOT one of the four primary executive functions?",
+          "options": [
+            "Inhibition",
+            "Working memory",
+            "Time perception",
+            "Motor control"
+          ],
+          "correct": 3,
+          "explanation": "Barkley identifies four primary executive functions: inhibition, working memory, emotional regulation, and reconstitution. While time perception is important in EF coaching, it is not one of his core primary functions."
+        },
+        {
+          "id": "m1q2",
+          "question": "What does the 'temporal horizon' refer to in the context of executive function deficits?",
+          "options": [
+            "The ability to remember past events",
+            "The ability to perceive, plan for, and act based on future consequences",
+            "The time zone differences that affect scheduling",
+            "The speed at which a person can process information"
+          ],
+          "correct": 1,
+          "explanation": "Temporal horizon is the psychological distance at which future consequences become 'real' and motivating to behavior. People with EF deficits often have a contracted temporal horizon, making long-term planning difficult."
+        },
+        {
+          "id": "m1q3",
+          "question": "Which of Barkley's secondary functions develops last in typical childhood development?",
+          "options": [
+            "Verbal working memory",
+            "Nonverbal working memory",
+            "Sense of time",
+            "Motor control"
+          ],
+          "correct": 0,
+          "explanation": "Verbal working memory and language-based reasoning mature later than other executive functions, often not fully developing until the mid-20s. This is why executive function deficits are sometimes more apparent in adolescence and young adulthood."
+        },
+        {
+          "id": "m1q4",
+          "question": "What is meant by the 'Extended Phenotype' in Barkley's framework?",
+          "options": [
+            "The genetic markers that indicate EF deficits",
+            "External environmental supports and tools that substitute for impaired EF",
+            "The way EF deficits manifest differently in males vs. females",
+            "The historical development of coaching practices"
+          ],
+          "correct": 1,
+          "explanation": "The Extended Phenotype refers to the use of external structures, tools, reminders, and environmental modifications that replace or augment the internal executive function system. This is a core principle of EF coaching."
+        },
+        {
+          "id": "m1q5",
+          "question": "According to Module 1, why is understanding the neurobiology of EF deficits important for coaching?",
+          "options": [
+            "It allows coaches to prescribe medication",
+            "It helps reduce shame and self-blame by shifting focus from character to neuroscience",
+            "It guarantees faster progress in coaching",
+            "It eliminates the need for external supports"
+          ],
+          "correct": 1,
+          "explanation": "Understanding that EF deficits are rooted in neurobiology helps clients understand they are not lazy or unmotivated, but rather dealing with a brain-based challenge. This shifts the narrative and reduces internalized shame, which is essential for therapeutic change."
+        },
+        {
+          "id": "m1q6",
+          "question": "What is 'time blindness' as described in Module 1?",
+          "options": [
+            "Complete inability to tell time",
+            "A contracted temporal horizon where future consequences feel distant and unmotivating",
+            "Damage to the visual cortex affecting time perception",
+            "Refusal to wear watches or use calendars"
+          ],
+          "correct": 1,
+          "explanation": "Time blindness in the context of EF is not literal inability to tell time, but rather difficulty holding future consequences in mind. It affects planning, deadline management, and understanding how long tasks take."
+        },
+        {
+          "id": "m1q7",
+          "question": "Which of the following is an example of the Extended Phenotype approach to managing time blindness?",
+          "options": [
+            "Encouraging the person to try harder to remember deadlines",
+            "Using external tools like timers, reminders, calendars, and visual schedules",
+            "Prescribing stimulant medication",
+            "Teaching time management worksheets"
+          ],
+          "correct": 1,
+          "explanation": "The Extended Phenotype approach emphasizes environmental design and external tools rather than relying on willpower or internal systems. This is more effective and sustainable than trying to overcome deficits through effort alone."
+        },
+        {
+          "id": "m1q8",
+          "question": "True or False: According to Barkley, emotional dysregulation in people with EF deficits is primarily caused by lack of motivation.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct": 1,
+          "explanation": "False. Barkley views emotional dysregulation as a primary executive function deficit rooted in brain biology, not as a willpower or motivation problem. This is a critical distinction that changes how coaches approach the work."
+        }
+      ]
+    },
+    "module-2": {
+      "title": "Module 2: Assessment Protocols & Intake Strategy",
+      "description": "Assess your mastery of assessment frameworks and intake procedures.",
+      "questions": [
+        {
+          "id": "m2q1",
+          "question": "What is the primary purpose of a structured intake assessment in EF coaching?",
+          "options": [
+            "To diagnose ADHD or other conditions",
+            "To establish a baseline of EF strengths and deficits across life domains",
+            "To determine if someone is eligible for special education",
+            "To provide a formal clinical diagnosis"
+          ],
+          "correct": 1,
+          "explanation": "While coaches do not diagnose, a structured intake helps identify which executive functions are impaired, in which contexts, and to what degree. This information guides the coaching strategy."
+        },
+        {
+          "id": "m2q2",
+          "question": "Which of the following is NOT a core domain assessed in comprehensive EF intake?",
+          "options": [
+            "Academic/professional performance",
+            "Social relationships",
+            "Time and task management",
+            "Political preferences"
+          ],
+          "correct": 3,
+          "explanation": "While political preferences may be relevant context, they are not a core EF domain. Core domains include academic/work performance, social/emotional function, time/task management, and impulse control."
+        },
+        {
+          "id": "m2q3",
+          "question": "What is the ESQ-R?",
+          "options": [
+            "A diagnostic test that replaces clinical assessment",
+            "A self-report assessment tool that maps EF strengths and deficits across eight domains",
+            "A coaching certification credential",
+            "A medication prescribed for ADHD"
+          ],
+          "correct": 1,
+          "explanation": "The ESQ-R (Executive Skill Questionnaire - Revised) is a self-report tool that helps identify patterns of executive function across multiple life domains. It's a coaching tool, not a diagnostic instrument."
+        },
+        {
+          "id": "m2q4",
+          "question": "In an intake session, why is it important to understand both strengths and deficits?",
+          "options": [
+            "To make the client feel better",
+            "Strengths are irrelevant to coaching",
+            "Strengths can be leveraged as anchors for intervention and sources of motivation and resilience",
+            "It's not important; only deficits matter"
+          ],
+          "correct": 2,
+          "explanation": "Strengths-based coaching builds on existing capacities rather than only focusing on deficits. A client's strengths become resources for developing weaker areas."
+        },
+        {
+          "id": "m2q5",
+          "question": "What does 'Goodness of Fit' mean in the context of EF coaching?",
+          "options": [
+            "Finding an intervention that matches the coach's preferences",
+            "Aligning coaching strategies with the client's specific EF profile, values, and life context",
+            "Ensuring the client has proper physical fitness",
+            "Matching client demographics with coach demographics"
+          ],
+          "correct": 1,
+          "explanation": "Goodness of Fit means that coaching strategies are tailored to the individual's unique profile of strengths, deficits, environment, and goals—not applying generic solutions."
+        },
+        {
+          "id": "m2q6",
+          "question": "Which of Brown's clusters is most closely related to organization and planning?",
+          "options": [
+            "Activation",
+            "Focus",
+            "Effort",
+            "Memory"
+          ],
+          "correct": 0,
+          "explanation": "Brown's Activation cluster includes the ability to organize thoughts, prioritize, and initiate action. It's foundational to planning and task initiation."
+        }
+      ]
+    },
+    "module-3": {
+      "title": "Module 3: The Coaching Architecture",
+      "description": "Test your understanding of the foundational coaching framework and alliance-building.",
+      "questions": [
+        {
+          "id": "m3q1",
+          "question": "What is the primary goal of the coaching alliance in EF coaching?",
+          "options": [
+            "To establish the coach's authority",
+            "To create a collaborative, non-judgmental partnership focused on client empowerment",
+            "To diagnose underlying pathology",
+            "To teach the client willpower strategies"
+          ],
+          "correct": 1,
+          "explanation": "The coaching alliance is built on collaboration, trust, and shared responsibility for change. It's fundamentally different from a hierarchical expert-client relationship."
+        },
+        {
+          "id": "m3q2",
+          "question": "Which of the following is a key principle of the coaching architecture?",
+          "options": [
+            "The coach makes all decisions for the client",
+            "The client is responsible for implementing systems between sessions",
+            "Only internal willpower-based solutions are used",
+            "Coaching should focus on past trauma rather than present skills"
+          ],
+          "correct": 1,
+          "explanation": "Effective coaching is collaborative and action-oriented. The client does the work between sessions; the coach provides structure, accountability, and guidance."
+        },
+        {
+          "id": "m3q3",
+          "question": "What does 'scaffolding' mean in EF coaching?",
+          "options": [
+            "Building physical structures",
+            "Providing temporary external supports that are gradually reduced as the client develops competence",
+            "Creating barriers to prevent the client from failing",
+            "Refusing to help the client become independent"
+          ],
+          "correct": 1,
+          "explanation": "Scaffolding is the process of providing structured support that decreases over time as the client internalizes skills and systems. It's based on the learning principle that temporary structure enables long-term independence."
+        },
+        {
+          "id": "m3q4",
+          "question": "True or False: In the coaching architecture, the coach is responsible for the client's success or failure.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct": 1,
+          "explanation": "False. While the coach provides structure and support, the client owns the responsibility for effort and implementation. The coach is a guide, not a fixer."
+        },
+        {
+          "id": "m3q5",
+          "question": "What is the purpose of clarifying client values and goals at the beginning of coaching?",
+          "options": [
+            "To fill time in the first session",
+            "To establish intrinsic motivation and ensure strategies align with what matters to the client",
+            "To diagnose the client's mental health",
+            "Values are irrelevant to EF coaching"
+          ],
+          "correct": 1,
+          "explanation": "Understanding what the client cares about helps ground coaching in intrinsic motivation. Strategies aligned with values are more likely to be sustained."
+        }
+      ]
+    },
+    "module-4": {
+      "title": "Module 4: Applied Methodologies",
+      "description": "Evaluate your understanding of specific coaching techniques and intervention strategies.",
+      "questions": [
+        {
+          "id": "m4q1",
+          "question": "What is the primary mechanism by which environmental modifications support EF development?",
+          "options": [
+            "They punish bad behavior",
+            "They replace internal executive function systems with external structures that reduce cognitive load",
+            "They are temporary and build no lasting skills",
+            "They work only for children"
+          ],
+          "correct": 1,
+          "explanation": "External structures (timers, checklists, visual reminders) offload cognitive work from impaired systems, freeing mental resources and building competence. This is the Extended Phenotype principle."
+        },
+        {
+          "id": "m4q2",
+          "question": "Which intervention strategy directly addresses problems with task initiation?",
+          "options": [
+            "Making the task seem harder",
+            "Breaking tasks into small, visible steps and adding external motivation/accountability",
+            "Ignoring the problem",
+            "Blaming the client for laziness"
+          ],
+          "correct": 1,
+          "explanation": "Task initiation problems are addressed by reducing the perception of task difficulty (breaking it down), adding external supports, and providing accountability or motivation from outside the person."
+        },
+        {
+          "id": "m4q3",
+          "question": "What is a 'working memory dump'?",
+          "options": [
+            "A psychological disorder",
+            "Externally offloading thoughts, to-dos, and ideas onto paper or digital systems so they don't consume mental energy",
+            "A way to organize a cluttered workspace",
+            "A form of meditation"
+          ],
+          "correct": 1,
+          "explanation": "A working memory dump (or 'brain dump') is a technique where the client records all thoughts, worries, and to-dos externally. This reduces cognitive load and anxiety."
+        },
+        {
+          "id": "m4q4",
+          "question": "Which Brown cluster would be most affected by poor emotional regulation in a coaching session?",
+          "options": [
+            "Activation",
+            "Focus",
+            "Effort",
+            "Emotion"
+          ],
+          "correct": 3,
+          "explanation": "Brown identifies 'Emotion' as one of six executive function clusters. Poor emotional regulation can derail coaching progress and require targeted interventions."
+        },
+        {
+          "id": "m4q5",
+          "question": "True or False: Accountability in EF coaching means shaming or punishing the client for not completing tasks.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct": 1,
+          "explanation": "False. Accountability in coaching means creating structures where the client reports progress and is supported to problem-solve obstacles—not shamed. It's supportive, not punitive."
+        }
+      ]
+    },
+    "module-5": {
+      "title": "Module 5: Strategic Interventions & Special Populations",
+      "description": "Demonstrate your ability to adapt coaching for diverse populations and complex cases.",
+      "questions": [
+        {
+          "id": "m5q1",
+          "question": "Why might a coaching approach designed for a college-age student be ineffective for an adult with EF deficits?",
+          "options": [
+            "Adults don't benefit from coaching",
+            "Different life contexts (workplace vs. academic), different priorities, and different support systems require adapted strategies",
+            "Only children respond to structure",
+            "Adults are too resistant to change"
+          ],
+          "correct": 1,
+          "explanation": "Effective coaching is adapted to the client's developmental stage, life context, and priorities. Workplace accountability looks different from academic accountability."
+        },
+        {
+          "id": "m5q2",
+          "question": "When coaching someone with comorbid anxiety and EF deficits, which should be addressed first?",
+          "options": [
+            "Always start with anxiety",
+            "Always start with EF",
+            "Work together or address whichever creates the most immediate barrier to functioning",
+            "Never address both simultaneously"
+          ],
+          "correct": 2,
+          "explanation": "The approach depends on which issue is creating the primary barrier. Sometimes anxiety management is needed before EF coaching can be effective; sometimes the reverse is true."
+        },
+        {
+          "id": "m5q3",
+          "question": "What is the role of 'time bridging' in coaching someone with severe time blindness?",
+          "options": [
+            "Ignoring the time blindness",
+            "Using external tools and frequent check-ins to create artificial structures that help the client perceive time passage",
+            "Forcing the client to use only internal time awareness",
+            "Accepting that nothing can be done"
+          ],
+          "correct": 1,
+          "explanation": "Time bridging uses alarms, timers, visual schedules, and frequent coach contact to create external awareness of time passage. Over time, this can help develop a more accurate internal sense of time."
+        },
+        {
+          "id": "m5q4",
+          "question": "Why might someone with EF deficits struggle more with open-ended vs. structured environments?",
+          "options": [
+            "They are lazy",
+            "They lack willpower",
+            "Open-ended environments require stronger executive function to self-initiate and self-regulate without external structure",
+            "There is no difference"
+          ],
+          "correct": 2,
+          "explanation": "Open-ended environments with no external structure place full responsibility on internal executive function systems. Structured environments provide scaffolding. This is why coaching is so effective—it provides external structure."
+        },
+        {
+          "id": "m5q5",
+          "question": "When coaching parents of children with EF deficits, what is a key principle?",
+          "options": [
+            "Parents should provide no structure",
+            "Parents should provide heavy external scaffolding and gradually remove it as the child develops capacity",
+            "Parents should minimize limits",
+            "Only individual coaching works; family coaching is ineffective"
+          ],
+          "correct": 1,
+          "explanation": "Parent coaching focuses on helping families provide appropriately structured environments while gradually building the child's independence. This is scaffolding in practice."
+        }
+      ]
+    },
+    "module-6": {
+      "title": "Module 6: Professional Ethics & Practice Management",
+      "description": "Test your understanding of ethical coaching practice and business fundamentals.",
+      "questions": [
+        {
+          "id": "m6q1",
+          "question": "What is the primary ethical distinction between coaching and therapy?",
+          "options": [
+            "Therapy is more effective",
+            "Coaching focuses on skill-building and goal achievement; therapy addresses underlying emotional/psychological issues",
+            "There is no distinction",
+            "Coaches have no ethical obligations"
+          ],
+          "correct": 1,
+          "explanation": "While there is overlap, coaching is future-focused and goal-oriented, while therapy typically addresses past trauma and underlying pathology. Coaches need clear boundaries and referral relationships."
+        },
+        {
+          "id": "m6q2",
+          "question": "True or False: An EF coach can diagnose ADHD or other neurodevelopmental conditions.",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correct": 1,
+          "explanation": "False. Coaches are not diagnosticians. While they assess executive function patterns, diagnosis requires a qualified healthcare provider. Coaches should know when to refer."
+        },
+        {
+          "id": "m6q3",
+          "question": "What should an EF coach do if a client reveals they are suicidal?",
+          "options": [
+            "Continue coaching normally",
+            "Immediately refer to mental health crisis services and do not continue coaching",
+            "Tell the client they'll be fine",
+            "Keep it confidential without telling anyone"
+          ],
+          "correct": 1,
+          "explanation": "Suicidal ideation is beyond the scope of coaching and requires immediate professional mental health intervention. The coach should stop coaching and facilitate referral."
+        },
+        {
+          "id": "m6q4",
+          "question": "What is meant by 'scope of practice' in professional coaching?",
+          "options": [
+            "The coach can do anything the client requests",
+            "The coach should only work within areas of training and competence, avoiding diagnosis, therapy, and medical advice",
+            "Scope of practice doesn't matter",
+            "Every coach should do everything"
+          ],
+          "correct": 1,
+          "explanation": "Scope of practice defines the boundaries of what a coach is trained to do. Working outside scope is unethical and potentially harmful."
+        },
+        {
+          "id": "m6q5",
+          "question": "Why is a signed coaching agreement important?",
+          "options": [
+            "It's not important",
+            "It clarifies expectations, confidentiality limits, fees, and the coach-client relationship structure",
+            "It gives the coach unlimited authority",
+            "It only protects the client, not the coach"
+          ],
+          "correct": 1,
+          "explanation": "A coaching agreement sets clear expectations and protects both coach and client by establishing boundaries, payment terms, confidentiality, and scope."
+        },
+        {
+          "id": "m6q6",
+          "question": "What is 'informed consent' in coaching?",
+          "options": [
+            "The client signs whatever the coach requires",
+            "The coach makes all decisions",
+            "The client agrees to coaching after understanding what coaching is, its limitations, and any risks or alternative options",
+            "Consent is not necessary in coaching"
+          ],
+          "correct": 2,
+          "explanation": "Informed consent means the client enters coaching with full understanding of what it is, what to expect, limitations, and confidentiality. This is essential for ethical practice."
+        },
+        {
+          "id": "m6q7",
+          "question": "What should you do if a client asks you to maintain confidentiality about something that suggests child abuse or neglect?",
+          "options": [
+            "Honor the confidentiality request",
+            "You are mandated to report suspected abuse/neglect to authorities, regardless of client request",
+            "It depends on your mood",
+            "Only tell the coach supervisor, not authorities"
+          ],
+          "correct": 1,
+          "explanation": "Most jurisdictions require coaches to report suspected child abuse/neglect. This is a legal and ethical obligation that supersedes confidentiality agreements."
+        }
+      ]
+    }
+  }
+}
