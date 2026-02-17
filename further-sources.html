@@ -63,11 +63,50 @@
         <div class="card" style="margin-bottom:var(--space-xl);">
           <h3>Video Accessibility Metadata</h3>
           <p style="margin-bottom:var(--space-sm);">For each external video reference, verify captions and transcript availability before assigning it as optional reading support.</p>
+          <p style="font-size:0.9rem;color:var(--color-text-light);margin-bottom:var(--space-sm);">Operational manifest: <code>data/video-library.json</code> (validated in release gate).</p>
           <ul class="checklist">
             <li>Enable YouTube closed captions and manually review terminology accuracy.</li>
             <li>If captions are weak, attach a short text brief in module notes before recommending the clip.</li>
             <li>If no transcript exists, treat the video as supplemental only and pair with a written source.</li>
           </ul>
+          <div class="table-wrapper" style="margin-top:var(--space-md);">
+            <table>
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>Captions</th>
+                  <th>Transcript Path</th>
+                  <th>Fallback Reading</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1B Inhibition, Impulsivity, Emotion</td>
+                  <td>Auto/manual YouTube CC check required</td>
+                  <td>Use YouTube transcript pane and save excerpt notes</td>
+                  <td>Barkley EF/SR fact sheet PDF</td>
+                </tr>
+                <tr>
+                  <td>5A ADHD is Time Blindness</td>
+                  <td>Auto/manual YouTube CC check required</td>
+                  <td>Use YouTube transcript pane and save excerpt notes</td>
+                  <td>Barkley temporal discounting summaries in Module 1 notes</td>
+                </tr>
+                <tr>
+                  <td>7B The 30% Rule</td>
+                  <td>Auto/manual YouTube CC check required</td>
+                  <td>Use YouTube transcript pane and save excerpt notes</td>
+                  <td>EFI age-calibration notes + module citations</td>
+                </tr>
+                <tr>
+                  <td>9C Avoid Ineffective Treatments</td>
+                  <td>Auto/manual YouTube CC check required</td>
+                  <td>Use YouTube transcript pane and save excerpt notes</td>
+                  <td>Barkley book chapter + evidence filter section</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="content-hub-grid">

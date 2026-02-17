@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Community Hub | EFI</title><meta name="description" content="Forum recap hub for EFI community discussions and scope-of-practice FAQs." /><link rel="canonical" href="https://executivefunctioninginstitute.com/community.html" /><link rel="stylesheet" href="css/styles.css" /></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Hub | EFI</title>
+  <meta name="description" content="Community recap archive for EFI practitioners covering scope, billing, school coaching, and adult coaching implementation issues." />
+  <link rel="canonical" href="https://executivefunctioninginstitute.com/community.html" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
 <nav class="nav" role="navigation" aria-label="Main navigation"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Functioning Institute</span></a><div class="nav__links" id="nav-links"><a href="index.html" class="nav__link">Home</a><a href="coach-directory.html" class="nav__link">Directory</a><a href="scope-of-practice.html" class="nav__link">Scope</a><a href="resources.html" class="nav__link">Resources</a><a href="store.html#interest-form" class="nav__link nav__link--cta">Show Interest</a></div><button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false"></button></div></nav>
@@ -7,4 +15,43 @@
 <main id="main-content"><section class="section"><div class="container content-hub-grid"><article class="hub-card"><h3>Scope of Practice FAQ Recap</h3><p>How to distinguish coaching from therapy in language, referral decisions, and documentation.</p><a class="btn btn--secondary btn--sm" href="scope-of-practice.html">Open Recap</a></article><article class="hub-card"><h3>Session Cadence Patterns</h3><p>Peer-tested weekly and biweekly cadence structures by client profile and school load.</p><a class="btn btn--secondary btn--sm" href="module-c-interventions.html">Apply Frameworks</a></article><article class="hub-card"><h3>Offer Design Thread Digest</h3><p>Pricing bands, package architecture, and ethical marketing templates for first-year coaches.</p><a class="btn btn--secondary btn--sm" href="teacher-to-coach.html">Business Path</a></article></div></section></main>
 <footer class="footer"><div class="container"><div class="footer__bottom"><span>© 2026 Executive Functioning Institute</span></div></div></footer>
 <script src="js/main.js"></script>
-</body></html>
+<script>
+(function () {
+  var form = document.getElementById('community-question-form');
+  if (!form) return;
+  var status = document.getElementById('community-status');
+  function setStatus(message) {
+    if (status) status.textContent = message || '';
+  }
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var payload = {
+      topic: document.getElementById('community-topic').value,
+      priority: document.getElementById('community-priority').value,
+      question: document.getElementById('community-question').value,
+      consent: !!document.getElementById('community-consent').checked
+    };
+    setStatus('Submitting...');
+    fetch('/api/community-question', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (!res.ok || data.ok === false) throw new Error(data.error || 'Unable to submit question');
+          return data;
+        });
+      })
+      .then(function () {
+        form.reset();
+        setStatus('Question captured for monthly recap review.');
+      })
+      .catch(function (err) {
+        setStatus(err.message || 'Unable to submit question.');
+      });
+  });
+})();
+</script>
+</body>
+</html>
