@@ -63,7 +63,7 @@
           </div>
         </form>
         <p class="text-center" style="margin-top:var(--space-lg);color:var(--color-text-muted);">
-          Don't have an account? <a href="#" id="show-register" style="color:var(--color-primary);font-weight:600;">Create one</a>
+          Don't have an account? <button type="button" id="show-register" style="color:var(--color-primary);font-weight:600;background:none;border:none;cursor:pointer;font-size:inherit;padding:0;">Create one</button>
         </p>
       </div>
 
@@ -93,7 +93,7 @@
           </div>
         </form>
         <p class="text-center" style="margin-top:var(--space-lg);color:var(--color-text-muted);">
-          Already have an account? <a href="#" id="show-login" style="color:var(--color-primary);font-weight:600;">Log in</a>
+          Already have an account? <button type="button" id="show-login" style="color:var(--color-primary);font-weight:600;background:none;border:none;cursor:pointer;font-size:inherit;padding:0;">Log in</button>
         </p>
       </div>
     </div>
@@ -134,14 +134,12 @@
     var loginPanel = document.getElementById('login-panel');
     var registerPanel = document.getElementById('register-panel');
 
-    document.getElementById('show-register').addEventListener('click', function(e) {
-      e.preventDefault();
+    document.getElementById('show-register').addEventListener('click', function() {
       loginPanel.style.display = 'none';
       registerPanel.style.display = 'block';
     });
 
-    document.getElementById('show-login').addEventListener('click', function(e) {
-      e.preventDefault();
+    document.getElementById('show-login').addEventListener('click', function() {
       registerPanel.style.display = 'none';
       loginPanel.style.display = 'block';
     });

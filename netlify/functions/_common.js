@@ -10,7 +10,10 @@ function json(statusCode, body) {
     statusCode,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store'
+      'Cache-Control': 'no-store',
+      'Access-Control-Allow-Origin': requiredEnv('EFI_CORS_ORIGIN') || '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-EFI-Admin-Key'
     },
     body: JSON.stringify(body)
   };

@@ -13,7 +13,8 @@ exports.handler = async function (event) {
   if (!ASSET_MAP[asset]) return { statusCode: 404, body: 'Unknown asset' };
   if (!exp || Math.floor(Date.now() / 1000) > exp) return { statusCode: 410, body: 'Link expired' };
 
-  const secret = requiredEnv('EFI_DOWNLOAD_SIGNING_SECRET') || 'dev-signing-secret-change-in-production';
+  const secret = requiredEnv('EFI_DOWNLOAD_SIGNING_SECRET');
+  if (!secret) return { statusCode: 500, body: 'Download signing is not configured' };
   const payload = `${asset}:${exp}`;
   if (!verifySignature(payload, sig, secret)) return { statusCode: 403, body: 'Invalid signature' };
 

@@ -4,13 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout | The Executive Functioning Institute</title>
-  <meta name="description" content="Complete your purchase of EFI certification services.">
+  <meta name="description" content="Checkout is not yet available. Paid certification services are coming soon.">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="favicon.svg">
-  <meta property="og:title" content="Checkout | The Executive Functioning Institute">
-  <meta property="og:description" content="Complete your purchase of EFI certification services.">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="The Executive Functioning Institute">
   <link rel="canonical" href="https://executivefunctioninginstitute.com/checkout.html" />
 </head>
 <body>
@@ -22,11 +18,9 @@
       <a href="index.html" class="nav__logo"><div class="nav__logo-icon">EFI</div><span>Executive Functioning Institute</span></a>
       <div class="nav__links" id="nav-links">
         <a href="index.html" class="nav__link">Home</a>
-        <a href="about.html" class="nav__link">About</a>
         <a href="curriculum.html" class="nav__link">Curriculum</a>
         <a href="store.html" class="nav__link">Store</a>
         <span class="nav__auth"></span>
-        <a href="enroll.html" class="nav__link nav__link--cta">Enroll Now</a>
       </div>
       <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -36,96 +30,14 @@
 
   <main id="main-content">
 
-  <header class="page-header">
-    <div class="container">
-      <nav aria-label="Breadcrumb"><ol class="breadcrumb"><li><a href="index.html">Home</a></li> <li><a href="store.html">Store</a></li> <li aria-current="page">Checkout</li></ol></nav>
-      <h1>Checkout</h1>
-      <p>Complete your purchase to access your selected certification services.</p>
-    </div>
-  </header>
-
-  <!-- Checkout Form -->
-  <section class="section" id="checkout-section">
-    <div class="container">
-      <div class="grid grid--2" style="gap:var(--space-3xl);align-items:start;">
-
-        <!-- Payment Form -->
-        <div id="payment-form-wrapper">
-          <h2>Payment Details</h2>
-          <p style="color:var(--color-text-muted);margin-bottom:var(--space-xl);">Please log in or create an account to complete your purchase.</p>
-
-          <div id="auth-gate" style="display:none;">
-            <div class="callout callout--accent">
-              <p class="callout__label">Account Required</p>
-              <p>You need to be logged in to complete a purchase. Your order will be saved to your account.</p>
-            </div>
-            <a href="login.html?redirect=checkout.html" class="btn btn--primary btn--lg" style="margin-top:var(--space-lg);">Log In or Create Account</a>
-          </div>
-
-          <form id="checkout-form" style="display:none;">
-            <div id="user-greeting" class="callout" style="margin-bottom:var(--space-xl);"></div>
-
-            <h3 style="margin-bottom:var(--space-lg);">Card Information</h3>
-            <div class="form-group">
-              <label for="card-name">Name on Card</label>
-              <input type="text" id="card-name" class="form-control" placeholder="Full name as shown on card" autocomplete="cc-name" required>
-            </div>
-            <div class="form-group">
-              <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456" autocomplete="cc-number" maxlength="19" required>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md);">
-              <div class="form-group">
-                <label for="card-expiry">Expiry Date</label>
-                <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY" autocomplete="cc-exp" maxlength="5" required>
-              </div>
-              <div class="form-group">
-                <label for="card-cvc">CVC</label>
-                <input type="text" id="card-cvc" class="form-control" placeholder="123" autocomplete="cc-csc" maxlength="4" required>
-              </div>
-            </div>
-
-            <p id="checkout-error" class="esqr-error" role="alert" hidden></p>
-
-            <button type="submit" class="btn btn--primary btn--lg" id="pay-btn" style="width:100%;margin-top:var(--space-lg);">Complete Purchase</button>
-
-            <p style="font-size:0.8rem;color:var(--color-text-muted);margin-top:var(--space-md);text-align:center;">
-              This is a demo checkout. No real payment will be processed. Card details are not stored or transmitted.
-            </p>
-          </form>
-        </div>
-
-        <!-- Order Summary -->
-        <div>
-          <h2>Order Summary</h2>
-          <div class="card" style="border-top:4px solid var(--color-primary);margin-top:var(--space-lg);">
-            <div id="order-items"></div>
-            <div id="order-empty" class="text-center" style="padding:var(--space-xl) 0;color:var(--color-text-muted);">
-              <p>Your cart is empty.</p>
-              <a href="store.html" class="btn btn--secondary btn--sm" style="margin-top:var(--space-md);">Browse Store</a>
-            </div>
-            <div id="order-summary" style="display:none;border-top:2px solid var(--color-border);padding-top:var(--space-lg);margin-top:var(--space-lg);">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-weight:600;">Total</span>
-                <span id="order-total" style="font-size:1.5rem;font-weight:700;color:var(--color-heading);"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Success Message (hidden) -->
-  <section class="section" id="checkout-success" style="display:none;min-height:50vh;">
+  <section class="section" style="min-height:60vh;display:flex;align-items:center;">
     <div class="container container--narrow text-center">
-      <div style="font-size:4rem;margin-bottom:var(--space-lg);">&#9989;</div>
-      <h2 style="color:var(--color-accent);">Purchase Complete!</h2>
-      <p class="lead" id="success-message">Your order has been processed successfully.</p>
-      <div id="success-details" class="card" style="margin-top:var(--space-xl);text-align:left;"></div>
-      <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;margin-top:var(--space-2xl);">
-        <a href="dashboard.html" class="btn btn--primary btn--lg">Go to Dashboard</a>
-        <a href="store.html" class="btn btn--secondary btn--lg">Continue Shopping</a>
+      <h1>Checkout Not Yet Available</h1>
+      <p class="lead" style="margin-top:var(--space-lg);">Paid certification services are coming soon. We are not yet accepting payments.</p>
+      <p style="color:var(--color-text-muted);">In the meantime, explore the free curriculum or show your interest in upcoming services.</p>
+      <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;margin-top:var(--space-xl);">
+        <a href="store.html#interest-form" class="btn btn--primary btn--lg">Show My Interest</a>
+        <a href="curriculum.html" class="btn btn--secondary btn--lg">View Free Curriculum</a>
       </div>
     </div>
   </section>
@@ -134,15 +46,6 @@
 
   <footer class="footer">
     <div class="container">
-      <div class="footer__grid">
-        <div class="footer__brand">
-          <a href="index.html" class="nav__logo" style="color:var(--color-white);"><div class="nav__logo-icon">EFI</div><span>Executive Functioning Institute</span></a>
-          <p>An open-source program providing rigorous, science-based Executive Function Coaching Certification grounded in neuroscience and evidence-based practice.</p>
-        </div>
-        <div><h4>Program</h4><ul class="footer__links"><li><a href="curriculum.html">Curriculum</a></li><li><a href="certification.html">Certification</a></li><li><a href="resources.html">Resources</a></li><li><a href="enroll.html">Enroll</a></li></ul></div>
-        <div><h4>Modules</h4><ul class="footer__links"><li><a href="module-1.html">Neuropsychology</a></li><li><a href="module-2.html">Assessment</a></li><li><a href="module-3.html">Coaching Framework</a></li><li><a href="module-4.html">Applied Methods</a></li><li><a href="module-5.html">Special Populations</a></li><li><a href="module-6.html">Professional Practice</a></li></ul></div>
-        <div><h4>Learn More</h4><ul class="footer__links"><li><a href="about.html">About EFI</a></li><li><a href="about.html#models">Theoretical Models</a></li><li><a href="resources.html#reading">Reading Packets</a></li><li><a href="https://github.com/jacobpopcantstop/TheExecutiveFunctioningInstitute" target="_blank" rel="noopener">GitHub</a></li></ul></div>
-      </div>
       <div class="footer__bottom">
         <span>The Executive Functioning Institute &mdash; Open-Source Education</span>
         <span>Built on the research of Barkley, Brown, Dawson &amp; Guare, and Ward</span>
@@ -153,123 +56,5 @@
   <button type="button" class="back-to-top" aria-label="Back to top">&#8593;</button>
   <script src="js/auth.js"></script>
   <script src="js/main.js"></script>
-  <script>
-  (function() {
-    var cart = EFI.Auth.getCart();
-    var loggedIn = EFI.Auth.isLoggedIn();
-    var authGate = document.getElementById('auth-gate');
-    var checkoutForm = document.getElementById('checkout-form');
-    var orderItems = document.getElementById('order-items');
-    var orderEmpty = document.getElementById('order-empty');
-    var orderSummary = document.getElementById('order-summary');
-
-    // Show appropriate form state
-    if (!loggedIn) {
-      authGate.style.display = 'block';
-      checkoutForm.style.display = 'none';
-    } else {
-      authGate.style.display = 'none';
-      checkoutForm.style.display = 'block';
-      var user = EFI.Auth.getCurrentUser();
-      document.getElementById('user-greeting').innerHTML = '<p style="margin-bottom:0;">Purchasing as <strong>' + (user ? user.name : '') + '</strong> (' + (user ? user.email : '') + ')</p>';
-      document.getElementById('card-name').value = user ? user.name : '';
-    }
-
-    // Render order items
-    if (cart.length === 0) {
-      orderEmpty.style.display = 'block';
-      orderItems.style.display = 'none';
-      orderSummary.style.display = 'none';
-    } else {
-      orderEmpty.style.display = 'none';
-      var html = '';
-      cart.forEach(function(item) {
-        html += '<div style="display:flex;justify-content:space-between;padding:var(--space-sm) 0;border-bottom:1px solid var(--color-border);">';
-        html += '<span>' + item.name + '</span>';
-        html += '<span style="font-weight:700;">$' + item.price + '</span>';
-        html += '</div>';
-      });
-      orderItems.innerHTML = html;
-      orderSummary.style.display = 'block';
-      document.getElementById('order-total').textContent = '$' + EFI.Auth.getCartTotal();
-    }
-
-    // Card number formatting
-    var cardInput = document.getElementById('card-number');
-    cardInput.addEventListener('input', function() {
-      var val = this.value.replace(/\D/g, '').substring(0, 16);
-      var formatted = val.replace(/(.{4})/g, '$1 ').trim();
-      this.value = formatted;
-    });
-
-    // Expiry formatting
-    var expiryInput = document.getElementById('card-expiry');
-    expiryInput.addEventListener('input', function() {
-      var val = this.value.replace(/\D/g, '').substring(0, 4);
-      if (val.length > 2) val = val.substring(0, 2) + '/' + val.substring(2);
-      this.value = val;
-    });
-
-    // Submit
-    checkoutForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var errEl = document.getElementById('checkout-error');
-      errEl.hidden = true;
-
-      if (cart.length === 0) {
-        errEl.textContent = 'Your cart is empty.';
-        errEl.hidden = false;
-        return;
-      }
-
-      var cardNum = cardInput.value.replace(/\s/g, '');
-      if (cardNum.length < 13) {
-        errEl.textContent = 'Please enter a valid card number.';
-        errEl.hidden = false;
-        return;
-      }
-
-      // Simulate processing
-      var btn = document.getElementById('pay-btn');
-      btn.textContent = 'Processing...';
-      btn.disabled = true;
-
-      setTimeout(function() {
-        Promise.resolve(EFI.Auth.addPurchase(cart)).then(function (purchase) {
-          document.getElementById('checkout-section').style.display = 'none';
-          var successEl = document.getElementById('checkout-success');
-          successEl.style.display = 'block';
-
-          var detailHtml = '<p><strong>Order ID:</strong> ' + purchase.id.toUpperCase() + '</p>';
-          detailHtml += '<p><strong>Date:</strong> ' + new Date(purchase.date).toLocaleDateString() + '</p>';
-          detailHtml += '<p><strong>Items:</strong></p><ul>';
-          purchase.items.forEach(function(item) {
-            detailHtml += '<li>' + item.name + ' &mdash; $' + item.price + '</li>';
-          });
-          detailHtml += '</ul>';
-          detailHtml += '<p style=\"font-weight:700;font-size:1.1rem;margin-top:var(--space-md);\">Total: $' + purchase.total + '</p>';
-
-          if (purchase.items.some(function(i) { return i.id === 'certificate'; })) {
-            detailHtml += '<div style=\"margin-top:var(--space-lg);padding-top:var(--space-lg);border-top:1px solid var(--color-border);\">';
-            detailHtml += '<a href=\"certificate.html\" class=\"btn btn--primary\">View Your Certificate</a>';
-            detailHtml += '</div>';
-          }
-
-          if (purchase.items.some(function(i) { return i.id === 'certificate-frame'; })) {
-            detailHtml += '<p style=\"margin-top:var(--space-md);color:var(--color-text-muted);\">Framed fulfillment ordered. Shipping coordination details will appear in your dashboard purchase history.</p>';
-          }
-
-          document.getElementById('success-details').innerHTML = detailHtml;
-          successEl.scrollIntoView({ behavior: 'smooth' });
-        }).catch(function (err) {
-          btn.disabled = false;
-          btn.textContent = 'Complete Purchase';
-          errEl.textContent = err && err.message ? err.message : 'Payment verification failed.';
-          errEl.hidden = false;
-        });
-      }, 900);
-    });
-  })();
-  </script>
 </body>
 </html>
