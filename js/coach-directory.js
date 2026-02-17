@@ -55,6 +55,12 @@
     return matchesQuery && matchesSpecialty && matchesMode;
   }
 
+  function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(String(str || '')));
+    return div.innerHTML;
+  }
+
   function formatDelivery(modes) {
     if (!Array.isArray(modes) || !modes.length) return 'Not listed';
     return modes.map(function (mode) {
@@ -74,14 +80,14 @@
 
     body.innerHTML = filtered.map(function (record) {
       var profile = record.website
-        ? '<a href="' + record.website + '" target="_blank" rel="noopener">Profile</a>'
+        ? '<a href="' + escapeHTML(record.website) + '" target="_blank" rel="noopener">Profile</a>'
         : '<a href="verify.html?credential=' + encodeURIComponent(record.credential_id) + '">Verify ID</a>';
-      var location = [record.city, record.state, record.zip].filter(Boolean).join(', ');
+      var location = [record.city, record.state, record.zip].filter(Boolean).map(escapeHTML).join(', ');
       return (
         '<tr>' +
-          '<td><strong>' + record.name + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + record.credential_id + '</span></td>' +
+          '<td><strong>' + escapeHTML(record.name) + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + escapeHTML(record.credential_id) + '</span></td>' +
           '<td>' + location + '</td>' +
-          '<td>' + record.specialty + '</td>' +
+          '<td>' + escapeHTML(record.specialty) + '</td>' +
           '<td>' + formatDelivery(record.delivery_modes) + '</td>' +
           '<td>' + profile + '</td>' +
         '</tr>'

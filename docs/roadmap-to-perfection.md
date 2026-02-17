@@ -10,9 +10,11 @@
 
 The Executive Functioning Institute site is a **well-architected educational platform** built with vanilla HTML/CSS/JS on a Netlify serverless backend with Supabase persistence. Across 18 development waves, the project has achieved solid foundational coverage: 45 content pages, 10 API endpoints, CI/CD quality gates, RBAC, AI-powered grading, Stripe integration scaffolding, and a coach directory with moderation.
 
-**Current maturity: ~75% production-ready.**
+**Current maturity: ~80% production-ready.**
 
-This roadmap identifies **47 discrete deliverables** across **6 phases**, prioritized by impact and dependency order. Each phase is designed to be independently shippable.
+**Decision (2026-02-17): Paid services deferred.** Store, enrollment, and checkout pages converted to "Coming Soon" with interest capture form. Stripe integration, payment flows, and checkout UX are postponed to a future deployment. The interest form routes through the existing `/api/leads` endpoint to collect demand signals before building payment infrastructure.
+
+This roadmap identifies deliverables across **6 phases**, prioritized by impact and dependency order. Each phase is designed to be independently shippable.
 
 ---
 
@@ -37,16 +39,16 @@ This roadmap identifies **47 discrete deliverables** across **6 phases**, priori
 
 ---
 
-## Phase 1: Security Hardening (CRITICAL — Do First)
+## Phase 1: Security Hardening (CRITICAL — Do First) — MOSTLY COMPLETE
 
 *Goal: Eliminate all exploitable vulnerabilities before any further public exposure.*
 
-### 1.1 Sanitize all innerHTML insertions against XSS
+### 1.1 ~~Sanitize all innerHTML insertions against XSS~~ DONE
 - **Files:** `js/coach-directory.js:75-89`, `js/admin-directory.js:42-76,150-152`, `js/main.js` (15+ locations), `js/esqr.js` (5 locations)
 - **Action:** Create a shared `escapeHTML()` utility; apply to every dynamic value rendered via innerHTML (coach names, user data, directory fields). Alternatively, refactor to use `textContent` or DOM APIs where possible.
 - **Severity:** HIGH — User-submitted coach directory data flows directly into innerHTML.
 
-### 1.2 Remove hardcoded fallback signing secrets
+### 1.2 ~~Remove hardcoded fallback signing secrets~~ DONE
 - **Files:** `netlify/functions/sign-download.js:16`, `netlify/functions/download-file.js:16`
 - **Current:** `|| 'dev-signing-secret-change-in-production'` fallback after `requiredEnv()`.
 - **Action:** Remove the `||` fallback entirely. If `EFI_DOWNLOAD_SIGNING_SECRET` is missing, the function should return 500, not silently use a known secret.
@@ -58,7 +60,7 @@ This roadmap identifies **47 discrete deliverables** across **6 phases**, priori
 - **Action:** Require authenticated session (Supabase JWT or managed token) and validate that `email` in the request body matches the authenticated user.
 - **Severity:** HIGH — Data integrity risk.
 
-### 1.4 Add input validation on submissions endpoint
+### 1.4 ~~Add input validation on submissions endpoint~~ DONE
 - **File:** `netlify/functions/submissions.js:33-42`
 - **Missing:** URL format validation on `evidence_url`, length limits on `notes`, allowlist for `kind` values (`module`|`capstone`), allowlist for `module_id` (1-6).
 - **Action:** Add validation; reject malformed input with 400.
@@ -78,33 +80,24 @@ This roadmap identifies **47 discrete deliverables** across **6 phases**, priori
 
 ---
 
-## Phase 2: Payment & Commerce Completion
+## Phase 2: Payment & Commerce Completion — DEFERRED
 
-*Goal: Make the paid certification path actually work end-to-end.*
+> **Status: Deferred to future deployment.** Store, enroll, and checkout pages have been converted to "Coming Soon" with interest capture forms. The interest form collects name, email, role, service preferences, and notes via `/api/leads`. Once sufficient demand signal is gathered, this phase will be activated.
 
-### 2.1 Implement Stripe Checkout / Payment Element in frontend
-- **File:** `checkout.html`, new `js/checkout.js`
-- **Current:** Checkout form exists in HTML but has no Stripe.js integration. Card fields are plain HTML inputs.
-- **Action:** Integrate Stripe Elements or redirect to Stripe Checkout. Create payment intents via a new `/api/create-checkout` endpoint.
+### Deferred items (preserved for future reference):
+- 2.1 Implement Stripe Checkout / Payment Element in frontend
+- 2.2 Set `EFI_STRIPE_ENFORCE=true` as production default
+- 2.3 Wire Stripe webhook to production endpoint
+- 2.4 Add payment success/failure UX flow
+- 2.5 Add refund/cancellation policy copy
 
-### 2.2 Set `EFI_STRIPE_ENFORCE=true` as production default
-- **File:** `netlify/functions/verify.js:125`
-- **Current:** Default mode is `server_signed` (bypasses Stripe). Production requires explicit env var.
-- **Action:** Flip default to `stripe_required`; make `server_signed` the opt-in dev mode. Update documentation.
+### Completed replacement:
+- Store page → "Coming Soon" with interest capture form
+- Enroll page → "Coming Soon" redirecting to interest form
+- Checkout page → "Not Yet Available" redirect page
+- Nav CTA changed from "Enroll" to "Show Interest"
 
-### 2.3 Wire Stripe webhook to production endpoint
-- **File:** `netlify/functions/stripe-webhook.js`
-- **Action:** Configure webhook URL in Stripe Dashboard. Set `STRIPE_WEBHOOK_SECRET` in Netlify env. Remove `EFI_WEBHOOK_DEMO_SECRET` fallback from production.
-
-### 2.4 Add payment success/failure UX flow
-- **Files:** `checkout.html`, `dashboard.html`
-- **Action:** After successful payment, redirect to dashboard with confirmation. Handle declined cards, expired sessions, and webhook delays gracefully.
-
-### 2.5 Add refund/cancellation policy copy
-- **Files:** `terms.html`, `store.html`
-- **Action:** Add explicit digital service refund policy (required for Stripe compliance and consumer trust).
-
-**Phase 2 Deliverables: 5 items | Estimated complexity: High**
+**Phase 2 Deliverables: DEFERRED | Interest capture form: SHIPPED**
 
 ---
 
@@ -343,13 +336,18 @@ This roadmap identifies **47 discrete deliverables** across **6 phases**, priori
 
 ---
 
-## Quick Wins (Can ship today in <1 hour each)
+## Quick Wins — ALL SHIPPED (2026-02-17)
 
-1. Add `.gitignore` (Phase 5.5)
-2. Add meta descriptions to 5 pages (Phase 4.1)
-3. Fix `href="#"` placeholder links (Phase 4.3)
-4. Remove hardcoded fallback signing secrets (Phase 1.2)
-5. Add input validation to submissions endpoint (Phase 1.4)
+1. ~~Add `.gitignore`~~ DONE
+2. ~~Add meta descriptions to 5 pages~~ DONE
+3. ~~Fix `href="#"` placeholder links~~ DONE
+4. ~~Remove hardcoded fallback signing secrets~~ DONE
+5. ~~Add input validation to submissions endpoint~~ DONE
+6. ~~XSS sanitization on innerHTML~~ DONE
+7. ~~CORS headers on API responses~~ DONE
+8. ~~Replace silent error catches with logging~~ DONE
+9. ~~Remove dead code (4 disabled functions)~~ DONE
+10. ~~Nav CTA: "Enroll" → "Show Interest"~~ DONE
 
 ---
 

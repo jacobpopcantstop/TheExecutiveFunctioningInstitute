@@ -3,6 +3,12 @@
     return document.getElementById(id);
   }
 
+  function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(String(str || '')));
+    return div.innerHTML;
+  }
+
   function setStatus(message) {
     var status = byId('directory-moderation-status');
     if (status) status.textContent = message;
@@ -46,15 +52,15 @@
 
     setStatus(records.length + ' pending listing' + (records.length === 1 ? '' : 's') + ' loaded.');
     body.innerHTML = records.map(function (row) {
-      var location = [row.city, row.state, row.zip].filter(Boolean).join(', ');
+      var location = [row.city, row.state, row.zip].filter(Boolean).map(escapeHTML).join(', ');
       return (
-        '<tr data-directory-id="' + row.id + '">' +
-          '<td><strong>' + (row.name || 'Unknown') + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + (row.credential_id || 'Pending') + '</span></td>' +
+        '<tr data-directory-id="' + escapeHTML(row.id) + '">' +
+          '<td><strong>' + escapeHTML(row.name || 'Unknown') + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + escapeHTML(row.credential_id || 'Pending') + '</span></td>' +
           '<td>' + (location || 'Unspecified') + '</td>' +
-          '<td>' + (row.specialty || 'Unspecified') + '</td>' +
-          '<td>' + (row.verification_status || 'pending') + '</td>' +
-          '<td>' + (row.moderation_status || 'pending') + '</td>' +
-          '<td><input class="form-control js-dir-note" type="text" placeholder="Add moderation note" value="' + (row.moderation_notes || '') + '" /></td>' +
+          '<td>' + escapeHTML(row.specialty || 'Unspecified') + '</td>' +
+          '<td>' + escapeHTML(row.verification_status || 'pending') + '</td>' +
+          '<td>' + escapeHTML(row.moderation_status || 'pending') + '</td>' +
+          '<td><input class="form-control js-dir-note" type="text" placeholder="Add moderation note" value="' + escapeHTML(row.moderation_notes || '') + '" /></td>' +
           '<td>' +
             '<div class="button-group">' +
               '<button type="button" class="btn btn--sm btn--secondary js-dir-approve">Approve</button>' +
@@ -74,15 +80,15 @@
       return;
     }
     body.innerHTML = records.map(function (row) {
-      var status = (row.moderation_status || 'pending') + ' / ' + (row.verification_status || 'pending');
+      var status = escapeHTML((row.moderation_status || 'pending') + ' / ' + (row.verification_status || 'pending'));
       var reviewedAt = row.last_reviewed || row.updated_at || '';
       return (
         '<tr>' +
-          '<td>' + (row.name || 'Unknown') + '</td>' +
+          '<td>' + escapeHTML(row.name || 'Unknown') + '</td>' +
           '<td>' + status + '</td>' +
-          '<td>' + (row.reviewer_email || 'Unassigned') + '</td>' +
-          '<td>' + (reviewedAt ? new Date(reviewedAt).toLocaleString() : 'N/A') + '</td>' +
-          '<td>' + (row.moderation_notes || 'None') + '</td>' +
+          '<td>' + escapeHTML(row.reviewer_email || 'Unassigned') + '</td>' +
+          '<td>' + (reviewedAt ? escapeHTML(new Date(reviewedAt).toLocaleString()) : 'N/A') + '</td>' +
+          '<td>' + escapeHTML(row.moderation_notes || 'None') + '</td>' +
         '</tr>'
       );
     }).join('');

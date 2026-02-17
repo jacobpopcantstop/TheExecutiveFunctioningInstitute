@@ -39,7 +39,12 @@ async function submit(body) {
 
   if (!email || !email.includes('@')) return json(400, { ok: false, error: 'Valid email is required' });
   if (!evidenceUrl) return json(400, { ok: false, error: 'evidence_url is required' });
+  if (evidenceUrl.length > 2048) return json(400, { ok: false, error: 'evidence_url exceeds maximum length' });
+  if (!/^https?:\/\//i.test(evidenceUrl)) return json(400, { ok: false, error: 'evidence_url must be a valid HTTP(S) URL' });
+  if (notes.length > 5000) return json(400, { ok: false, error: 'notes exceeds maximum length' });
+  if (!['module', 'capstone'].includes(kind)) return json(400, { ok: false, error: 'kind must be module or capstone' });
   if (kind === 'module' && !moduleId) return json(400, { ok: false, error: 'module_id is required for module submissions' });
+  if (kind === 'module' && !['1','2','3','4','5','6'].includes(moduleId)) return json(400, { ok: false, error: 'module_id must be 1-6' });
 
   const graded = await ai.gradeSubmission({
     kind,
@@ -67,7 +72,9 @@ async function submit(body) {
     submissions: {},
     capstone: { status: kind === 'capstone' ? 'submitted' : 'not_submitted' },
     esqrCompleted: false
-  }).catch(() => {});
+  }).catch((err) => {
+    console.error('[EFI] upsertProgress failed for', email, err && err.message);
+  });
 
   return json(200, {
     ok: true,
