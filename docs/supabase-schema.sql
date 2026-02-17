@@ -94,3 +94,28 @@ create table if not exists public.efi_coach_directory (
 create index if not exists idx_efi_coach_directory_visibility on public.efi_coach_directory(verification_status, moderation_status);
 create index if not exists idx_efi_coach_directory_geo on public.efi_coach_directory(state, zip);
 create index if not exists idx_efi_coach_directory_email on public.efi_coach_directory(email);
+
+create table if not exists public.efi_rate_limits (
+  bucket_key text primary key,
+  limit_key text not null,
+  window_start timestamptz not null,
+  count integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+create index if not exists idx_efi_rate_limits_limit_key on public.efi_rate_limits(limit_key);
+create index if not exists idx_efi_rate_limits_window_start on public.efi_rate_limits(window_start);
+
+create table if not exists public.efi_audit_logs (
+  id text primary key,
+  created_at timestamptz not null default now(),
+  actor_role text,
+  actor_email text,
+  action text not null,
+  target_type text,
+  target_id text,
+  ip text,
+  user_agent text,
+  metadata jsonb not null default '{}'::jsonb
+);
+create index if not exists idx_efi_audit_logs_target on public.efi_audit_logs(target_type, target_id);
+create index if not exists idx_efi_audit_logs_created_at on public.efi_audit_logs(created_at);

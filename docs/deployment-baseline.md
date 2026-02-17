@@ -15,18 +15,23 @@
 - Production: serve built/static files behind CDN + HTTPS.
 
 ## 4) Security prerequisites
-- Move auth/session/purchase/certification logic server-side.
-- Enable signed certificate issuance and verification API.
+- Auth/session/purchase/certification logic is server-backed through Netlify Functions + Supabase storage.
+- Signed certificate issuance and verification API is enabled (`/api/verify`).
 
 ## 5) Observability
 - Client telemetry + funnel analytics transport exists (`/api/track-event`); wire webhook targets to CRM/analytics ingestion.
 - Add uptime checks on key pages (`index`, `esqr`, `dashboard`, `verify`).
 - For delayed grading release, run the scheduled function `process-due-feedback` (every 30 minutes) or trigger securely with `x-efi-cron-secret`.
+- Use `/api/ops-config` (privileged) on deployed environments to verify launch-critical env vars.
 
 ## 6) Lead Magnets + Signed Delivery
 - Lead forms now post to `/api/leads` with consent required.
 - Download gates now request signed URLs via `/api/sign-download` and resolve through `/api/download-file`.
 - Rotate signing secret before production cutover and set short expiry windows.
+
+## 7) Community + Directory Operations
+- Community recap intake endpoint: `/api/community-question` (anonymous question capture with rate limiting).
+- Directory CMS endpoint: `/api/coach-directory` with privileged moderation/edit/archive + CSV export support.
 
 ## Security Header Baseline
 - Added `netlify.toml` with strict default headers (CSP, HSTS, XFO, XCTO, Referrer-Policy, Permissions-Policy).

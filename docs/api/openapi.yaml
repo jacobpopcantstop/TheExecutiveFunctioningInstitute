@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: EFI Certification and Funnel API (Draft)
-  version: 0.6.0
+  version: 0.8.0
 servers:
   - url: https://executivefunctioninginstitute.com/api
 paths:
@@ -231,6 +231,22 @@ paths:
           required: false
           schema: { type: integer, enum: [0, 1] }
         - in: query
+          name: moderation_status
+          required: false
+          schema: { type: string, enum: [approved, pending, rejected, archived] }
+        - in: query
+          name: verification_status
+          required: false
+          schema: { type: string, enum: [verified, pending, rejected] }
+        - in: query
+          name: action
+          required: false
+          schema: { type: string, enum: [csrf] }
+        - in: query
+          name: audit
+          required: false
+          schema: { type: integer, enum: [0, 1] }
+        - in: query
           name: q
           required: false
           schema: { type: string }
@@ -246,11 +262,37 @@ paths:
           name: mode
           required: false
           schema: { type: string, enum: [virtual, in-person] }
+        - in: query
+          name: limit
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 500 }
+        - in: query
+          name: offset
+          required: false
+          schema: { type: integer, minimum: 0 }
+        - in: query
+          name: format
+          required: false
+          schema: { type: string, enum: [csv] }
+        - in: query
+          name: export
+          required: false
+          schema: { type: string, enum: [directory, audit] }
+        - in: query
+          name: audit_limit
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 1000 }
       responses:
         '200':
           description: Directory records returned
     post:
       summary: Submit directory listing or moderate listing status
+      parameters:
+        - in: header
+          name: X-EFI-CSRF
+          required: false
+          schema: { type: string }
+          description: Required for privileged mutation actions (moderate_listing, update_listing).
       requestBody:
         required: true
         content:
@@ -261,7 +303,7 @@ paths:
               properties:
                 action:
                   type: string
-                  enum: [submit_listing, moderate_listing, update_listing]
+                  enum: [submit_listing, moderate_listing, update_listing, archive_listing]
                 id: { type: string }
                 name: { type: string }
                 email: { type: string, format: email }
@@ -282,3 +324,44 @@ paths:
       responses:
         '200':
           description: Listing accepted or moderation action applied
+  /ops-config:
+    get:
+      summary: Privileged environment configuration readiness checks for launch operations
+      parameters:
+        - in: header
+          name: Authorization
+          required: false
+          schema: { type: string }
+          description: Bearer token for reviewer/admin role.
+        - in: header
+          name: X-EFI-ADMIN-KEY
+          required: false
+          schema: { type: string }
+          description: Optional admin key override for operations use.
+      responses:
+        '200':
+          description: Configuration checks returned
+        '403':
+          description: Privileged role required
+  /community-question:
+    post:
+      summary: Capture anonymous community implementation questions for recap processing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic, priority, question, consent]
+              properties:
+                topic: { type: string }
+                priority: { type: string, enum: [normal, high] }
+                question: { type: string }
+                consent: { type: boolean }
+      responses:
+        '200':
+          description: Question accepted
+        '400':
+          description: Validation error
+        '429':
+          description: Rate limit exceeded
