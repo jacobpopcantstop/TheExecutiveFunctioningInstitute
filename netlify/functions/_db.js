@@ -10,7 +10,9 @@ const MEM = {
   submissions: new Map(),
   leads: new Map(),
   events: new Map(),
-  directory: new Map()
+  directory: new Map(),
+  rateLimits: new Map(),
+  auditLogs: new Map()
 };
 
 function nowIso() {
@@ -354,12 +356,113 @@ async function saveEvent(evt) {
   return { ok: true, storage: 'memory' };
 }
 
+async function consumeRateLimit(limitKey, windowMs, maxHits) {
+  const now = Date.now();
+  const bucketStart = Math.floor(now / windowMs) * windowMs;
+  const bucketKey = `${String(limitKey)}:${bucketStart}`;
+
+  if (hasSupabase()) {
+    try {
+      const rows = await supabaseRequest(`efi_rate_limits?bucket_key=eq.${encodeURIComponent(bucketKey)}&select=bucket_key,count,window_start&limit=1`);
+      if (Array.isArray(rows) && rows.length) {
+        const current = Number(rows[0].count || 0);
+        if (current >= maxHits) return { allowed: false, count: current, max: maxHits, storage: 'supabase' };
+        const next = current + 1;
+        await supabaseRequest(`efi_rate_limits?bucket_key=eq.${encodeURIComponent(bucketKey)}`, {
+          method: 'PATCH',
+          body: { count: next, updated_at: nowIso() }
+        });
+        return { allowed: true, count: next, max: maxHits, storage: 'supabase' };
+      }
+
+      await supabaseRequest('efi_rate_limits', {
+        method: 'POST',
+        body: [{
+          bucket_key: bucketKey,
+          limit_key: String(limitKey),
+          window_start: new Date(bucketStart).toISOString(),
+          count: 1,
+          updated_at: nowIso()
+        }]
+      });
+      return { allowed: true, count: 1, max: maxHits, storage: 'supabase' };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  const current = Number(MEM.rateLimits.get(bucketKey) || 0);
+  if (current >= maxHits) return { allowed: false, count: current, max: maxHits, storage: 'memory' };
+  const next = current + 1;
+  MEM.rateLimits.set(bucketKey, next);
+  return { allowed: true, count: next, max: maxHits, storage: 'memory' };
+}
+
+function buildAuditId() {
+  return 'audit_' + crypto.randomBytes(8).toString('hex');
+}
+
+async function saveAuditLog(entry) {
+  const id = String(entry.id || buildAuditId());
+  const stored = {
+    id,
+    created_at: entry.created_at || nowIso(),
+    actor_role: entry.actor_role || 'unknown',
+    actor_email: entry.actor_email || null,
+    action: entry.action || 'unknown',
+    target_type: entry.target_type || null,
+    target_id: entry.target_id || null,
+    ip: entry.ip || null,
+    user_agent: entry.user_agent || null,
+    metadata: entry.metadata || {}
+  };
+  MEM.auditLogs.set(id, stored);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest('efi_audit_logs', {
+        method: 'POST',
+        body: [stored]
+      });
+      return { ok: true, storage: 'supabase', log: stored };
+    } catch (err) {
+      return { ok: true, storage: 'memory', log: stored };
+    }
+  }
+  return { ok: true, storage: 'memory', log: stored };
+}
+
+async function listAuditLogs(options = {}) {
+  const limit = Math.max(1, Math.min(100, Number(options.limit || 20)));
+  const targetType = options.targetType ? String(options.targetType) : null;
+  const targetId = options.targetId ? String(options.targetId) : null;
+
+  if (hasSupabase()) {
+    try {
+      const clauses = ['select=*', `order=created_at.desc`, `limit=${limit}`];
+      if (targetType) clauses.push(`target_type=eq.${encodeURIComponent(targetType)}`);
+      if (targetId) clauses.push(`target_id=eq.${encodeURIComponent(targetId)}`);
+      const rows = await supabaseRequest(`efi_audit_logs?${clauses.join('&')}`);
+      return { storage: 'supabase', logs: rows || [] };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  let rows = Array.from(MEM.auditLogs.values());
+  if (targetType) rows = rows.filter((row) => row.target_type === targetType);
+  if (targetId) rows = rows.filter((row) => row.target_id === targetId);
+  rows.sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
+  return { storage: 'memory', logs: rows.slice(0, limit) };
+}
+
 function normalizeDirectoryRecord(row) {
   const now = nowIso();
   const id = String(row.id || row.credential_id || '').trim() || ('dir_' + crypto.randomBytes(6).toString('hex'));
   return {
     id,
     name: String(row.name || '').trim(),
+    email: String(row.email || '').trim().toLowerCase() || null,
     city: String(row.city || '').trim(),
     state: String(row.state || '').trim(),
     zip: String(row.zip || '').trim(),
@@ -433,6 +536,77 @@ async function upsertDirectoryRecord(row) {
   return { storage: 'memory', record: normalized };
 }
 
+async function updateDirectoryRecord(id, patch) {
+  const key = String(id || '').trim();
+  if (!key) return null;
+  ensureDirectorySeeded();
+  const existing = MEM.directory.get(key);
+  if (!existing) return null;
+
+  const next = {
+    ...existing,
+    name: patch.name != null ? String(patch.name).trim() : existing.name,
+    email: patch.email != null ? (String(patch.email).trim().toLowerCase() || null) : existing.email,
+    city: patch.city != null ? String(patch.city).trim() : existing.city,
+    state: patch.state != null ? String(patch.state).trim() : existing.state,
+    zip: patch.zip != null ? String(patch.zip).trim() : existing.zip,
+    specialty: patch.specialty != null ? String(patch.specialty).trim() : existing.specialty,
+    delivery_modes: Array.isArray(patch.delivery_modes)
+      ? patch.delivery_modes.map((m) => String(m || '').trim().toLowerCase()).filter(Boolean)
+      : existing.delivery_modes,
+    website: patch.website != null ? String(patch.website).trim() : existing.website,
+    credential_id: patch.credential_id != null ? (String(patch.credential_id).trim() || null) : existing.credential_id,
+    bio: patch.bio != null ? (String(patch.bio).trim() || null) : existing.bio,
+    updated_at: nowIso()
+  };
+  MEM.directory.set(key, next);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest(`efi_coach_directory?id=eq.${encodeURIComponent(key)}`, {
+        method: 'PATCH',
+        body: {
+          name: next.name,
+          email: next.email,
+          city: next.city,
+          state: next.state,
+          zip: next.zip,
+          specialty: next.specialty,
+          delivery_modes: next.delivery_modes,
+          website: next.website,
+          credential_id: next.credential_id,
+          bio: next.bio,
+          updated_at: next.updated_at
+        }
+      });
+      return { storage: 'supabase', record: next };
+    } catch (err) {
+      return { storage: 'memory', record: next };
+    }
+  }
+
+  return { storage: 'memory', record: next };
+}
+
+async function findDirectoryByEmail(email) {
+  const normalized = String(email || '').trim().toLowerCase();
+  if (!normalized) return { storage: 'memory', records: [] };
+
+  if (hasSupabase()) {
+    try {
+      const rows = await supabaseRequest(`efi_coach_directory?email=eq.${encodeURIComponent(normalized)}&select=*&order=updated_at.desc`);
+      return { storage: 'supabase', records: rows || [] };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  ensureDirectorySeeded();
+  const rows = Array.from(MEM.directory.values()).filter((row) => String(row.email || '').toLowerCase() === normalized);
+  rows.sort((a, b) => String(b.updated_at || '').localeCompare(String(a.updated_at || '')));
+  return { storage: 'memory', records: rows };
+}
+
 async function moderateDirectoryRecord(id, patch) {
   const key = String(id || '').trim();
   if (!key) return null;
@@ -489,5 +663,10 @@ module.exports = {
   saveEvent,
   listDirectory,
   upsertDirectoryRecord,
-  moderateDirectoryRecord
+  updateDirectoryRecord,
+  moderateDirectoryRecord,
+  findDirectoryByEmail,
+  consumeRateLimit,
+  saveAuditLog,
+  listAuditLogs
 };

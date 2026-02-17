@@ -39,15 +39,24 @@
       <h2>Data Sharing</h2>
       <p>EFI may share consented lead/event data with configured CRM and email service providers to deliver requested resources and communications. EFI does not sell personal data.</p>
 
+      <h2>Implementation-Specific Data Paths</h2>
+      <ul class="checklist">
+        <li><strong>Primary application storage:</strong> Supabase (PostgreSQL) for progress, purchases, submissions, leads, events, and directory records.</li>
+        <li><strong>Server execution layer:</strong> Netlify Functions for API processing, signature verification, and webhook handling.</li>
+        <li><strong>Payment verification:</strong> Stripe webhook event metadata used for entitlement release logic.</li>
+        <li><strong>AI grading services:</strong> Gemini API requests include assignment content and rubric prompts for scoring outputs.</li>
+      </ul>
+
       <h2>Retention</h2>
       <ul class="checklist">
         <li>Account and purchase records: retained while account is active, then archived for compliance and fraud prevention.</li>
         <li>Submission and rubric feedback records: retained to support certification verification and appeals.</li>
-        <li>Telemetry and operational logs: retained on a rolling, limited window for reliability/security.</li>
+        <li>Telemetry and operational logs: retained on a rolling window (target: 30-90 days) for reliability and abuse monitoring.</li>
       </ul>
 
       <h2>Your Rights and Choices</h2>
       <p>You can request access, correction, or deletion of personal data, subject to legal and operational recordkeeping requirements. You can opt out of marketing emails at any time using unsubscribe links.</p>
+      <p>For marketing preferences, EFI honors unsubscribe requests and updates communication consent settings for future campaign sends.</p>
 
       <h2>Children and Sensitive Data</h2>
       <p>EFI services are for adults and professional users. Do not submit protected health information or confidential student records unless you are authorized and have lawful basis to do so.</p>

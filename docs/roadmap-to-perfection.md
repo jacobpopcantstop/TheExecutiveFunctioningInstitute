@@ -351,7 +351,9 @@ This roadmap identifies deliverables across **6 phases**, prioritized by impact 
 
 ---
 
-## Items Requiring Founder Input
+## Items Requiring Deployment/Operator Input
+
+**Requires Deployment/Operator Input**
 
 These deliverables cannot be completed without decisions or content from the project owner:
 
