@@ -66,6 +66,23 @@
     }).join(' + ');
   }
 
+  function verificationState(record) {
+    var reviewedAt = record.last_reviewed || record.updated_at || '';
+    if (!reviewedAt) return 'probation';
+    var ageDays = (Date.now() - new Date(reviewedAt).getTime()) / (1000 * 60 * 60 * 24);
+    if (ageDays > 365) return 'expired';
+    if (ageDays > 180) return 'probation';
+    return 'active';
+  }
+
+  function statusBadge(record) {
+    var state = verificationState(record);
+    var color = 'var(--module-3)';
+    if (state === 'probation') color = 'var(--module-5)';
+    if (state === 'expired') color = 'var(--color-warm)';
+    return '<span style="display:inline-block;margin-top:0.2rem;padding:0.1rem 0.45rem;border:1px solid ' + color + ';border-radius:999px;font-size:0.75rem;color:' + color + ';">' + state.charAt(0).toUpperCase() + state.slice(1) + '</span>';
+  }
+
   function render() {
     var publicRecords = records.filter(isPublicRecord);
     var filtered = publicRecords.filter(matchesFilters);
@@ -83,9 +100,9 @@
       var location = [record.city, record.state, record.zip].filter(Boolean).join(', ');
       return (
         '<tr>' +
-          '<td><strong>' + record.name + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + record.credential_id + '</span></td>' +
+          '<td><strong>' + record.name + '</strong><br><span style="font-size:0.85rem;color:var(--color-text-muted);">ID: ' + record.credential_id + '</span><br>' + statusBadge(record) + '</td>' +
           '<td>' + location + '</td>' +
-          '<td>' + record.specialty + '</td>' +
+          '<td>' + record.specialty + '<br><span style="font-size:0.8rem;color:var(--color-text-muted);">Scope: coaching only</span></td>' +
           '<td>' + formatDelivery(record.delivery_modes) + '</td>' +
           '<td>' + profile + '</td>' +
         '</tr>'
@@ -199,25 +216,6 @@
     }
   }
 
-  function fallbackData() {
-    return {
-      records: [
-        {
-          name: 'Jordan Ellis',
-          city: 'Austin',
-          state: 'TX',
-          zip: '78704',
-          specialty: 'Student EF',
-          delivery_modes: ['virtual', 'in-person'],
-          website: '',
-          credential_id: 'EFI-CEFC-2026-001',
-          verification_status: 'verified',
-          moderation_status: 'approved'
-        }
-      ]
-    };
-  }
-
   function init(data, stats) {
     records = (data && data.records) || [];
     var publicRecords = records.filter(isPublicRecord);
@@ -245,14 +243,9 @@
       init({ records: payload.records }, payload.stats || null);
     })
     .catch(function () {
-      return fetch('data/coach-directory.json', { cache: 'no-cache' })
-        .then(function (response) {
-          if (!response.ok) throw new Error('directory seed fetch failed');
-          return response.json();
-        })
-        .then(function (seed) { init(seed, null); });
-    })
-    .catch(function () {
-      init(fallbackData(), null);
+      body.innerHTML = '<tr><td colspan="5">Directory is temporarily unavailable. Please try again shortly.</td></tr>';
+      countEl.textContent = 'Unavailable';
+      if (statsEl) statsEl.textContent = 'Live directory source could not be reached.';
+      bindEvents();
     });
 })();

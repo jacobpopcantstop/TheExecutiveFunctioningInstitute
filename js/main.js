@@ -219,6 +219,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
+  (function injectSourceAccessReminder() {
+    var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    var sourceHeavy = [
+      'module-1.html',
+      'module-a-neuroscience.html',
+      'module-b-pedagogy.html',
+      'module-c-interventions.html',
+      'module-4.html',
+      'module-5.html',
+      'barkley-model-guide.html',
+      'barkley-vs-brown.html',
+      'brown-clusters-tool.html',
+      'ward-360-thinking.html'
+    ];
+    if (sourceHeavy.indexOf(currentPage) === -1) return;
+    if (document.querySelector('.source-access-reminder')) return;
+    var anchor = document.querySelector('main .sources-block') || document.querySelector('main section:last-of-type .container');
+    if (!anchor) return;
+    var node = document.createElement('p');
+    node.className = 'source-access-reminder';
+    node.style.fontSize = '0.9rem';
+    node.style.color = 'var(--color-text-muted)';
+    node.style.marginTop = 'var(--space-md)';
+    node.innerHTML = 'If a source link is unavailable, check <a href="resources.html#source-access">resource access notes</a> for legitimate acquisition paths.';
+    anchor.appendChild(node);
+  })();
+
   (function injectGettingStartedPrompts() {
     var currentPage = window.location.pathname.split('/').pop() || 'index.html';
     if (currentPage === 'index.html') return;
@@ -744,6 +771,116 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     var sectionDeepDives = {
+      'module-1.html': {
+        'the neurobiology of the "air traffic control" system': {
+          text: 'Action step: in your next intake, ask the client to identify one recurring "air traffic jam" moment each day, then map it to a specific control-tower support (visual cue, timer, checklist, or pre-commitment).',
+          links: [{ href: 'module-a-neuroscience.html', label: 'Neuroscience Brief' }, { href: 'resources.html#forms', label: 'Implementation Forms' }]
+        },
+        'the barkley model: inhibition as the keystone': {
+          text: 'Action step: require every intervention to name the inhibition bottleneck first ("what impulse is winning?"), then pair one external brake with one follow-through cue.',
+          links: [{ href: 'barkley-model-guide.html', label: 'Barkley Guide' }, { href: 'certification.html#transparency-rubric', label: 'Rubric Standards' }]
+        },
+        'the brown model: six clusters of cognitive management': {
+          text: 'Action step: use one cluster label per week in client language (Activation, Focus, Effort, Emotion, Memory, Action) and collect one real-world example to normalize variability.',
+          links: [{ href: 'brown-clusters-tool.html', label: 'Brown Clusters Tool' }, { href: 'further-sources.html', label: 'Primary Sources' }]
+        },
+        'module 1 assignment': {
+          text: 'Action step: draft the three interventions first, then write the analysis around them. This prevents theory-only submissions and increases pass reliability.',
+          links: [{ href: 'certification.html#transparency-rubric', label: 'Pass Criteria' }, { href: 'resources.html#forms', label: 'Templates' }]
+        }
+      },
+      'module-2.html': {
+        'the intake architecture': {
+          text: 'Action step: run intake in three passes: (1) presenting pain point, (2) context map by setting/time, (3) first 2-week behavior target with observable completion criteria.',
+          links: [{ href: 'resources.html#assessment', label: 'Assessment Toolkit' }, { href: 'module-3.html', label: 'Coaching Architecture' }]
+        },
+        'the executive skills questionnaire (esq-r)': {
+          text: 'Action step: convert top-2 weak ESQ domains into one "start behavior" each (under 3 minutes) and one weekly review metric in dashboard.',
+          links: [{ href: 'esqr.html', label: 'Interactive ESQ-R' }, { href: 'dashboard.html', label: 'Progress Dashboard' }]
+        },
+        'the "point of performance" audit': {
+          text: 'Action step: photograph or sketch the real execution environment and mark friction points in order of failure frequency before assigning new skills.',
+          links: [{ href: 'module-c-interventions.html', label: 'Intervention Frameworks' }, { href: 'resources.html#forms', label: 'Audit Templates' }]
+        },
+        'module 2 assignment': {
+          text: 'Action step: include one discrepancy paragraph (self-report vs observer report) and the exact follow-up question you would use to resolve it.',
+          links: [{ href: 'certification.html#transparency-rubric', label: 'Rubric Expectations' }, { href: 'scope-of-practice.html', label: 'Scope Guardrails' }]
+        }
+      },
+      'module-3.html': {
+        'the two-tiered intervention logic': {
+          text: 'Action step: always deploy one environment change before any motivation coaching. If behavior improves, you found a design issue not a character issue.',
+          links: [{ href: 'module-c-interventions.html', label: 'Intervention Stack' }, { href: 'resources.html#forms', label: 'Environment Tools' }]
+        },
+        'the coach as "external frontal lobe"': {
+          text: 'Action step: use a fade plan from day one: full prompts -> partial prompts -> self-prompt script -> independent check-in.',
+          links: [{ href: 'module-6.html', label: 'Practice Ops' }, { href: 'certification.html', label: 'Certification Workflow' }]
+        },
+        'the coaching cycle & smart goals': {
+          text: 'Action step: every SMART goal should include a trigger ("when X happens"), a start behavior, and a recovery behavior if derailed.',
+          links: [{ href: 'resources.html#forms', label: 'Goal Templates' }, { href: 'module-b-pedagogy.html', label: 'Pedagogy Translation' }]
+        },
+        'module 3 assignment': {
+          text: 'Action step: include one explicit referral threshold sentence in your submission to show scope discipline under risk.',
+          links: [{ href: 'scope-of-practice.html', label: 'Referral Boundaries' }, { href: 'terms.html', label: 'Service Terms' }]
+        }
+      },
+      'module-4.html': {
+        '360 thinking: "get ready, do, done"': {
+          text: 'Action step: require clients to show the "Done" artifact first (photo, checklist, sample output) before planning steps.',
+          links: [{ href: 'ward-360-thinking.html', label: '360 Thinking Hub' }, { href: 'resources.html#forms', label: 'Planning Mats' }]
+        },
+        'temporal management: curing "time blindness"': {
+          text: 'Action step: capture predicted time vs actual time for 5 similar tasks; set correction factor and apply it to next week\'s calendar blocks.',
+          links: [{ href: 'images/time-correction-chart.svg', label: 'Correction Chart' }, { href: 'module-5.html', label: 'Applied Calibration' }]
+        },
+        'cognitive offloading': {
+          text: 'Action step: place offload tools where failure happens (doorway, desk, phone lock screen), not where planning happens.',
+          links: [{ href: 'module-c-interventions.html', label: 'Intervention Logic' }, { href: 'resources.html#forms', label: 'Offload Tools' }]
+        },
+        'unit summary': {
+          text: 'Action step: choose one tool from each bucket (planning, timing, offload) and run a 14-day implementation sprint with weekly review notes.',
+          links: [{ href: 'dashboard.html', label: 'Track Outcomes' }, { href: 'certification.html', label: 'Submission Pipeline' }]
+        }
+      },
+      'module-6.html': {
+        'professional ethics & scope of practice': {
+          text: 'Action step: include a standing script for "this is outside coaching scope" and document referral pathways before client load grows.',
+          links: [{ href: 'scope-of-practice.html', label: 'Scope Policy' }, { href: 'accreditation.html', label: 'Standards Status' }]
+        },
+        'building your coaching business': {
+          text: 'Action step: separate service delivery SOPs from sales SOPs so quality controls are not compromised by revenue pressure.',
+          links: [{ href: 'teacher-to-coach.html', label: 'Business Path' }, { href: 'store.html', label: 'Service Structure' }]
+        },
+        'legal & administrative infrastructure': {
+          text: 'Action step: finalize refund language, consent capture, and documentation retention workflow before onboarding paid clients.',
+          links: [{ href: 'terms.html', label: 'Terms' }, { href: 'privacy.html', label: 'Privacy' }]
+        },
+        'your professional toolkit': {
+          text: 'Action step: customize the launch kit docs with your actual niche and session cadence, then run one pilot client from intake to review.',
+          links: [{ href: 'curriculum.html', label: 'Launch Kit Preview' }, { href: 'enroll.html', label: 'Enrollment Path' }]
+        }
+      },
+      'curriculum.html': {
+        'complete curriculum overview': {
+          text: 'Action step: treat modules as dependencies, not electives. Complete in order to prevent intervention planning before mechanism mastery.',
+          links: [{ href: 'module-1.html', label: 'Module 1' }, { href: 'module-2.html', label: 'Module 2' }]
+        },
+        'what you actually receive in the launch kit': {
+          text: 'Action step: use the file list as a build checklist; mark each asset as drafted, tested, and production-ready before certification submission.',
+          links: [{ href: 'certification.html', label: 'Capstone + Rubric' }, { href: 'resources.html#forms', label: 'Forms Library' }]
+        },
+        'theoretical models at a glance': {
+          text: 'Action step: choose Barkley for mechanism explanation, Brown for symptom variability explanation, Dawson/Guare for intervention targeting.',
+          links: [{ href: 'barkley-vs-brown.html', label: 'Model Comparison' }, { href: 'about.html#models', label: 'Model Foundations' }]
+        }
+      },
+      'module-a-neuroscience.html': {
+        'on-site study briefs': {
+          text: 'Action step: after each brief, write one plain-language parent explanation and one practitioner explanation to improve translation skill.',
+          links: [{ href: 'further-sources.html', label: 'Sources Hub' }, { href: 'module-1.html', label: 'Module 1 Deep Dive' }]
+        }
+      },
       'module-b-pedagogy.html': {
         'from "what is the answer?" to "how will you run the process?"': {
           text: 'This shift changes the unit of analysis from content correctness to execution reliability. You are training future independent performance, not just immediate task completion.',
@@ -770,16 +907,10 @@ document.addEventListener('DOMContentLoaded', function () {
         'intervention frameworks': {
           text: 'Framework quality is determined by repeatability under stress. Build systems that survive distraction, fatigue, and low-motivation states.',
           links: [{ href: 'module-5.html', label: 'Special Populations' }, { href: 'brown-clusters-tool.html', label: 'Cluster Mapping' }]
-        }
-      },
-      'module-1.html': {
-        'the neuropsychology of self-regulation': {
-          text: 'Self-regulation should be modeled as delayed action control across time, with inhibition serving as gating for future-oriented behavior.',
-          links: [{ href: 'https://pubmed.ncbi.nlm.nih.gov/9000892/', label: 'Primary Paper' }, { href: 'barkley-model-guide.html', label: 'Model Translation' }]
         },
-        'the prefrontal cortex: the brain\'s ceo': {
-          text: 'Use this section to teach load sensitivity: strong conceptual knowledge can still collapse when working-memory and inhibition demands spike together.',
-          links: [{ href: 'module-a-neuroscience.html', label: 'Neuroscience Module' }, { href: 'module-5.html', label: 'Applied Time/Load Supports' }]
+        'evidence notes': {
+          text: 'Action step: map each intervention to a cited mechanism and one measurable behavior metric before using it in client plans.',
+          links: [{ href: 'further-sources.html', label: 'Citations' }, { href: 'certification.html#transparency-rubric', label: 'Grading Criteria' }]
         }
       },
       'module-5.html': {

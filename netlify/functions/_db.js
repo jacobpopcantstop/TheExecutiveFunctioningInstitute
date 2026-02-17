@@ -10,7 +10,9 @@ const MEM = {
   submissions: new Map(),
   leads: new Map(),
   events: new Map(),
-  directory: new Map()
+  directory: new Map(),
+  rateLimits: new Map(),
+  auditLogs: new Map()
 };
 
 function nowIso() {
@@ -354,6 +356,106 @@ async function saveEvent(evt) {
   return { ok: true, storage: 'memory' };
 }
 
+async function consumeRateLimit(limitKey, windowMs, maxHits) {
+  const now = Date.now();
+  const bucketStart = Math.floor(now / windowMs) * windowMs;
+  const bucketKey = `${String(limitKey)}:${bucketStart}`;
+
+  if (hasSupabase()) {
+    try {
+      const rows = await supabaseRequest(`efi_rate_limits?bucket_key=eq.${encodeURIComponent(bucketKey)}&select=bucket_key,count,window_start&limit=1`);
+      if (Array.isArray(rows) && rows.length) {
+        const current = Number(rows[0].count || 0);
+        if (current >= maxHits) return { allowed: false, count: current, max: maxHits, storage: 'supabase' };
+        const next = current + 1;
+        await supabaseRequest(`efi_rate_limits?bucket_key=eq.${encodeURIComponent(bucketKey)}`, {
+          method: 'PATCH',
+          body: { count: next, updated_at: nowIso() }
+        });
+        return { allowed: true, count: next, max: maxHits, storage: 'supabase' };
+      }
+
+      await supabaseRequest('efi_rate_limits', {
+        method: 'POST',
+        body: [{
+          bucket_key: bucketKey,
+          limit_key: String(limitKey),
+          window_start: new Date(bucketStart).toISOString(),
+          count: 1,
+          updated_at: nowIso()
+        }]
+      });
+      return { allowed: true, count: 1, max: maxHits, storage: 'supabase' };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  const current = Number(MEM.rateLimits.get(bucketKey) || 0);
+  if (current >= maxHits) return { allowed: false, count: current, max: maxHits, storage: 'memory' };
+  const next = current + 1;
+  MEM.rateLimits.set(bucketKey, next);
+  return { allowed: true, count: next, max: maxHits, storage: 'memory' };
+}
+
+function buildAuditId() {
+  return 'audit_' + crypto.randomBytes(8).toString('hex');
+}
+
+async function saveAuditLog(entry) {
+  const id = String(entry.id || buildAuditId());
+  const stored = {
+    id,
+    created_at: entry.created_at || nowIso(),
+    actor_role: entry.actor_role || 'unknown',
+    actor_email: entry.actor_email || null,
+    action: entry.action || 'unknown',
+    target_type: entry.target_type || null,
+    target_id: entry.target_id || null,
+    ip: entry.ip || null,
+    user_agent: entry.user_agent || null,
+    metadata: entry.metadata || {}
+  };
+  MEM.auditLogs.set(id, stored);
+
+  if (hasSupabase()) {
+    try {
+      await supabaseRequest('efi_audit_logs', {
+        method: 'POST',
+        body: [stored]
+      });
+      return { ok: true, storage: 'supabase', log: stored };
+    } catch (err) {
+      return { ok: true, storage: 'memory', log: stored };
+    }
+  }
+  return { ok: true, storage: 'memory', log: stored };
+}
+
+async function listAuditLogs(options = {}) {
+  const limit = Math.max(1, Math.min(100, Number(options.limit || 20)));
+  const targetType = options.targetType ? String(options.targetType) : null;
+  const targetId = options.targetId ? String(options.targetId) : null;
+
+  if (hasSupabase()) {
+    try {
+      const clauses = ['select=*', `order=created_at.desc`, `limit=${limit}`];
+      if (targetType) clauses.push(`target_type=eq.${encodeURIComponent(targetType)}`);
+      if (targetId) clauses.push(`target_id=eq.${encodeURIComponent(targetId)}`);
+      const rows = await supabaseRequest(`efi_audit_logs?${clauses.join('&')}`);
+      return { storage: 'supabase', logs: rows || [] };
+    } catch (err) {
+      // fall through
+    }
+  }
+
+  let rows = Array.from(MEM.auditLogs.values());
+  if (targetType) rows = rows.filter((row) => row.target_type === targetType);
+  if (targetId) rows = rows.filter((row) => row.target_id === targetId);
+  rows.sort((a, b) => String(b.created_at || '').localeCompare(String(a.created_at || '')));
+  return { storage: 'memory', logs: rows.slice(0, limit) };
+}
+
 function normalizeDirectoryRecord(row) {
   const now = nowIso();
   const id = String(row.id || row.credential_id || '').trim() || ('dir_' + crypto.randomBytes(6).toString('hex'));
@@ -563,5 +665,8 @@ module.exports = {
   upsertDirectoryRecord,
   updateDirectoryRecord,
   moderateDirectoryRecord,
-  findDirectoryByEmail
+  findDirectoryByEmail,
+  consumeRateLimit,
+  saveAuditLog,
+  listAuditLogs
 };

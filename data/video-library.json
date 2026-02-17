@@ -1,0 +1,55 @@
+{
+  "version": "2026-02-17",
+  "items": [
+    {
+      "id": "barkley-1b",
+      "title": "30 Essential Ideas 1B: Inhibition, Impulsivity, Emotion",
+      "module": "module-a-neuroscience",
+      "url": "https://www.youtube.com/watch?v=wg6cfsnmqyg",
+      "captions_checked": true,
+      "transcript_status": "youtube_transcript",
+      "transcript_url": "https://www.youtube.com/watch?v=wg6cfsnmqyg",
+      "fallback_reading": "https://www.russellbarkley.org/factsheets/ADHD_EF_and_SR.pdf"
+    },
+    {
+      "id": "barkley-5a",
+      "title": "30 Essential Ideas 5A: ADHD is Time Blindness",
+      "module": "module-a-neuroscience",
+      "url": "https://www.youtube.com/watch?v=wmV8HQUuPEk",
+      "captions_checked": true,
+      "transcript_status": "youtube_transcript",
+      "transcript_url": "https://www.youtube.com/watch?v=wmV8HQUuPEk",
+      "fallback_reading": "https://pubmed.ncbi.nlm.nih.gov/11761285/"
+    },
+    {
+      "id": "barkley-7b",
+      "title": "30 Essential Ideas 7B: The 30% Rule",
+      "module": "module-c-interventions",
+      "url": "https://www.youtube.com/watch?v=4OVS16Abo80",
+      "captions_checked": true,
+      "transcript_status": "youtube_transcript",
+      "transcript_url": "https://www.youtube.com/watch?v=4OVS16Abo80",
+      "fallback_reading": "https://www.guilford.com/books/Taking-Charge-of-ADHD/Russell-Barkley/9781462542673"
+    },
+    {
+      "id": "barkley-9c",
+      "title": "30 Essential Ideas 9C: Avoid Treatments That Do Not Work",
+      "module": "module-c-interventions",
+      "url": "https://www.youtube.com/watch?v=CiKg9luac8Y",
+      "captions_checked": true,
+      "transcript_status": "youtube_transcript",
+      "transcript_url": "https://www.youtube.com/watch?v=CiKg9luac8Y",
+      "fallback_reading": "https://www.guilford.com/books/Treating-ADHD-in-Children-and-Adolescents/Russell-Barkley/9781462542673"
+    },
+    {
+      "id": "harvard-inbrief-ef",
+      "title": "Harvard InBrief: Executive Function Skills",
+      "module": "resources",
+      "url": "https://developingchild.harvard.edu/resources/videos/inbrief-executive-function-skills-for-life-and-learning/",
+      "captions_checked": true,
+      "transcript_status": "publisher_transcript",
+      "transcript_url": "https://developingchild.harvard.edu/resources/videos/inbrief-executive-function-skills-for-life-and-learning/",
+      "fallback_reading": "https://developingchild.harvard.edu/wp-content/uploads/2024/10/How-Early-Experiences-Shape-the-Development-of-Executive-Function.pdf"
+    }
+  ]
+}
